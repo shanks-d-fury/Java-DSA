@@ -14,6 +14,21 @@ public class StringChapter {
         String sx=sc.next();
         StringBuilder sb=new StringBuilder(sx);
         System.out.println(sb.reverse());
+        System.out.print("\nEnter the num : ");
+        int ab=sc.nextInt();
+        int rev=0;
+        while(ab>0){
+            rev=(rev*10)+(ab%10);
+            ab=ab/10;
+            if(ab<=0){
+                ab=rev;
+                break;
+            }
+            // //or there is an another way 
+            // System.out.print(ab%10);
+            // ab=ab/10;
+        }
+        System.out.println(ab);
         sc.close();
     }
 }
