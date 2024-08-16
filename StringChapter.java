@@ -2,29 +2,21 @@
 import java.util.Scanner;
 
 public class StringChapter {
-    public static boolean isPrime(int n){
-        if(n==2){
-            return true;
+    public static void BinToDec(int n){
+        int sum=0;
+        int i=0;
+        while(n>0){
+            sum=(int) (sum+(n%10*Math.pow(2, i)));
+            n=n/10;
+            i++;
         }
-        for(int i=2;i<=Math.sqrt(n);i++){
-            if(n%i==0){
-                return false;
-            }
-        }
-        return true;
-    }
-    public static void printPrime(int n){
-        for(int i=2;i<=n;i++){
-            if(isPrime(i)){
-                System.out.println(i);
-            }
-        }
+        System.out.println(sum);
     }
     public static void main(String[] args) {
         Scanner sc =new Scanner(System.in);
         System.out.print("Enter the n : ");
         int n = sc.nextInt();
-        printPrime(n);
+        BinToDec(n);
         sc.close();
     }
 }
