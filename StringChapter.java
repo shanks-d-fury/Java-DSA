@@ -4,9 +4,9 @@ import java.util.Scanner;
 public class StringChapter {
     public static void pattern(int n){
         for(int i=n;i>0;i--){
-            for(int k=n-1;k>=i;k--){
-                System.out.print(" ");
-            }
+            // for(int k=n-1;k>=i;k--){
+            //     System.out.print(" ");
+            // }
             for(int j=0;j<i;j++){
                 System.out.print("*");
             }
