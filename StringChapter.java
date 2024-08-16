@@ -3,12 +3,13 @@ import java.util.Scanner;
 
 public class StringChapter {
     public static void pattern(int n){
-        for(int i=n;i>0;i--){
-            // for(int k=n-1;k>=i;k--){
-            //     System.out.print(" ");
-            // }
-            for(int j=0;j<i;j++){
-                System.out.print("*");
+        char chars='A';
+        for(int i=0;i<n;i++){
+            for(int k=n-1;k>i;k--){
+                System.out.print(" ");
+            }
+            for(int j=0;j<=i;j++,chars++){
+                System.out.print(chars+" ");
             }
             System.out.println();
         }
