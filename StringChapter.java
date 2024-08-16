@@ -3,23 +3,12 @@ import java.util.Scanner;
 
 public class StringChapter {
     public static void pattern(int n){
+        int sym=1;
         for(int i=0;i<n;i++){
-           if(i==0 || i==n-1){
-            for(int j=0;j<n;j++){
-                System.out.print("* ");
-            }
+           for(int j=0;j<=i;j++){
+            System.out.print((sym==0?sym++:sym--)+" ");
            }
-           else{
-            for(int j=0;j<n;j++){
-                if(j==0 || j==n-1){
-                    System.out.print("* ");
-                }
-                else{
-                    System.out.print("  ");
-                }
-            }
-           }
-           System.out.print("\n");
+           System.out.println();
         }
     }
     public static void main(String[] args) {
