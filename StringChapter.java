@@ -1,6 +1,6 @@
 
 import java.util.Scanner;
-
+//Till this commit this File is used as the pattern file the string is done after the 2D array chapter
 public class StringChapter {
     public static void pattern(int n){
         for(int i=0;i<n;i++){
