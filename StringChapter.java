@@ -3,15 +3,23 @@ import java.util.Scanner;
 
 public class StringChapter {
     public static void pattern(int n){
-        char chars='A';
         for(int i=0;i<n;i++){
-            for(int k=n-1;k>i;k--){
-                System.out.print(" ");
+           if(i==0 || i==n-1){
+            for(int j=0;j<n;j++){
+                System.out.print("* ");
             }
-            for(int j=0;j<=i;j++,chars++){
-                System.out.print(chars+" ");
+           }
+           else{
+            for(int j=0;j<n;j++){
+                if(j==0 || j==n-1){
+                    System.out.print("* ");
+                }
+                else{
+                    System.out.print("  ");
+                }
             }
-            System.out.println();
+           }
+           System.out.print("\n");
         }
     }
     public static void main(String[] args) {
