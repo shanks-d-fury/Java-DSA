@@ -4,27 +4,54 @@ import java.util.Random;
 public class Array {
 
     public static void subArray(int arr[]) {
-        int maxArea = Integer.MIN_VALUE;
-        int sumArea = 0;
-        int iIndex = 0;
-        int jIndex = 0;
-        // boolean count = false;
-        for (int i = 0; i < arr.length - 1; i++) {
-            for (int j = i + 1; j < arr.length; j++) {
-                sumArea = j - i * Math.min(arr[i], arr[j]);
-                if (sumArea > maxArea) {
-                    maxArea = sumArea;
-                    iIndex = i;
-                    jIndex = j;
-                }
+        System.out.println("The Building Array layout :- ");
+        for (int x : arr) {
+            System.out.print(x + " ");
+        }
+        System.out.println("\n");
+        int n = arr.length;
+        int i, j;
+        int TotalWaterCapacity = 0;
+
+        int leftIndex = 0;
+        int rightIndex = n - 1;
+
+        int leftMaxHeightArray[] = new int[n];
+        int rightMaxHeightArray[] = new int[n];
+        leftMaxHeightArray[0] = arr[0];
+        rightMaxHeightArray[n - 1] = arr[n - 1];
+
+        for (i = 1, j = n - 2; i < n && j >= 0; j--, i++) {
+            if (leftMaxHeightArray[leftIndex] < arr[i]) {
+                leftMaxHeightArray[i] = arr[i];
+                leftIndex = i;
+            } else {
+                leftMaxHeightArray[i] = leftMaxHeightArray[leftIndex];
+            }
+            if (rightMaxHeightArray[rightIndex] < arr[j]) {
+                rightMaxHeightArray[j] = arr[j];
+                rightIndex = j;
+            } else {
+                rightMaxHeightArray[j] = rightMaxHeightArray[rightIndex];
             }
         }
-        System.out.println("start index : " + iIndex + " " + "End index : " + jIndex);
-        System.out.println("The maxArea sub array is :-");
-        // for (int i = iIndex; i <= jIndex; i++) {
-        //     System.out.print(arr[i] + " ");
-        // }
-        System.out.println(" => " + maxArea);
+
+        //Printing the Left and Right array
+        System.out.println("Left max height array :- ");
+        for (int x : leftMaxHeightArray) {
+            System.out.print(x + " ");
+        }
+        System.out.println();
+        System.out.println("\nRight max height array :- ");
+        for (int x : rightMaxHeightArray) {
+            System.out.print(x + " ");
+        }
+
+        //Finding the water storing capacity 
+        for (i = 0; i < n - 1; i++) {
+            TotalWaterCapacity += Math.min(leftMaxHeightArray[i], rightMaxHeightArray[i]) - arr[i];
+        }
+        System.out.println("\n\nTotal Water Capacity :- " + TotalWaterCapacity);
     }
 
     public static int[] generateRandomArray(int size, int min, int max) {
@@ -41,9 +68,8 @@ public class Array {
     public static void main(String[] args) {
         int num[] = {1, -2, 6, -1, 3};
         int num2[] = {-2, -3, 4, -1, -2, 1, 5, -3};
-        int num3[] = {4, 2, 0, 6, 3, 2, 5};
-        int randomArray[] = generateRandomArray(5, -10, 10); // Generate an array of 10 integers between 0 and 100
-        // System.out.println(num[4]);
-        subArray(num3);
+        int num3[] = {4, 2, 0, 6, 3, 2, 5};//Apna college questions example
+        int randomArray[] = generateRandomArray(5, 0, 10); // Generate an array of 10 integers between 0 and 100
+        subArray(randomArray);
     }
 }
