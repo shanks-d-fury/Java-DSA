@@ -4,26 +4,24 @@ import java.util.Random;
 public class Array {
 
     public static void subArray(int arr[]) {
-        // System.out.println(arr.length);
+        int prefixArr[] = new int[arr.length];
         int max = Integer.MIN_VALUE;
         int sum = 0;
         int iIndex = 0;
         int jIndex = 0;
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = i; j < arr.length; j++) {
-                for (int k = i; k <= j; k++) {
-                    System.out.print(arr[k] + " ");
-                    sum += arr[k];
-                }
-                System.out.println(" => " + sum);
+        prefixArr[0] = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            prefixArr[i] = prefixArr[i - 1] + arr[i];
+        }
+        for (int i = 0; i < prefixArr.length; i++) {
+            for (int j = i; j < prefixArr.length; j++) {
+                sum = i == 0 ? prefixArr[j] : prefixArr[j] - prefixArr[i - 1];
                 if (max < sum) {
                     max = sum;
                     iIndex = i;
                     jIndex = j;
                 }
-                sum = 0;
             }
-            System.out.println();
         }
         System.out.println("The max sub array is :-");
         for (int i = iIndex; i <= jIndex; i++) {
@@ -44,9 +42,9 @@ public class Array {
     }
 
     public static void main(String[] args) {
-        // int num[] = {1, -2, 6, -1, 3};
-        int[] randomArray = generateRandomArray(10, -100, 100); // Generate an array of 10 integers between 0 and 100
+        int num[] = {1, -2, 6, -1, 3};
+        // int[] randomArray = generateRandomArray(5, -100, 100); // Generate an array of 10 integers between 0 and 100
         // System.out.println(num[4]);
-        subArray(randomArray);
+        subArray(num);
     }
 }
