@@ -3,37 +3,24 @@ import java.util.Random;
 
 public class Array {
 
-    public static void subArray(int arr[]) {
+    public static void subArray(int HeightArray[]) {
         System.out.println("The Building Array layout :- ");
-        for (int x : arr) {
+        for (int x : HeightArray) {
             System.out.print(x + " ");
         }
         System.out.println("\n");
-        int n = arr.length;
+        int n = HeightArray.length;
         int i, j;
         int TotalWaterCapacity = 0;
 
-        int leftIndex = 0;
-        int rightIndex = n - 1;
-
         int leftMaxHeightArray[] = new int[n];
         int rightMaxHeightArray[] = new int[n];
-        leftMaxHeightArray[0] = arr[0];
-        rightMaxHeightArray[n - 1] = arr[n - 1];
+        leftMaxHeightArray[0] = HeightArray[0];
+        rightMaxHeightArray[n - 1] = HeightArray[n - 1];
 
         for (i = 1, j = n - 2; i < n && j >= 0; j--, i++) {
-            if (leftMaxHeightArray[leftIndex] < arr[i]) {
-                leftMaxHeightArray[i] = arr[i];
-                leftIndex = i;
-            } else {
-                leftMaxHeightArray[i] = leftMaxHeightArray[leftIndex];
-            }
-            if (rightMaxHeightArray[rightIndex] < arr[j]) {
-                rightMaxHeightArray[j] = arr[j];
-                rightIndex = j;
-            } else {
-                rightMaxHeightArray[j] = rightMaxHeightArray[rightIndex];
-            }
+            leftMaxHeightArray[i] = Math.max(leftMaxHeightArray[i - 1], HeightArray[i]);
+            rightMaxHeightArray[j] = Math.max(HeightArray[j], rightMaxHeightArray[j + 1]);
         }
 
         //Printing the Left and Right array
@@ -49,7 +36,7 @@ public class Array {
 
         //Finding the water storing capacity 
         for (i = 0; i < n - 1; i++) {
-            TotalWaterCapacity += Math.min(leftMaxHeightArray[i], rightMaxHeightArray[i]) - arr[i];
+            TotalWaterCapacity += Math.min(leftMaxHeightArray[i], rightMaxHeightArray[i]) - HeightArray[i];
         }
         System.out.println("\n\nTotal Water Capacity :- " + TotalWaterCapacity);
     }
