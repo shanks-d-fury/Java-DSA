@@ -3,42 +3,41 @@ import java.util.Random;
 
 public class Array {
 
-    public static void subArray(int HeightArray[]) {
-        System.out.println("The Building Array layout :- ");
-        for (int x : HeightArray) {
-            System.out.print(x + " ");
-        }
-        System.out.println("\n");
-        int n = HeightArray.length;
-        int i, j;
-        int TotalWaterCapacity = 0;
-
-        int leftMaxHeightArray[] = new int[n];
-        int rightMaxHeightArray[] = new int[n];
-        leftMaxHeightArray[0] = HeightArray[0];
-        rightMaxHeightArray[n - 1] = HeightArray[n - 1];
-
-        for (i = 1, j = n - 2; i < n && j >= 0; j--, i++) {
-            leftMaxHeightArray[i] = Math.max(leftMaxHeightArray[i - 1], HeightArray[i]);
-            rightMaxHeightArray[j] = Math.max(HeightArray[j], rightMaxHeightArray[j + 1]);
-        }
-
-        //Printing the Left and Right array
-        System.out.println("Left max height array :- ");
-        for (int x : leftMaxHeightArray) {
-            System.out.print(x + " ");
+    public static void Buy_Sell_Stock(int StockArray[]) {
+        for (int x : StockArray) {
+            System.out.print(x + ",");
         }
         System.out.println();
-        System.out.println("\nRight max height array :- ");
-        for (int x : rightMaxHeightArray) {
-            System.out.print(x + " ");
-        }
+        int n = StockArray.length;
+        int curBuyDay = 0;
+        int BuyDay = 1;
+        int SellDay = 0;
 
-        //Finding the water storing capacity 
-        for (i = 0; i < n - 1; i++) {
-            TotalWaterCapacity += Math.min(leftMaxHeightArray[i], rightMaxHeightArray[i]) - HeightArray[i];
+        int SellPrice;
+        int BuyPrice = Integer.MAX_VALUE;
+        int Profit = 0;
+        int MaxProfit = 0;
+        int MaxProfitArray[] = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            SellPrice = StockArray[i];
+            Profit = SellPrice - BuyPrice;
+            if (BuyPrice < SellPrice) {
+                if (Profit > MaxProfit) {
+                    MaxProfit = Profit;
+                    SellDay = i + 1;
+                    MaxProfitArray[i] = MaxProfit;
+                }
+            } else {
+                BuyPrice = SellPrice;
+                BuyDay = i + 1;
+                if (Profit > 0) {
+                    BuyDay = i + 1;
+                }
+            }
+            System.out.println("B: " + BuyDay + " S: " + SellDay + " MP: " + MaxProfit + " Pro: " + Profit + " SP: " + SellPrice + " BP: " + BuyPrice);
         }
-        System.out.println("\n\nTotal Water Capacity :- " + TotalWaterCapacity);
+        // System.out.println("B: " + BuyDay + " S: " + SellDay + " MP: " + MaxProfit);
     }
 
     public static int[] generateRandomArray(int size, int min, int max) {
@@ -56,7 +55,9 @@ public class Array {
         int num[] = {1, -2, 6, -1, 3};
         int num2[] = {-2, -3, 4, -1, -2, 1, 5, -3};
         int num3[] = {4, 2, 0, 6, 3, 2, 5};//Apna college questions example
-        int randomArray[] = generateRandomArray(5, 0, 10); // Generate an array of 10 integers between 0 and 100
-        subArray(randomArray);
+        int num4[] = {7, 1, 5, 3, 6, 4};
+        int num5[] = {1, 5, 3, 5, 9, 2, 0, 5, 1, 7};
+        int randomArray[] = generateRandomArray(10, 0, 10); // Generate an array of 10 integers between 0 and 100
+        Buy_Sell_Stock(randomArray);
     }
 }
