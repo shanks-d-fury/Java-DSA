@@ -29,6 +29,7 @@ public class Array_2D {
     public static int[][] TransposeMatrix(int matrix[][]) {
         int n = matrix.length;
         int m = matrix[0].length;
+        //Even though this block is commented then it will work but , if matrix is in same dimension then Time complexity is reduced and the space complexity {O(1)} 
         if (n == m) {
             for (int i = 0; i < n; i++) {
                 for (int j = i + 1; j < m; j++) {
@@ -39,6 +40,7 @@ public class Array_2D {
             }
             return matrix;
         }
+        //Till here the code can be commented
         int TransposeMatrix[][] = new int[m][n];
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
