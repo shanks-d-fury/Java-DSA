@@ -27,26 +27,16 @@ public class Array_2D {
     }
 
     public static void DiagonalSum(int matrix[][]) {
-        try {
-            int sum = 0;
-            int i, j;
-            int n = matrix.length;
-            int m = matrix[0].length;
-            for (i = 0, j = 0; i < n && j < m; j++, i++) {
-                sum += matrix[i][j];
+        int sum = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            //Primary Diagonal
+            sum += matrix[i][i];
+            //Secondary Diagonal
+            if (i != matrix.length - 1 - i) {
+                sum += matrix[i][matrix.length - 1 - i];
             }
-
-            for (i = 0, j = m - 1; i < n && j >= 0; j--, i++) {
-                if (i == j) {
-                    continue;
-                }
-                sum += matrix[i][j];
-            }
-            System.out.println("The sum is : " + sum + "\n");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("The sum is : -1");
         }
-
+        System.out.println("The sum is : " + sum);
     }
 
     public static void main(String[] args) {
