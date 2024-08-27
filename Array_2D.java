@@ -14,40 +14,53 @@ public class Array_2D {
         System.out.println();
     }
 
-    public static int[][] randomMatrix(int n, int m) {
+    public static int[][] randomSortedMatrix(int n, int m) {
         int randomMatrix[][] = new int[n][m];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                //This is common way to write the {Math.random*(max-min+1)+ min} ;
-                randomMatrix[i][j] = (int) (Math.random() * (9 - 1 + 1)) + 1;
-                // randomMatrix[i][j] = 1;
+                if (i == 0 && j == 0) {
+                    randomMatrix[i][j] = (int) (Math.random() * (10 - 10 + 1)) + 10;
+                    continue;
+                }
+                if (i != 0 && j == 0) {
+                    randomMatrix[i][j] = randomMatrix[i - 1][j] + (int) (Math.random() * (10 - randomMatrix[i - 1][j] + 1)) + randomMatrix[i - 1][j];
+                    continue;
+                }
+                randomMatrix[i][j] = randomMatrix[i][j - 1] + (int) (Math.random() * (10 - randomMatrix[i][j - 1] + 1)) + randomMatrix[i][j - 1];
             }
         }
         return randomMatrix;
     }
 
-    public static void DiagonalSum(int matrix[][]) {
-        int sum = 0;
-        for (int i = 0; i < matrix.length; i++) {
-            //Primary Diagonal
-            sum += matrix[i][i];
-            //Secondary Diagonal
-            if (i != matrix.length - 1 - i) {
-                sum += matrix[i][matrix.length - 1 - i];
+    public static int[] SortedMatrixScreach(int matrix[][], int key) {
+        int n = matrix.length;
+        int i = 0, j = n - 1;
+        int retMat[] = new int[3];
+        while (i < n && j >= 0) {
+            if (matrix[i][j] == key) {
+                retMat[0] = 1;
+                retMat[1] = i;
+                retMat[2] = j;
+                return retMat;
+            } else if (key < matrix[i][j]) {
+                j--;
+            } else if (key > matrix[i][j]) {
+                i++;
             }
         }
-        System.out.println("The sum is : " + sum);
+        return retMat;
     }
 
     public static void main(String[] args) {
         try (Scanner sc = new Scanner(System.in)) {
-            int mat[] = {0};
-            System.out.println(mat.length);
-            System.out.print("Enter n: ");
+            System.out.print("Enter n : ");
             int n = sc.nextInt();
-            int matrix[][] = randomMatrix(n, n);
+            int matrix[][] = randomSortedMatrix(n, n);
             printMatrix(matrix);
-            DiagonalSum(matrix);
+            System.out.print("Enter key : ");
+            int key = sc.nextInt();
+            int AnsMat[] = SortedMatrixScreach(matrix, key);
+            System.out.println(AnsMat[0] == 1 ? "Keyfound At (" + (AnsMat[1] + 1) + "," + (AnsMat[2] + 1) + ")" : "Notfound");
         }
     }
 }
