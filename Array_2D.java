@@ -14,6 +14,19 @@ public class Array_2D {
         System.out.println();
     }
 
+    public static void printTestMatrix(int matrix[][]) {
+        System.out.println("Matrix : ");
+        for (int[] matrix1 : matrix) {
+            System.out.print("{");
+            for (int j = 0; j < matrix[0].length; j++) {
+                String S = j != matrix[0].length - 1 ? "," : "";
+                System.out.print(matrix1[j] + S);
+            }
+            System.out.println("},");
+        }
+        System.out.println();
+    }
+
     public static int[][] randomSortedMatrix(int n, int m) {
         int randomMatrix[][] = new int[n][m];
         for (int i = 0; i < n; i++) {
@@ -34,7 +47,8 @@ public class Array_2D {
 
     public static int[] SortedMatrixScreach(int matrix[][], int key) {
         int n = matrix.length;
-        int i = 0, j = n - 1;
+        int m = matrix[0].length;
+        int i = 0, j = m - 1;
         int retMat[] = new int[3];
         while (i < n && j >= 0) {
             if (matrix[i][j] == key) {
@@ -53,10 +67,21 @@ public class Array_2D {
 
     public static void main(String[] args) {
         try (Scanner sc = new Scanner(System.in)) {
-            System.out.print("Enter n : ");
+            System.out.print("Enter n (Rows): ");
             int n = sc.nextInt();
-            int matrix[][] = randomSortedMatrix(n, n);
+            System.out.print("Enter m (Columns): ");
+            int m = sc.nextInt();
+            int matrix[][] = randomSortedMatrix(n, m);
             printMatrix(matrix);
+
+            // //For Testing a matrix use this 
+            // int matrix[][] = {{10, 20, 33, 48},
+            // {20, 34, 55, 93},
+            // {34, 56, 70, 122},
+            // {48, 72, 122, 164},};
+            // //comment out this below line to get a test matrix in printed form
+            // printTestMatrix(matrix);
+            //Enter the key for both the random and non-random matrix
             System.out.print("Enter key : ");
             int key = sc.nextInt();
             int AnsMat[] = SortedMatrixScreach(matrix, key);
