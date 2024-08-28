@@ -52,6 +52,7 @@ public class Array_2D {
 
     public static void main(String[] args) {
         try (Scanner sc = new Scanner(System.in)) {
+            System.out.println(Math.min(-1, -100));
             System.out.print("Enter n (Rows): ");
             int n = sc.nextInt();
             System.out.print("Enter m (Columns): ");
