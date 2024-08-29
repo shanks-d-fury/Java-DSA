@@ -1,27 +1,48 @@
 
 public class LeetCodeTestBench {
 
-    public static String mergeAlternately(String word1, String word2) {
-        int i;
-        String s = new String();
-        char[] word1x = word1.toCharArray();
-        char[] word2x = word2.toCharArray();
-        int min = Math.min(word1x.length, word2x.length);
-        for (i = 0; i < min; i++) {
-            s += word1x[i];
-            s += word2x[i];
+    public static int romanToInt(String s) {
+        char[] cx = s.toCharArray();
+        int sum = 0;
+        int value = 0;
+        int temp;
+        for (int i = cx.length - 1; i >= 0; i--) {
+            temp = value;
+            value = switch (cx[i]) {
+                case 'I' ->
+                    1;
+                case 'V' ->
+                    5;
+                case 'X' ->
+                    10;
+                case 'L' ->
+                    50;
+                case 'C' ->
+                    100;
+                case 'D' ->
+                    500;
+                case 'M' ->
+                    1000;
+                default ->
+                    0;
+            };
+            if (i == cx.length - 1) {
+                temp = value;
+            }
+            if (temp == value) {
+                sum += value;
+                continue;
+            }
+            if (value >= sum) {
+                sum += value;
+            } else {
+                sum -= value;
+            }
         }
-        if (word1x.length > word2x.length) {
-            s += word1.substring(i, word1.length());
-        } else {
-            s += word2.substring(i, word2.length());
-        }
-        // s+=word1.substring(i,word1.length());
-        return s;
+        return sum;
     }
 
     public static void main(String[] args) {
-        // int testAry[] = {2, 1, 1, -1, 100000};
-        System.out.println(mergeAlternately("ab", "pqrsss"));
+        System.out.println(romanToInt("MMMMMMMMMMMMMMDCLXXXIV"));
     }
 }
