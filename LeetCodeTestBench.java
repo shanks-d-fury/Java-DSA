@@ -1,31 +1,23 @@
 
 public class LeetCodeTestBench {
 
-    public static boolean checkPalidrome(String s) {
+    public static boolean isSubsequence(String s, String t) {
         if (s.isEmpty()) {
             return true;
         }
-        int start = 0;
-        int last = s.length() - 1;
-        while (start <= last) {
-            char currFirst = s.charAt(start);
-            char currLast = s.charAt(last);
-            if (!Character.isLetterOrDigit(currFirst)) {
-                start++;
-            } else if (!Character.isLetterOrDigit(currLast)) {
-                last--;
-            } else {
-                if (Character.toLowerCase(currFirst) != Character.toLowerCase(currLast)) {
-                    return false;
+        int i, j;
+        for (j = 0, i = 0; j < t.length(); j++) {
+            if (s.charAt(i) == t.charAt(j)) {
+                i++;
+                if (i == s.length()) {
+                    return true;
                 }
-                start++;
-                last--;
             }
         }
-        return true;
+        return false;
     }
 
     public static void main(String[] args) {
-        System.out.println(checkPalidrome("0P"));
+        System.out.println(isSubsequence("abs", ""));
     }
 }
