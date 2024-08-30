@@ -1,4 +1,6 @@
 
+import java.util.Arrays;
+
 public class LeetCodeTestBench {
 
     public static String findLargestString(String[] s) {
@@ -31,5 +33,10 @@ public class LeetCodeTestBench {
             "zookeeper",
             "ziggurat"};
         System.out.println(findLargestString(s));
+
+        //Alternative for the above function is 
+        Arrays.sort(s);
+        System.out.println(s[s.length - 1]);
+
     }
 }
