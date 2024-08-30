@@ -1,22 +1,19 @@
 
+import java.util.Arrays;
+
 public class LeetCodeTestBench {
 
-    public static String stringComprestion(String s) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < s.length(); i++) {
-            int count = 1;
-            while (i < s.length() - 1 && s.charAt(i) == s.charAt(i + 1)) {
-                count++;
-                i++;
-            }
-            sb.append(s.charAt(i));
-            sb.append(count);
-        }
-        return sb.toString();
+    public static boolean checkAnagram(String s1, String s2) {
+        char[] c1 = s1.toCharArray();
+        char[] c2 = s2.toCharArray();
+        Arrays.sort(c1);
+        Arrays.sort(c2);
+        return Arrays.equals(c1, c2);
     }
 
     public static void main(String[] args) {
-        String s = "";
-        System.out.println(stringComprestion(s));
+        String s1 = "mama";
+        String s2 = "amma";
+        System.out.println(checkAnagram(s1, s2));
     }
 }
