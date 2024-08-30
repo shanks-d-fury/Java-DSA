@@ -1,48 +1,20 @@
 
 public class LeetCodeTestBench {
 
-    public static int romanToInt(String s) {
-        char[] cx = s.toCharArray();
-        int sum = 0;
-        int value = 0;
-        int temp;
-        for (int i = cx.length - 1; i >= 0; i--) {
-            temp = value;
-            value = switch (cx[i]) {
-                case 'I' ->
-                    1;
-                case 'V' ->
-                    5;
-                case 'X' ->
-                    10;
-                case 'L' ->
-                    50;
-                case 'C' ->
-                    100;
-                case 'D' ->
-                    500;
-                case 'M' ->
-                    1000;
-                default ->
-                    0;
-            };
-            if (i == cx.length - 1) {
-                temp = value;
+    public static boolean checkPalidrome(String s) {
+        s = s.toLowerCase();
+        int i = 0, j = s.length() - 1;
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) {
+                return false;
             }
-            if (temp == value) {
-                sum += value;
-                continue;
-            }
-            if (value >= sum) {
-                sum += value;
-            } else {
-                sum -= value;
-            }
+            i++;
+            j--;
         }
-        return sum;
+        return true;
     }
 
     public static void main(String[] args) {
-        System.out.println(romanToInt("MMMMMMMMMMMMMMDCLXXXIV"));
+        System.out.println(checkPalidrome("Racecarx"));
     }
 }
