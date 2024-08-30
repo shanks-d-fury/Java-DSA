@@ -1,23 +1,27 @@
 
 public class LeetCodeTestBench {
 
-    public static boolean isSubsequence(String s, String t) {
-        if (s.isEmpty()) {
-            return true;
-        }
-        int i, j;
-        for (j = 0, i = 0; j < t.length(); j++) {
-            if (s.charAt(i) == t.charAt(j)) {
-                i++;
-                if (i == s.length()) {
-                    return true;
-                }
+    public static double findMinimumDirection(String s) {
+        s = s.toUpperCase();
+        double k;
+        int x = 0, y = 0;
+        for (char c : s.toCharArray()) {
+            switch (c) {
+                case 'N' ->
+                    x++;
+                case 'S' ->
+                    x--;
+                case 'E' ->
+                    y++;
+                case 'W' ->
+                    y--;
             }
         }
-        return false;
+        k = Math.sqrt(x * x + y * y);
+        return k;
     }
 
     public static void main(String[] args) {
-        System.out.println(isSubsequence("abs", ""));
+        System.out.println(findMinimumDirection("nsewww"));
     }
 }
