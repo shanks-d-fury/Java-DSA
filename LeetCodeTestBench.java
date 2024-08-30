@@ -2,24 +2,25 @@
 public class LeetCodeTestBench {
 
     public static boolean checkPalidrome(String s) {
-        // System.out.println(s.length());
-        s = s.toLowerCase();
-        String sx = new String();
-        for (int k = 0; k < s.length(); k++) {
-            char c = s.charAt(k);
-            int x = c - '0';
-            if ((c >= 'a' && c <= 'z') || x >= 0 && x <= 9) {
-                sx += s.charAt(k);
-            }
+        if (s.isEmpty()) {
+            return true;
         }
-        // System.out.println(sx + " " + sx.length());
-        int i = 0, j = sx.length() - 1;
-        while (i < j) {
-            if (sx.charAt(i) != sx.charAt(j)) {
-                return false;
+        int start = 0;
+        int last = s.length() - 1;
+        while (start <= last) {
+            char currFirst = s.charAt(start);
+            char currLast = s.charAt(last);
+            if (!Character.isLetterOrDigit(currFirst)) {
+                start++;
+            } else if (!Character.isLetterOrDigit(currLast)) {
+                last--;
+            } else {
+                if (Character.toLowerCase(currFirst) != Character.toLowerCase(currLast)) {
+                    return false;
+                }
+                start++;
+                last--;
             }
-            i++;
-            j--;
         }
         return true;
     }
