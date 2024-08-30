@@ -1,27 +1,27 @@
 
 public class LeetCodeTestBench {
 
-    public static String firstLetterCaptial(String s) {
-        boolean toCap = true;
+    public static String stringComprestion(String s) {
+        int count = 1;
         StringBuilder sb = new StringBuilder();
-        for (char c : s.toCharArray()) {
-            if (toCap) {
-                sb.append(Character.toUpperCase(c));
-                toCap = false;
-            } else {
-                sb.append(c);
+        for (int i = 1; i < s.length(); i++) {
+            if (s.charAt(i) != s.charAt(i - 1)) {
+                sb.append(s.charAt(i - 1));
+                sb.append(count);
+                count = 1;
+                continue;
             }
-            if (c == ' ') {
-                toCap = true;
+            count++;
+            if (i == s.length() - 1) {
+                sb.append(s.charAt(i));
+                sb.append(count);
             }
         }
         return sb.toString();
     }
 
     public static void main(String[] args) {
-        String s = "StringBuilder is a mutable sequence of characters in Java, which is particularly useful in scenarios where you need to perform a lot of modifications on strings, such as appending, inserting, or deleting characters. It is often used in competitive programming and coding platforms like LeetCode because it offers better performance than String when it comes to string manipulation";
-        System.out.println(firstLetterCaptial(s));
-
-        // For  Primitive  Types  And  A  Tuned  Mergesort  For  Objects,  Providing  A  Balance  Between  Performance  And  Stability
+        String s = "aaabbcccddeeeeccccccc";
+        System.out.println(stringComprestion(s));
     }
 }
