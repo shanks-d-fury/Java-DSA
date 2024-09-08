@@ -49,6 +49,18 @@ public class BitManipulation {
         return count;
     }
 
+    public static int fast_exponent(int num, int a) {
+        int ans = 1;
+        while (a > 0) {
+            if ((num & 1) != 0) {
+                ans = ans * num;
+            }
+            num = num * num;
+            a = a >> 1;
+        }
+        return ans;
+    }
+
     public static void main(String[] args) {
         // if we NOT (+num) ==> {-(num+1)}
         // if we NOT (-num) ==> {+(num-1)}
@@ -135,5 +147,19 @@ public class BitManipulation {
         //count set bit 
         System.out.println("Num: " + (num + 100202) + " Binery ==> " + Integer.toBinaryString((num + 100202)) + " count set bit: " + count_setBit((num + 100202)));
         System.out.println();
+
+        //fast exponetation
+        System.out.println(fast_exponent(5, 3));
+        System.out.println();
+
+        int x = 10, y = 20;
+        System.out.println("Before swap: x = " + x + " and y = " + y);//swap using xor
+        x = x ^ y;
+        System.out.println(x + " " + y);
+        y = x ^ y;
+        System.out.println(x + " " + y);
+        x = x ^ y;
+        System.out.println("After swap: x = " + x + " and y = " + y);
+
     }
 }
