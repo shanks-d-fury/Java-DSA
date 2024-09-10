@@ -7,8 +7,8 @@ public class Recursion {
         // System.out.println(binetFabanoci(10));
         long startTime = System.currentTimeMillis();
         // fabanociSeries(45);
-        int arr[] = {1, 2, 10, 14, 15};
-        System.out.println(isSorted(arr, 0));
+        int arr[] = {15, 2, 10, 14, 15, 20, 16, 201, 12, 15};
+        System.out.println(firstOccurance(arr, 0, 15));
         long endTime = System.currentTimeMillis();
         long timeTaken = endTime - startTime;
         System.out.println("Time taken : " + timeTaken + " ms");
@@ -56,13 +56,13 @@ public class Recursion {
         return ans;
     }
 
-    public static boolean isSorted(int arr[], int i) {
+    public static int firstOccurance(int arr[], int i, int key) {
+        if (arr[i] == key) {
+            return i;
+        }
         if (i == arr.length - 1) {
-            return true;
+            return -1;
         }
-        if (arr[i] > arr[i + 1]) {
-            return false;
-        }
-        return isSorted(arr, i + 1);
+        return firstOccurance(arr, i + 1, key);
     }
 }
