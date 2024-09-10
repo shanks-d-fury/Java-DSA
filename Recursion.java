@@ -4,7 +4,12 @@ public class Recursion {
     public static void main(String[] args) {
         // System.out.println(recursionfact(4));
         // fabanoci(3);
-        fabanociSeries(10);
+        // System.out.println(binetFabanoci(10));
+        long startTime = System.currentTimeMillis();
+        fabanociSeries(45);
+        long endTime = System.currentTimeMillis();
+        long timeTaken = endTime - startTime;
+        System.out.println("Time taken : " + timeTaken + " ms");
     }
 
     public static void IncOrd(int n) {
@@ -34,10 +39,18 @@ public class Recursion {
 
     public static void fabanociSeries(int n) {
         if (n == 0) {
-            System.out.println("fabnoci(" + n + ") => " + fabanoci(n));
+            System.out.println("fabnoci(" + n + ") => " + binetFabanoci(n));
             return;
         }
         fabanociSeries(n - 1);
-        System.out.println("fabnoci(" + n + ") => " + fabanoci(n));
+        System.out.println("fabnoci(" + n + ") => " + binetFabanoci(n));
+    }
+
+    public static int binetFabanoci(int n) {
+        int ans;
+        float theta = (float) ((1 + Math.sqrt(5)) / 2);
+        float py = (float) ((1 - Math.sqrt(5)) / 2);
+        ans = (int) ((int) (Math.pow(theta, n) + Math.pow(py, n)) / Math.sqrt(5));
+        return ans;
     }
 }
