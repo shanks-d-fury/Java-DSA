@@ -72,6 +72,7 @@ public class Recursion {
         if (n == 0) {
             return 1;
         }
-        return n % 2 == 0 ? xPowerN(x, n / 2) * xPowerN(x, n / 2) : x * xPowerN(x, n / 2) * xPowerN(x, n / 2);
+        int power = xPowerN(x, n / 2);
+        return n % 2 == 0 ? power * power : x * power * power;
     }
 }
