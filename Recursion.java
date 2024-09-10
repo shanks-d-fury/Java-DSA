@@ -8,7 +8,8 @@ public class Recursion {
         long startTime = System.currentTimeMillis();
         // fabanociSeries(45);
         // int arr[] = {15, 2, 10, 14, 15, 20, 16, 201, 15, 15};
-        System.out.println(xPowerN(2, 10));
+        System.out.println(xPowerN(2, 20));
+        System.out.println(Math.pow(2, 20));
         long endTime = System.currentTimeMillis();
         long timeTaken = endTime - startTime;
         System.out.println("Time taken : " + timeTaken + " ms");
@@ -68,9 +69,9 @@ public class Recursion {
     }
 
     public static int xPowerN(int x, int n) {
-        if (n <= 1) {
-            return x;
+        if (n == 0) {
+            return 1;
         }
-        return x * xPowerN(x, n - 1);
+        return n % 2 == 0 ? xPowerN(x, n / 2) * xPowerN(x, n / 2) : x * xPowerN(x, n / 2) * xPowerN(x, n / 2);
     }
 }
