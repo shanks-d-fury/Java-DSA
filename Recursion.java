@@ -6,10 +6,12 @@ public class Recursion {
     }
 
     public static void recursion(int n) {
-        System.out.println(n);
         if (n == 0) {
+            System.out.println(n);
             return;
         }
+        System.out.println(n);
         recursion(n - 1);
+        System.out.println(n);
     }
 }
