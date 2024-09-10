@@ -2,16 +2,23 @@
 public class Recursion {
 
     public static void main(String[] args) {
-        recursion(10);
+        // System.out.println(recursionfact(4));
+        IncOrd(20);
     }
 
-    public static void recursion(int n) {
-        if (n == 0) {
-            System.out.println(n);
+    public static void IncOrd(int n) {
+        if (n == 1) {
+            System.out.println("fact(" + n + ") => " + recursionfact(n));
             return;
         }
-        System.out.println(n);
-        recursion(n - 1);
-        System.out.println(n);
+        IncOrd(n - 1);
+        System.out.println("fact(" + n + ") => " + recursionfact(n));
+    }
+
+    public static long recursionfact(int n) {
+        if (n == 0 || n == 1) {
+            return 1;
+        }
+        return n * recursionfact(n - 1);
     }
 }
