@@ -7,8 +7,8 @@ public class Recursion {
         // System.out.println(binetFabanoci(10));
         long startTime = System.currentTimeMillis();
         // fabanociSeries(45);
-        int arr[] = {15, 2, 10, 14, 15, 20, 16, 201, 15, 15};
-        System.out.println(lastOccurance(arr, arr.length - 1, 15));
+        // int arr[] = {15, 2, 10, 14, 15, 20, 16, 201, 15, 15};
+        System.out.println(xPowerN(2, 10));
         long endTime = System.currentTimeMillis();
         long timeTaken = endTime - startTime;
         System.out.println("Time taken : " + timeTaken + " ms");
@@ -65,5 +65,12 @@ public class Recursion {
         }
         return lastOccurance(arr, i - 1, key);
 
+    }
+
+    public static int xPowerN(int x, int n) {
+        if (n <= 1) {
+            return x;
+        }
+        return x * xPowerN(x, n - 1);
     }
 }
