@@ -1,9 +1,13 @@
 
 public class Recursion {
 
+    static int count = 0;
+
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
-        System.out.println(frindsParing(10));
+        // System.out.println(frindsParing(10));
+        nonRecursive_1(10, 0, "");
+        System.out.println(count);
         long endTime = System.currentTimeMillis();
         long timeTaken = endTime - startTime;
         System.out.println("Time taken : " + timeTaken + " ms");
@@ -33,5 +37,17 @@ public class Recursion {
             return n;
         }
         return frindsParing(n - 1) + (n - 1) * frindsParing(n - 2);
+    }
+
+    public static void nonRecursive_1(int n, int last, String s) {
+        if (n == 0) {
+            System.out.println(s);
+            count++;
+            return;
+        }
+        nonRecursive_1(n - 1, 0, s + '0');
+        if (last == 0) {
+            nonRecursive_1(n - 1, 1, s + '1');
+        }
     }
 }
