@@ -1,16 +1,9 @@
 
 public class Recursion {
 
-    private static Object console;
-
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
-        // System.out.println(tails2_1(5));
-        boolean map[] = new boolean[26];
-        // for (boolean x : map) {
-        //     System.out.println(x);
-        // }
-        System.out.println(removeDuplicate("asdgadsfg", 0, map, ""));
+        System.out.println(frindsParing(10));
         long endTime = System.currentTimeMillis();
         long timeTaken = endTime - startTime;
         System.out.println("Time taken : " + timeTaken + " ms");
@@ -33,5 +26,12 @@ public class Recursion {
         }
         indx++;
         return removeDuplicate(s, indx, map, newx);
+    }
+
+    public static int frindsParing(int n) {
+        if (n == 1 || n == 2) {
+            return n;
+        }
+        return frindsParing(n - 1) + (n - 1) * frindsParing(n - 2);
     }
 }
