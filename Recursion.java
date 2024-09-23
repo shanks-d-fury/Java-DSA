@@ -1,53 +1,64 @@
 
 public class Recursion {
 
-    static int count = 0;
-
     public static void main(String[] args) {
+        int ary[] = { 12, 54, 91, 23, 45, 67, 38, 82, 16, 29,
+                33, 77, 64, 50, 89, 72, 18, 39, 55, 93,
+                26, 47, 61, 84, 70, 35, 48, 95, 60, 73,
+                11, 28, 49, 66, 53, 83, 40, 71, 24, 56,
+                19, 32, 59, 90, 44, 87, 21, 63, 14, 34,
+                78, 57, 25, 52, 80, 37, 62, 15, 41, 68,
+                76, 27, 31, 86, 46, 13, 75, 22, 94, 30,
+                43, 58, 81, 17, 69, 36, 74, 20, 92, 51,
+                85, 65, 42, 88, 79, 96, 10, 99, 20, 66,
+                31, 55, 50, 44, 77, 33, 71, 91, 25, 38 };
+        printAry(ary);
         long startTime = System.currentTimeMillis();
-        // System.out.println(frindsParing(10));
-        nonRecursive_1(10, 0, "");
-        System.out.println(count);
+        mergesort(ary, 0, ary.length - 1);
         long endTime = System.currentTimeMillis();
+        printAry(ary);
         long timeTaken = endTime - startTime;
         System.out.println("Time taken : " + timeTaken + " ms");
     }
 
-    public static int tails2_1(int n) {
-        if (n == 0 || n == 1) {
-            return 1;
+    public static void printAry(int ary[]) {
+        for (int x : ary) {
+            System.out.print(x + " ");
         }
-        return tails2_1(n - 1) + tails2_1(n - 2);
+        System.out.println();
     }
 
-    public static String removeDuplicate(String s, int indx, boolean map[], String newx) {
-        if (indx == s.length()) {
-            return newx;
-        }
-        if (!map[s.charAt(indx) - 'a']) {
-            map[s.charAt(indx) - 'a'] = true;
-            newx = newx + s.charAt(indx);
-        }
-        indx++;
-        return removeDuplicate(s, indx, map, newx);
-    }
-
-    public static int frindsParing(int n) {
-        if (n == 1 || n == 2) {
-            return n;
-        }
-        return frindsParing(n - 1) + (n - 1) * frindsParing(n - 2);
-    }
-
-    public static void nonRecursive_1(int n, int last, String s) {
-        if (n == 0) {
-            System.out.println(s);
-            count++;
+    public static void mergesort(int ary[], int left, int right) {
+        if (left >= right) {
             return;
         }
-        nonRecursive_1(n - 1, 0, s + '0');
-        if (last == 0) {
-            nonRecursive_1(n - 1, 1, s + '1');
+        int mid = left + (right - left) / 2; // This caused trouble
+        mergesort(ary, left, mid);
+        mergesort(ary, mid + 1, right);
+        merge(ary, left, mid, right);
+    }
+
+    public static void merge(int ary[], int left, int mid, int right) {
+        int temp[] = new int[right - left + 1];
+        int i = left;
+        int j = mid + 1;
+        int k = 0;
+        while (i <= mid && j <= right) {
+            if (ary[i] < ary[j]) {
+                temp[k++] = ary[i++];
+            } else {
+                temp[k++] = ary[j++];
+            }
+        }
+
+        while (j <= right) {
+            temp[k++] = ary[j++];
+        }
+        while (i <= mid) {
+            temp[k++] = ary[i++];
+        }
+        for (k = 0, i = left; k < temp.length; k++, i++) {
+            ary[i] = temp[k];
         }
     }
 }
