@@ -1,33 +1,14 @@
-import java.util.Arrays;
+
 
 public class LeetCodeTestBench {
 
     public static void main(String[] args) {
-        String testArray[] = { "introspection", // because of this the longest common prefix is "int";
-                "intermediate",
-                "internet",
-                "interval",
-                "internal",
-                "interlock",
-                "interaction",
-                "intercept",
-                "interesting",
-                "international",
-                "interpret",
-                "interstate",
-                "intervene",
-                "intermittent",
-                "interceptive",
-                "interchangeable",
-                "interpolate",
-                "intermediate",
-                "interrelation",
-                "interrogation" };
-        // printAry(testArray);
+        int testArray[] = { 45, 48, 51, 53, 57, 63, 67, 70, 74, 79, 83, 1, 5, 9, 15, 21, 28, 32, 37, 41 };
         //
+        int key = 1;
         long startTime = System.currentTimeMillis();
         //
-        System.out.println(longestCommonPrefix(testArray));
+        System.out.println(sortedRotatedArray(testArray, key, 0, testArray.length - 1));
         //
         long endTime = System.currentTimeMillis();
         long timeTaken = endTime - startTime;
@@ -42,18 +23,30 @@ public class LeetCodeTestBench {
         System.out.println();
     }
 
-    public static String longestCommonPrefix(String[] strs) {
-        String lcp = new String();
-        Arrays.sort(strs);
-        // printAry(strs);
-        String first = strs[0];
-        String last = strs[strs.length - 1];
-        for (int i = 0; i < Math.min(first.length(), last.length()); i++) {
-            if (first.charAt(i) != last.charAt(i)) {
-                return lcp;
-            }
-            lcp += strs[0].charAt(i);
+    public static int sortedRotatedArray(int ary[], int tar, int st, int ed) {
+        // Base case
+        if (st > ed) {
+            return -1;
         }
-        return lcp;
+
+        // target found
+        int mid = st + (ed - st) / 2;
+        if (ary[mid] == tar) {
+            return mid;
+        }
+
+        if (ary[st] <= ary[mid]) {
+            if (ary[st] <= tar && tar <= ary[mid]) {
+                return sortedRotatedArray(ary, tar, st, mid - 1);
+            } else {
+                return sortedRotatedArray(ary, tar, mid + 1, ed);
+            }
+        } else {
+            if (ary[mid] <= tar && tar <= ary[ed]) {
+                return sortedRotatedArray(ary, tar, mid + 1, ed);
+            } else {
+                return sortedRotatedArray(ary, tar, st, mid - 1);
+            }
+        }
     }
 }
