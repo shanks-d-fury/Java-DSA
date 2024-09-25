@@ -11,6 +11,20 @@ public class BackTracking {
         arr[i] = val - 2;
     }
 
+    public static void stringSubset(String str, String ans, int i) {
+        if (i == str.length()) {
+            if (ans.length() == 0) {
+                System.out.println("NULL");
+            } else {
+                System.out.println(ans);
+            }
+            return;
+        }
+
+        stringSubset(str, ans + str.charAt(i), i + 1);
+        stringSubset(str, ans, i + 1);
+    }
+
     public static void printary(int ary[]) {
         for (int n : ary) {
             System.out.print(n + " ");
@@ -21,13 +35,11 @@ public class BackTracking {
     public static void main(String args[]) {
         long startTime = System.currentTimeMillis();
         //
-        int arr[] = new int[10];
-        backtracking(arr, 0, 1);
+        stringSubset("abcd", "", 0);
         //
         long endTime = System.currentTimeMillis();
         //
-        System.out.println("\nBackTrancked array : ");
-        printary(arr);
+
         //
         long timeTaken = endTime - startTime;
         System.out.println("Time taken : " + timeTaken + " ms");
