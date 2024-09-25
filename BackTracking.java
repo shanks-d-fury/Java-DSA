@@ -20,9 +20,20 @@ public class BackTracking {
             }
             return;
         }
-
         stringSubset(str, ans + str.charAt(i), i + 1);
         stringSubset(str, ans, i + 1);
+    }
+
+    public static void StringPermutation(String str, String ans) {
+        if (str.length() == 0) {
+            System.out.println(ans);
+            return;
+        }
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            String newstr = str.substring(0, i) + str.substring(i + 1);
+            StringPermutation(newstr, ans + c);
+        }
     }
 
     public static void printary(int ary[]) {
@@ -35,7 +46,7 @@ public class BackTracking {
     public static void main(String args[]) {
         long startTime = System.currentTimeMillis();
         //
-        stringSubset("abcd", "", 0);
+        StringPermutation("abc", "");
         //
         long endTime = System.currentTimeMillis();
         //
