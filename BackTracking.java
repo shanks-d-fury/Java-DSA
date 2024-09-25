@@ -1,58 +1,72 @@
 public class BackTracking {
 
-    public static void backtracking(int arr[], int i, int val) {
-        if (i == arr.length) {
-            System.out.println("Original array : ");
-            printary(arr);
-            return;
-        }
-        arr[i] = val;
-        backtracking(arr, i + 1, val + 1);
-        arr[i] = val - 2;
-    }
-
-    public static void stringSubset(String str, String ans, int i) {
-        if (i == str.length()) {
-            if (ans.length() == 0) {
-                System.out.println("NULL");
-            } else {
-                System.out.println(ans);
+    public static boolean isSafe(char board[][], int row, int col) {
+        // top vertical
+        for (int i = row - 1; i >= 0; i--) {
+            if (board[i][col] == 'Q') {
+                return false;
             }
-            return;
         }
-        stringSubset(str, ans + str.charAt(i), i + 1);
-        stringSubset(str, ans, i + 1);
+        // top left diagonal
+        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
+            if (board[i][j] == 'Q') {
+                return false;
+            }
+        }
+        // top right diagonal
+        for (int i = row - 1, j = col + 1; i >= 0 && j < board.length; i--, j++) {
+            if (board[i][j] == 'Q') {
+                return false;
+            }
+        }
+        return true;
     }
 
-    public static void StringPermutation(String str, String ans) {
-        if (str.length() == 0) {
-            System.out.println(ans);
+    public static void nQueens(char board[][], int row) {
+        if (row == board.length) {
+            printBoard(board);
             return;
         }
-        for (int i = 0; i < str.length(); i++) {
-            char c = str.charAt(i);
-            String newstr = str.substring(0, i) + str.substring(i + 1);
-            StringPermutation(newstr, ans + c);
+        for (int j = 0; j < board.length; j++) {
+            if (isSafe(board, row, j)) {
+                board[row][j] = 'Q';
+                nQueens(board, row + 1);
+                board[row][j] = 'x';
+            }
         }
     }
 
-    public static void printary(int ary[]) {
-        for (int n : ary) {
-            System.out.print(n + " ");
+    public static void printBoard(char board[][]) {
+        System.out.println("--------- Board -----------");
+        for (char[] board1 : board) {
+            for (int j = 0; j < board.length; j++) {
+                System.out.print(board1[j] + " ");
+            }
+            System.out.println();
         }
-        System.out.println();
+    }
+
+    public static void initilzeBoard(char board[][]) {
+        for (char[] board1 : board) {
+            for (int j = 0; j < board.length; j++) {
+                board1[j] = 'x';
+            }
+        }
     }
 
     public static void main(String args[]) {
+        int n = 4;
+        char board[][] = new char[n][n];
+        initilzeBoard(board);
         long startTime = System.currentTimeMillis();
         //
-        StringPermutation("abc", "");
+        nQueens(board, 0);
         //
         long endTime = System.currentTimeMillis();
         //
 
         //
         long timeTaken = endTime - startTime;
-        System.out.println("Time taken : " + timeTaken + " ms");
+        System.out.println("\nTime taken : " + timeTaken + " ms\n");
     }
 }
