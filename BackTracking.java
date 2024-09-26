@@ -35,7 +35,7 @@ public class BackTracking {
                 if (nQueens(board, row + 1)) {
                     return true;
                 }
-                board[row][j] = '.';
+                board[row][j] = 'x';
             }
         }
         return false;
@@ -43,16 +43,26 @@ public class BackTracking {
 
     public static void printBoard(char board[][]) {
         System.out.println("\t------ Board ------");
+        System.out.print("\t    ");
+        for (int i = 1; i <= board.length; i++) {
+            System.out.print(i + " | ");
+        }
+        System.out.println();
         System.out.print("\t  ");
         for (int i = 1; i <= board.length; i++) {
-            System.out.print(i + " ");
+            System.out.print(" __ ");
         }
         System.out.println();
         int i = 1;
         for (char[] board1 : board) {
-            System.out.print("\t" + i++ + " ");
+            System.out.print("\t" + i++ + " | ");
             for (int j = 0; j < board.length; j++) {
-                System.out.print(board1[j] + " ");
+                System.out.print(board1[j] + " | ");
+            }
+            System.out.println();
+            System.out.print("\t  ");
+            for (int k = 0; k < board.length; k++) {
+                System.out.print(" __ ");
             }
             System.out.println();
         }
@@ -61,7 +71,7 @@ public class BackTracking {
     public static void initilzeBoard(char board[][]) {
         for (char[] board1 : board) {
             for (int j = 0; j < board.length; j++) {
-                board1[j] = '.';
+                board1[j] = 'x';
             }
         }
     }
