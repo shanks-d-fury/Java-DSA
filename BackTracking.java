@@ -1,33 +1,88 @@
+import java.util.Random;
+
 public class BackTracking {
-    public static int gridWays(int n, int m, int i, int j) {
-        if (i == n - 1 && j == m - 1) {
-            return 1;
+    public static boolean suduko(int board[][], int row, int col) {
+        if (row == 9) {
+            return true;
         }
-        if (i > n || j > m) {
-            return 0;
+        int newRow = row, newCol = col + 1;
+        if (col + 1 == 9) {
+            newRow = row + 1;
+            newCol = 0;
         }
-        return gridWays(n, m, i + 1, j) + gridWays(n, m, i, j + 1);
+        if (board[row][col] != 0) {
+            return suduko(board, newRow, newCol);
+        }
+        for (int digit = 1; digit <= 9; digit++) {
+            if (isSafe(board, row, col, digit)) {
+                board[row][col] = digit;
+                if (suduko(board, newRow, newCol)) {
+                    return true;
+                }
+                board[row][col] = 0;
+            }
+        }
+        return false;
     }
 
-    public static long fact(long n) {
-        if (n == 0 || n == 1) {
-            return 1;
+    public static boolean isSafe(int board[][], int row, int col, int digit) {
+
+        // checking in the row
+        for (int j = 0; j < 9; j++) {
+            if (board[row][j] == digit) {
+                return false;
+            }
         }
-        return n * fact(n - 1);
+
+        // checking in the column
+        for (int i = 0; i < 9; i++) {
+            if (board[i][col] == digit) {
+                return false;
+            }
+        }
+
+        // checking in the 3x3 grid
+        int sr = (row / 3) * 3;
+        int sc = (col / 3) * 3;
+        for (int i = sr; i < sr + 3; i++) {
+            for (int j = sc; j < sc + 3; j++) {
+                if (board[i][j] == digit) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static void fillRandom(int board[][]) {
+        Random rand = new Random();
+        for (int i = 0; i < 9; i++) {
+            int col = rand.nextInt(1, 9);
+            board[i][col] = rand.nextInt(1, 10);
+        }
+    }
+
+    public static void printBoard(int board[][]) {
+        System.out.println("\n------Board-------");
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                System.out.print(board[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 
     public static void main(String args[]) {
-
+        int board[][] = new int[9][9];
+        fillRandom(board);
+        printBoard(board);
         long startTime = System.currentTimeMillis();
         //
-        long n = 10, m = 10;
-        // the grid ways method has a huge time complexity O(2^n+m);
-        // System.out.println(gridWays(n, m, 0, 0));
-        // to decrese the time complexity we use a simple permutation formula
-
-        // The fact is a linear time complexity so we use it insted of the gridways
-        // formula
-        System.out.println(fact((n - 1 + m - 1)) / (fact((n - 1)) * fact((m - 1))));
+        if (suduko(board, 0, 0)) {
+            printBoard(board);
+        } else {
+            System.out.println("solution doesn't exist");
+        }
         //
         long endTime = System.currentTimeMillis();
         //
@@ -37,3 +92,9 @@ public class BackTracking {
         System.out.println("\nTime taken : " + timeTaken + " ms\n");
     }
 }
+
+// Random rand = new Random();
+// int[] array = new int[size];
+// for (int i = 0; i < size; i++) {
+// array[i] = rand.nextInt((max - min) + 1) + min;
+// }
