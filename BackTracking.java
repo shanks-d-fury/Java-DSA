@@ -55,11 +55,17 @@ public class BackTracking {
     }
 
     public static void fillRandom(int board[][]) {
-        Random rand = new Random();
         for (int i = 0; i < 9; i++) {
-            int col = rand.nextInt(1, 9);
-            board[i][col] = rand.nextInt(1, 10);
+            board[i][rN()] = rN();
         }
+        // for (int i = 0; i < 100; i++) {
+        // System.out.println(rN());
+        // }
+    }
+
+    public static int rN() {
+        Random rand = new Random();
+        return (rand.nextInt(1, 9));
     }
 
     public static void printBoard(int board[][]) {
@@ -74,6 +80,8 @@ public class BackTracking {
 
     public static void main(String args[]) {
         int board[][] = new int[9][9];
+        System.out.println(
+                "Some Bug in the fill random \n{if you see two same numbers in the row/column/grid stop the execution}");
         fillRandom(board);
         printBoard(board);
         long startTime = System.currentTimeMillis();
