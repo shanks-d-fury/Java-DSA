@@ -54,22 +54,27 @@ public class BackTracking {
         return true;
     }
 
-    public static void fillRandom(int board[][]) {
-        for (int i = 0; i < 9; i++) {
-            board[i][rN()] = rN();
+    public static void fillRandom(int board[][], int ctf) {
+        // ctf is cells to fill && inf is initial fill
+        int inf = 0;
+        while (inf < ctf) {
+            int row = rN();
+            int col = rN();
+            int num = rN();
+            if (board[row][col] == 0 && isSafe(board, row, col, num)) {
+                board[row][col] = num;
+                inf++;
+            }
         }
-        // for (int i = 0; i < 100; i++) {
-        // System.out.println(rN());
-        // }
     }
 
     public static int rN() {
         Random rand = new Random();
-        return (rand.nextInt(1, 9));
+        return rand.nextInt(9);
     }
 
     public static void printBoard(int board[][]) {
-        System.out.println("\n------Board-------");
+        System.out.println("\n------Suduko-------");
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 System.out.print(board[i][j] + " ");
@@ -80,9 +85,10 @@ public class BackTracking {
 
     public static void main(String args[]) {
         int board[][] = new int[9][9];
-        System.out.println(
-                "Some Bug in the fill random \n{if you see two same numbers in the row/column/grid stop the execution}");
-        fillRandom(board);
+
+        // cells to fill is ctf
+        int ctf = 10; // optimal ctf is 20
+        fillRandom(board, ctf);
         printBoard(board);
         long startTime = System.currentTimeMillis();
         //
@@ -100,9 +106,3 @@ public class BackTracking {
         System.out.println("\nTime taken : " + timeTaken + " ms\n");
     }
 }
-
-// Random rand = new Random();
-// int[] array = new int[size];
-// for (int i = 0; i < size; i++) {
-// array[i] = rand.nextInt((max - min) + 1) + min;
-// }
