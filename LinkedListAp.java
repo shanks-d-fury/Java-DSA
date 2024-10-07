@@ -110,6 +110,23 @@ public class LinkedListAp {
         return helper(head, key);
     }
 
+    public void reverseLL() {
+        if (head == null) {
+            System.out.println("Empty");
+            return;
+        }
+        Node prevND = null;
+        Node crntND = head;
+        Node nextND;
+        while (crntND != null) {
+            nextND = crntND.next;
+            crntND.next = prevND;
+            prevND = crntND;
+            crntND = nextND;
+        }
+        head = prevND;
+    }
+
     public static void main(String[] args) {
         LinkedListAp ll = new LinkedListAp();
         ll.addlast(1);
@@ -126,8 +143,8 @@ public class LinkedListAp {
         ll.printLL();
         ll.removeLast();
         ll.printLL();
-        System.out.println(LinkedListAp.size);
-        System.out.println(ll.getMid(head).data);
+        // System.out.println(LinkedListAp.size);
+        // System.out.println(ll.getMid(head).data);
         int i = 0;
         while (i < 10) {
             ll.addFirst(i);
@@ -135,6 +152,8 @@ public class LinkedListAp {
             i++;
         }
         ll.printLL();
-        System.out.println(ll.recursiveSearch(8));
+        // System.out.println(ll.recursiveSearch(8));
+        ll.reverseLL();
+        ll.printLL();
     }
 }
