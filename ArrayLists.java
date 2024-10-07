@@ -2,34 +2,26 @@ import java.util.ArrayList;
 
 public class ArrayLists {
     public static void main(String args[]) {
-        int[] heightx = { 1, 8, 6, 2, 5, 4, 8, 3, 7 };
-        ArrayList<Integer> height = new ArrayList<>();
-        for (int x : heightx) {
-            height.add(x);
+        ArrayList<Integer> list = new ArrayList<>();
+        int i = 0;
+        while (i < 10) {
+            list.add(i);
         }
-        Trapping_Rainwater(height);
-        // Last commit is a max area problem or max water stored ;
+        System.out.println(Pair_sum_1(list, 10));
 
     }
 
-    public static void Trapping_Rainwater(ArrayList<Integer> height) {
-        int maxArea = 0, crntArea;
-        int left = 0, right = height.size() - 1;
-        int leftIndex = -1, rightIndex = -1;
-        while (left < right) {
-            crntArea = (right - left) * (Math.min(height.get(right), height.get(left)));
-            if (maxArea < crntArea) {
-                maxArea = crntArea;
-                leftIndex = left;
-                rightIndex = right;
-            }
-            if (height.get(left) < height.get(right)) {
-                left++;
+    public static boolean Pair_sum_1(ArrayList<Integer> list, int target) {
+        int lp = 0, rp = list.size() - 1;
+        while (lp < rp) {
+            if (list.get(lp) + list.get(rp) == target) {
+                return true;
+            } else if (list.get(lp) + list.get(rp) < target) {
+                lp++;
             } else {
-                right--;
+                rp--;
             }
         }
-
-        System.out.println("(" + leftIndex + "," + rightIndex + ")" + " Area = " + maxArea);
+        return false;
     }
 }
