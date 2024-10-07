@@ -1,30 +1,29 @@
 import java.util.ArrayList;
-import java.util.Random;
 
 public class ArrayLists {
     public static void main(String args[]) {
-        ArrayList<Integer> list1 = new ArrayList<>();
-        ArrayList<Integer> list2 = new ArrayList<>();
-        ArrayList<Integer> list3 = new ArrayList<>();
-
-        ArrayList<ArrayList<Integer>> dadList = new ArrayList<>();
-        dadList.add(list1);
-        dadList.add(list2);
-        dadList.add(list3);
-
-        Random rand = new Random();
-        int i = 0, j;
-        while (i < 3) {
-            j = 0;
-            while (j < 5) {
-                dadList.get(i).add(rand.nextInt(10));
-                j++;
-            }
-            i++;
+        int[] heightx = { 1, 8, 6, 2, 5, 4, 8, 3, 7 };
+        ArrayList<Integer> height = new ArrayList<>();
+        for (int x : heightx) {
+            height.add(x);
         }
-        System.out.println(list1 + "\n" + list2 + "\n" + list3);
+        int maxArea = 0, crntArea;
+        int left = 0, right = height.size() - 1;
+        int leftIndex = -1, rightIndex = -1;
+        while (left < right) {
+            crntArea = (right - left) * (Math.min(height.get(right), height.get(left)));
+            if (maxArea < crntArea) {
+                maxArea = crntArea;
+                leftIndex = left;
+                rightIndex = right;
+            }
+            if (height.get(left) < height.get(right)) {
+                left++;
+            } else {
+                right--;
+            }
+        }
 
-        System.out.println(dadList);
-        System.out.println(dadList.get(0).get(0));
+        System.out.println("(" + leftIndex + "," + rightIndex + ")" + " Area = " + maxArea);
     }
 }
