@@ -150,36 +150,40 @@ public class LinkedListAp {
         size--;
     }
 
+    public boolean isPalindrome() {
+        if (head == null || head.next == null) {
+            return true;
+        }
+        Node midNode = getMid(head);
+        Node prevND = null;
+        Node crntND = midNode;
+        Node nextND;
+        while (crntND != null) {
+            nextND = crntND.next;
+            crntND.next = prevND;
+            prevND = crntND;
+            crntND = nextND;
+        }
+        Node leftNode = head;
+        Node rightNode = prevND;
+        while (leftNode != null && rightNode != null) {
+            if (leftNode.data != rightNode.data) {
+                return false;
+            }
+            leftNode = leftNode.next;
+            rightNode = rightNode.next;
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         LinkedListAp ll = new LinkedListAp();
         ll.addlast(1);
         ll.addlast(2);
-        ll.addlast(3);
-        ll.addlast(4);
-        ll.addlast(5);
-        ll.addFirst(0);
-        ll.addFirst(-1);
-        ll.addFirst(-2);
-        ll.addFirst(-3);
+        ll.addlast(1);
+        ll.addlast(2);
+        ll.addlast(2);
         ll.printLL();
-        ll.removeFirst();
-        ll.printLL();
-        ll.removeLast();
-        ll.printLL();
-        // System.out.println(LinkedListAp.size);
-        // System.out.println(ll.getMid(head).data);
-        int i = 0;
-        while (i < 10) {
-            ll.addFirst(i);
-            ll.removeLast();
-            i++;
-        }
-        ll.printLL();
-        // System.out.println(ll.recursiveSearch(8));
-        ll.reverseLL();
-        ll.printLL();
-        System.out.println(LinkedListAp.size);
-        ll.deleteFromLast(7);
-        ll.printLL();
+        System.out.println(ll.isPalindrome());
     }
 }
