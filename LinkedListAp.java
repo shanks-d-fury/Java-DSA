@@ -92,6 +92,24 @@ public class LinkedListAp {
         System.out.println("null");
     }
 
+    public int helper(Node head, int key) {
+        if (head == null) {
+            return -1;
+        }
+        if (head.data == key) {
+            return 0;
+        }
+        int idx = helper(head.next, key);
+        if (idx == -1) {
+            return -1;
+        }
+        return idx + 1;
+    }
+
+    public int recursiveSearch(int key) {
+        return helper(head, key);
+    }
+
     public static void main(String[] args) {
         LinkedListAp ll = new LinkedListAp();
         ll.addlast(1);
@@ -108,6 +126,15 @@ public class LinkedListAp {
         ll.printLL();
         ll.removeLast();
         ll.printLL();
+        System.out.println(LinkedListAp.size);
         System.out.println(ll.getMid(head).data);
+        int i = 0;
+        while (i < 10) {
+            ll.addFirst(i);
+            ll.removeLast();
+            i++;
+        }
+        ll.printLL();
+        System.out.println(ll.recursiveSearch(8));
     }
 }
