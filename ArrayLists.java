@@ -17,7 +17,7 @@ public class ArrayLists {
                 leftIndex = left;
                 rightIndex = right;
             }
-            if (height.get(left) < height.get(right)) {
+            if (height.get(left) > height.get(right)) {
                 left++;
             } else {
                 right--;
