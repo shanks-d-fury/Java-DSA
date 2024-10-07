@@ -127,6 +127,29 @@ public class LinkedListAp {
         head = prevND;
     }
 
+    public void deleteFromLast(int idx) {
+        if (head == null) {
+            System.out.println("Empty");
+            return;
+        }
+        if (idx > size) {
+            System.out.println("Can't Delete");
+            return;
+        }
+        if (idx == size) {
+            head = head.next;
+            return;
+        }
+        int i = 0;
+        Node crntNode = head;
+        while (i < (size - idx)) {
+            crntNode = crntNode.next;
+            i++;
+        }
+        crntNode.next = crntNode.next.next;
+        size--;
+    }
+
     public static void main(String[] args) {
         LinkedListAp ll = new LinkedListAp();
         ll.addlast(1);
@@ -154,6 +177,9 @@ public class LinkedListAp {
         ll.printLL();
         // System.out.println(ll.recursiveSearch(8));
         ll.reverseLL();
+        ll.printLL();
+        System.out.println(LinkedListAp.size);
+        ll.deleteFromLast(7);
         ll.printLL();
     }
 }
