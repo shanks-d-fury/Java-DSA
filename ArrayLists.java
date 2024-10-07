@@ -7,6 +7,11 @@ public class ArrayLists {
         for (int x : heightx) {
             height.add(x);
         }
+        Trapping_Rainwater(height);
+
+    }
+
+    public static void Trapping_Rainwater(ArrayList<Integer> height) {
         int maxArea = 0, crntArea;
         int left = 0, right = height.size() - 1;
         int leftIndex = -1, rightIndex = -1;
@@ -17,7 +22,7 @@ public class ArrayLists {
                 leftIndex = left;
                 rightIndex = right;
             }
-            if (height.get(left) > height.get(right)) {
+            if (height.get(left) < height.get(right)) {
                 left++;
             } else {
                 right--;
