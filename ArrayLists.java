@@ -8,7 +8,7 @@ public class ArrayLists {
             list.add(i);
         }
         System.out.println(Pair_sum_1(list, 10));
-
+        // last commit was an mistake it was a pair sum problem
     }
 
     public static boolean Pair_sum_1(ArrayList<Integer> list, int target) {
