@@ -189,6 +189,31 @@ public class LinkedListAp {
         return false;
     }
 
+    public void removeLoop() {
+        Node slow = head, fast = head;
+        boolean cycle = false;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                cycle = true;
+                break;
+            }
+        }
+        if (cycle == false) {
+            System.out.println("No loop!");
+            return;
+        }
+        slow = head;
+        Node prev = null;
+        while (slow != fast) {
+            prev = fast;
+            slow = slow.next;
+            fast = fast.next;
+        }
+        prev.next = null;
+    }
+
     public static void main(String[] args) {
         LinkedListAp ll = new LinkedListAp();
         ll.addlast(1);
@@ -196,9 +221,11 @@ public class LinkedListAp {
         ll.addlast(1);
         ll.addlast(2);
         ll.addlast(1);
-        // tail.next = head.next.next;
+        tail.next = head.next.next.next;
         // ll.printLL();
-        System.out.println(ll.cheackLoop());
+        System.out.println("Loop: " + ll.cheackLoop());
+        ll.removeLoop();
+        ll.printLL();
         // System.out.println(ll.isPalindrome());
     }
 }
