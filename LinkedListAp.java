@@ -35,6 +35,7 @@ public class LinkedListAp {
             temp = temp.next;
         }
         temp.next = node;
+        tail = node;
     }
 
     public void addFirst(int data) {
@@ -176,14 +177,30 @@ public class LinkedListAp {
         return true;
     }
 
+    public boolean cheackLoop() {
+        Node slow = head, fast = head;
+        boolean notfirst = false;
+        while (fast != null && fast.next != null) {
+            if (slow == fast && notfirst) {
+                return true;
+            }
+            notfirst = true;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         LinkedListAp ll = new LinkedListAp();
         ll.addlast(1);
         ll.addlast(2);
         ll.addlast(1);
         ll.addlast(2);
-        ll.addlast(2);
-        ll.printLL();
-        System.out.println(ll.isPalindrome());
+        ll.addlast(1);
+        tail.next = head.next.next;
+        // ll.printLL();
+        System.out.println(ll.cheackLoop());
+        // System.out.println(ll.isPalindrome());
     }
 }
