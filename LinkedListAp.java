@@ -179,14 +179,12 @@ public class LinkedListAp {
 
     public boolean cheackLoop() {
         Node slow = head, fast = head;
-        boolean notfirst = false;
         while (fast != null && fast.next != null) {
-            if (slow == fast && notfirst) {
-                return true;
-            }
-            notfirst = true;
             slow = slow.next;
             fast = fast.next.next;
+            if (slow == fast) {
+                return true;
+            }
         }
         return false;
     }
@@ -198,7 +196,7 @@ public class LinkedListAp {
         ll.addlast(1);
         ll.addlast(2);
         ll.addlast(1);
-        tail.next = head.next.next;
+        // tail.next = head.next.next;
         // ll.printLL();
         System.out.println(ll.cheackLoop());
         // System.out.println(ll.isPalindrome());
