@@ -34,15 +34,30 @@ public class StacksChapter {
         pushBottom(s, top);
     }
 
-    public static void main(String[] args) {
+    public static void spanProblem(int stocks[], int span[]) {
         Stack<Integer> s = new Stack<>();
-        s.push(1);
-        s.push(2);
-        s.push(3);
-        s.push(4);
-        reverseStack(s);
-        while (!s.isEmpty()) {
-            System.out.println(s.pop());
+        s.push(0);
+        span[0] = 1;
+        for (int i = 1; i < stocks.length; i++) {
+            if (!s.empty()) {
+                int price = stocks[i];
+                while (price > stocks[s.peek()]) {
+                    s.pop();
+                }
+                span[i] = i - s.peek();
+            } else {
+                span[i] = i + 1;
+            }
+            s.push(i);
+        }
+    }
+
+    public static void main(String[] args) {
+        int stocks[] = { 100, 80, 60, 70, 60, 85, 100 };
+        int span[] = new int[stocks.length];
+        spanProblem(stocks, span);
+        for (int x : span) {
+            System.out.print(x + " ");
         }
         // System.out.println(s);
     }
