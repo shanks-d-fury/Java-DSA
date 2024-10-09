@@ -100,6 +100,22 @@ public class LinkedListAp {
         System.out.println("null");
     }
 
+    public void reveseDll() {
+        if (size == 0) {
+            System.out.println("Empty");
+            return;
+        }
+        Node prev = null, crnt = head, nextNode;
+        while (crnt != null) {
+            nextNode = crnt.next;
+            crnt.next = prev;
+            crnt.prev = nextNode;
+            prev = crnt;
+            crnt = nextNode;
+        }
+        head = prev;
+    }
+
     public static void main(String[] args) {
         LinkedListAp dll = new LinkedListAp();
         dll.addFirst(1);
@@ -108,7 +124,9 @@ public class LinkedListAp {
         dll.addFirst(4);
         dll.addFirst(5);
         dll.printDLL();
-        dll.removeFirst();
+        // dll.removeFirst();
+        // dll.printDLL();
+        dll.reveseDll();
         dll.printDLL();
         // System.out.println(ll.isPalindrome());
     }
