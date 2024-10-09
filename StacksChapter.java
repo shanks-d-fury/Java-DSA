@@ -52,11 +52,26 @@ public class StacksChapter {
         }
     }
 
+    public static void nxtGrtElmnt(int ary[], int grtAry[]) {
+        Stack<Integer> s = new Stack<>();
+        for (int i = ary.length - 1; i >= 0; i--) {
+            while (!s.isEmpty() && ary[i] >= ary[s.peek()]) {
+                s.pop();
+            }
+            if (s.isEmpty()) {
+                grtAry[i] = -1;
+            } else {
+                grtAry[i] = ary[s.peek()];
+            }
+            s.push(i);
+        }
+    }
+
     public static void main(String[] args) {
-        int stocks[] = { 100, 80, 60, 70, 60, 85, 100 };
-        int span[] = new int[stocks.length];
-        spanProblem(stocks, span);
-        for (int x : span) {
+        int ary[] = { 6, 8, 0, 1, 3 };
+        int grtAry[] = new int[ary.length];
+        nxtGrtElmnt(ary, grtAry);
+        for (int x : grtAry) {
             System.out.print(x + " ");
         }
         // System.out.println(s);
