@@ -13,16 +13,16 @@ public class StacksChapter {
         s.push(top);
     }
 
-    public static String reverseString(String s) {
+    public static String reverseString(String sx) {
         Stack<Character> stack = new Stack<>();
-        for (int i = 0; i < s.length(); i++) {
-            stack.push(s.charAt(i));
+        for (int i = 0; i < sx.length(); i++) {
+            stack.push(sx.charAt(i));
         }
-        s = "";
+        StringBuilder s = new StringBuilder();
         while (!stack.isEmpty()) {
-            s += stack.pop();
+            s.append(stack.pop());
         }
-        return s;
+        return s.toString();
     }
 
     public static void main(String[] args) {
