@@ -39,14 +39,14 @@ public class StacksChapter {
         s.push(0);
         span[0] = 1;
         for (int i = 1; i < stocks.length; i++) {
-            if (!s.empty()) {
-                int price = stocks[i];
-                while (price > stocks[s.peek()]) {
-                    s.pop();
-                }
-                span[i] = i - s.peek();
-            } else {
+            int price = stocks[i];
+            while (!s.isEmpty() && price > stocks[s.peek()]) {
+                s.pop();
+            }
+            if (s.isEmpty()) {
                 span[i] = i + 1;
+            } else {
+                span[i] = i - s.peek();
             }
             s.push(i);
         }
