@@ -27,7 +27,7 @@ public class StacksChapter {
 
     public static void main(String[] args) {
         Stack<Integer> s = new Stack<>();
-        System.out.println(reverseString("fuckyou"));
+        System.out.println(reverseString(""));
         // System.out.println(s);
     }
 }
