@@ -3,10 +3,12 @@ public class LinkedListAp {
     public static class Node {
         int data;
         Node next;
+        Node prev;
 
         public Node(int data) {
             this.data = data;
             this.next = null;
+            this.prev = null;
         }
     }
 
@@ -14,7 +16,7 @@ public class LinkedListAp {
     public static Node tail = null;
     public static int size = 0;
 
-    public void addlast(int data) {
+    public void addLast(int data) {
         Node node = new Node(data);
         size++;
         if (head == null) {
@@ -26,121 +28,88 @@ public class LinkedListAp {
             temp = temp.next;
         }
         temp.next = node;
+        node.prev = temp;
         tail = node;
     }
 
-    public Node midNode(Node head) {
-        Node slow = head;
-        Node fast = head;
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
+    public void addFirst(int data) {
+        Node node = new Node(data);
+        size++;
+        if (head == null) {
+            head = tail = node;
+            return;
         }
-        return slow;
+        head.prev = node;
+        node.next = head;
+        head = node;
     }
 
-    public Node mergesort(Node head) {
-        if (head == null || head.next == null) {
-            return head;
+    public void removeFirst() {
+        if (size == 0) {
+            System.out.println("Empty");
+            return;
         }
-        Node midNode = midNode(head);
-        Node rightNode = mergesort(midNode.next);
-        midNode.next = null;
-        Node leftNode = mergesort(head);
-        return merge(leftNode, rightNode);
+        if (size == 1) {
+            head = tail = null;
+            return;
+        }
+        size--;
+        head = head.next;
+        head.prev = null;
     }
 
-    public Node merge(Node leftNode, Node rightNode) {
-        Node mergeLL = new Node(-1);
-        Node temp = mergeLL;
-        while (leftNode != null && rightNode != null) {
-            if (leftNode.data < rightNode.data) {
-                temp.next = leftNode;
-                leftNode = leftNode.next;
-            } else {
-                temp.next = rightNode;
-                rightNode = rightNode.next;
-            }
-            temp = temp.next;
+    public void removeLast() {
+        if (size == 0) {
+            System.out.println("Empty");
+            return;
         }
-        while (leftNode != null) {
-            temp.next = leftNode;
-            leftNode = leftNode.next;
-            temp = temp.next;
+        if (size == 1) {
+            head = tail = null;
+            return;
         }
-        while (rightNode != null) {
-            temp.next = rightNode;
-            rightNode = rightNode.next;
-            temp = temp.next;
-        }
-
-        return mergeLL.next;
+        size--;
+        tail = tail.prev;
+        tail.next = null;
     }
 
-    public void printLL(Node head) {
+    public void printDLL() {
         if (head == null) {
             System.out.println("null");
             return;
         }
         Node temp = head;
+        System.out.print("null<->");
         while (temp != null) {
-            System.out.print(temp.data + "->");
+            System.out.print(temp.data + "<->");
             temp = temp.next;
         }
         System.out.println("null");
     }
 
-    public Node zigZag(Node node) {
-        Node zigzagNode = new Node(-1);
-        Node temp = zigzagNode;
-        Node leftNode = node, rightNode;
-        Node midNode = midNode(node);
-        rightNode = midNode.next;
-        midNode.next = null;
-        rightNode = reverse(rightNode);
-        while (leftNode != null || rightNode != null) {
-            if (leftNode != null) {
-                temp.next = new Node(leftNode.data);
-                leftNode = leftNode.next;
-                temp = temp.next;
-            }
-            if (rightNode != null) {
-                temp.next = new Node(rightNode.data);
-                rightNode = rightNode.next;
-                temp = temp.next;
-            }
+    public void printRevDLL() {
+        if (size == 0) {
+            System.out.println("null");
+            return;
         }
-        return zigzagNode.next;
-    }
-
-    public Node reverse(Node head) {
-        if (head == null) {
-            System.out.println("Empty");
-            return head;
+        Node temp = tail;
+        System.out.print("null<->");
+        while (temp != null) {
+            System.out.print(temp.data + "<->");
+            temp = temp.prev;
         }
-        Node prev = null, crnt = head, nextNode;
-        while (crnt != null) {
-            nextNode = crnt.next;
-            crnt.next = prev;
-            prev = crnt;
-            crnt = nextNode;
-        }
-        return prev;
+        System.out.println("null");
     }
 
     public static void main(String[] args) {
-        LinkedListAp ll = new LinkedListAp();
-        ll.addlast(1);
-        ll.addlast(2);
-        ll.addlast(3);
-        ll.addlast(4);
-        ll.addlast(5);
-        ll.addlast(6);
-        ll.printLL(head);
-        // head = ll.mergesort(head);
-        // head = ll.reverse(head);
-        head = ll.zigZag(head);
-        ll.printLL(head);
+        LinkedListAp dll = new LinkedListAp();
+        dll.addFirst(1);
+        dll.addFirst(2);
+        dll.addFirst(3);
+        dll.addFirst(4);
+        dll.addFirst(5);
+        dll.printDLL();
+        dll.removeFirst();
+        dll.printDLL();
         // System.out.println(ll.isPalindrome());
     }
 }
