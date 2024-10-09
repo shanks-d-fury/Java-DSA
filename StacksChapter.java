@@ -13,15 +13,21 @@ public class StacksChapter {
         s.push(top);
     }
 
+    public static String reverseString(String s) {
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            stack.push(s.charAt(i));
+        }
+        s = "";
+        while (!stack.isEmpty()) {
+            s += stack.pop();
+        }
+        return s;
+    }
+
     public static void main(String[] args) {
         Stack<Integer> s = new Stack<>();
-        s.push(1);
-        s.push(2);
-        s.push(3);
-        pushBottom(s, 4);
-        while (!s.isEmpty()) {
-            System.out.println(s.pop());
-        }
+        System.out.println(reverseString("fuckyou"));
         // System.out.println(s);
     }
 }
