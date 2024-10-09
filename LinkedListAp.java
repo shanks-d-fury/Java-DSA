@@ -31,7 +31,7 @@ public class LinkedListAp {
 
     public Node midNode(Node head) {
         Node slow = head;
-        Node fast = head.next;
+        Node fast = head;
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
@@ -77,7 +77,7 @@ public class LinkedListAp {
         return mergeLL.next;
     }
 
-    public void printLL() {
+    public void printLL(Node head) {
         if (head == null) {
             System.out.println("null");
             return;
@@ -90,17 +90,57 @@ public class LinkedListAp {
         System.out.println("null");
     }
 
+    public Node zigZag(Node node) {
+        Node zigzagNode = new Node(-1);
+        Node temp = zigzagNode;
+        Node leftNode = node, rightNode;
+        Node midNode = midNode(node);
+        rightNode = midNode.next;
+        midNode.next = null;
+        rightNode = reverse(rightNode);
+        while (leftNode != null || rightNode != null) {
+            if (leftNode != null) {
+                temp.next = new Node(leftNode.data);
+                leftNode = leftNode.next;
+                temp = temp.next;
+            }
+            if (rightNode != null) {
+                temp.next = new Node(rightNode.data);
+                rightNode = rightNode.next;
+                temp = temp.next;
+            }
+        }
+        return zigzagNode.next;
+    }
+
+    public Node reverse(Node head) {
+        if (head == null) {
+            System.out.println("Empty");
+            return head;
+        }
+        Node prev = null, crnt = head, nextNode;
+        while (crnt != null) {
+            nextNode = crnt.next;
+            crnt.next = prev;
+            prev = crnt;
+            crnt = nextNode;
+        }
+        return prev;
+    }
+
     public static void main(String[] args) {
         LinkedListAp ll = new LinkedListAp();
-        ll.addlast(6);
-        ll.addlast(2);
-        ll.addlast(10);
-        ll.addlast(9);
         ll.addlast(1);
-        ll.addlast(8);
-        ll.printLL();
-        head = ll.mergesort(head);
-        ll.printLL();
+        ll.addlast(2);
+        ll.addlast(3);
+        ll.addlast(4);
+        ll.addlast(5);
+        ll.addlast(6);
+        ll.printLL(head);
+        // head = ll.mergesort(head);
+        // head = ll.reverse(head);
+        head = ll.zigZag(head);
+        ll.printLL(head);
         // System.out.println(ll.isPalindrome());
     }
 }
