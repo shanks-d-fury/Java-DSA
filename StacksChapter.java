@@ -54,7 +54,7 @@ public class StacksChapter {
 
     public static void nxtGrtElmnt(int ary[], int grtAry[]) {
         Stack<Integer> s = new Stack<>();
-        for (int i = 0; i < ary.length; i++) {
+        for (int i = ary.length - 1; i >= 0; i--) {
             while (!s.isEmpty() && ary[i] <= ary[s.peek()]) {
                 s.pop();
             }
