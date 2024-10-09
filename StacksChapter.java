@@ -1,4 +1,6 @@
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Stack;
 
 public class StacksChapter {
@@ -67,13 +69,31 @@ public class StacksChapter {
         }
     }
 
-    public static void main(String[] args) {
-        int ary[] = { 6, 8, 0, 1, 3 };
-        int grtAry[] = new int[ary.length];
-        nxtGrtElmnt(ary, grtAry);
-        for (int x : grtAry) {
-            System.out.print(x + " ");
+    public static boolean validParanthesis(String sx) {
+        Stack<Character> s = new Stack<>();
+        Set<Character> set = new HashSet<>();
+        set.add('{');
+        set.add('(');
+        set.add('[');
+        for (int i = 0; i < sx.length(); i++) {
+            if (set.contains(sx.charAt(i))) {
+                s.push(sx.charAt(i));
+            } else {
+                char checkChar = ' ';
+                switch (sx.charAt(i)) {
+                    case '}' -> checkChar = '{';
+                    case ')' -> checkChar = '(';
+                    case ']' -> checkChar = '[';
+                }
+                if (s.pop() != checkChar) {
+                    return false;
+                }
+            }
         }
-        // System.out.println(s);
+        return s.isEmpty();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(validParanthesis("((({[[]]}))){{[()]}}[[{}]]"));
     }
 }
