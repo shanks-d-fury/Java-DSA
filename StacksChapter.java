@@ -69,6 +69,26 @@ public class StacksChapter {
         }
     }
 
+    public static boolean checkDuplicateParanthesis(String sx) {
+        Stack<Character> s = new Stack<>();
+        for (int i = 0; i < sx.length(); i++) {
+            if (sx.charAt(i) == ')') {
+                int count = 0;
+                while (s.peek() != '(') {
+                    count++;
+                    s.pop();
+                }
+                s.pop();
+                if (count < 1) {
+                    return true;
+                }
+            } else {
+                s.push(sx.charAt(i));
+            }
+        }
+        return false;
+    }
+
     public static boolean validParanthesis(String sx) {
         Stack<Character> s = new Stack<>();
         Set<Character> set = new HashSet<>();
@@ -94,6 +114,6 @@ public class StacksChapter {
     }
 
     public static void main(String[] args) {
-        System.out.println(validParanthesis("((({[[]]}))){{[()]}}[[{}]]"));
+        System.out.println(checkDuplicateParanthesis("((a+b)+(c+d))"));
     }
 }
