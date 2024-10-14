@@ -11,13 +11,7 @@ public class QueueChapter {
         }
 
         public static void add(int data) {
-            while (!s1.isEmpty()) {
-                s2.push(s1.pop());
-            }
             s1.push(data);
-            while (!s2.isEmpty()) {
-                s1.push(s2.pop());
-            }
         }
 
         public static int remove() {
@@ -25,7 +19,14 @@ public class QueueChapter {
                 System.out.println("Empty");
                 return -1;
             }
-            return s1.pop();
+            while (!s1.isEmpty()) {
+                s2.push(s1.pop());
+            }
+            int removedElement = s2.pop();
+            while (!s2.isEmpty()) {
+                s1.push(s2.pop());
+            }
+            return removedElement;
         }
 
         public static int peek() {
@@ -39,6 +40,7 @@ public class QueueChapter {
 
     public static void main(String args[]) {
         Queues q = new Queues();
+        System.out.println("Queues:- ");
         q.add(1);
         q.add(2);
         q.add(3);
@@ -49,5 +51,16 @@ public class QueueChapter {
             System.out.println(q.remove());
         }
 
+        System.out.println("Stacks :-");
+        Stack<Integer> s = new Stack<>();
+        s.push(1);
+        s.push(2);
+        s.push(3);
+        s.push(4);
+        s.push(5);
+
+        while (!s.isEmpty()) {
+            System.out.println(s.pop());
+        }
     }
 }
