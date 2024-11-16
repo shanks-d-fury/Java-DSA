@@ -1,14 +1,14 @@
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class LeetCodeTestBench {
 
     public static void main(String[] args) {
-        int testArray[] = { 45, 48, 51, 53, 57, 63, 67, 70, 74, 79, 83, 1, 5, 9, 15, 21, 28, 32, 37, 41 };
+        int testArray[] = { 0, 4, 5, 7 };
         //
-        int key = 1;
         long startTime = System.currentTimeMillis();
         //
-        System.out.println(sortedRotatedArray(testArray, key, 0, testArray.length - 1));
+        System.out.println(summaryRanges(testArray));
         //
         long endTime = System.currentTimeMillis();
         long timeTaken = endTime - startTime;
@@ -16,37 +16,27 @@ public class LeetCodeTestBench {
 
     }
 
-    public static void printAry(String ary[]) {
-        for (String x : ary) {
-            System.out.println(x);
-        }
-        System.out.println();
-    }
-
-    public static int sortedRotatedArray(int ary[], int tar, int st, int ed) {
-        // Base case
-        if (st > ed) {
-            return -1;
-        }
-
-        // target found
-        int mid = st + (ed - st) / 2;
-        if (ary[mid] == tar) {
-            return mid;
-        }
-
-        if (ary[st] <= ary[mid]) {
-            if (ary[st] <= tar && tar <= ary[mid]) {
-                return sortedRotatedArray(ary, tar, st, mid - 1);
+    public static List<String> summaryRanges(int[] nums) {
+        ArrayList<String> ans = new ArrayList<>();
+        int start = nums[0];
+        int count = 0;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] != nums[i - 1] + 1) {
+                if (count == 0) {
+                    ans.add(Integer.toString(start));
+                } else {
+                    ans.add(start + "->" + nums[i - 1]);
+                }
+                start = nums[i];
             } else {
-                return sortedRotatedArray(ary, tar, mid + 1, ed);
+                count++;
             }
+        }
+        if (start == nums[nums.length - 1]) {
+            ans.add(Integer.toString(start));
         } else {
-            if (ary[mid] <= tar && tar <= ary[ed]) {
-                return sortedRotatedArray(ary, tar, mid + 1, ed);
-            } else {
-                return sortedRotatedArray(ary, tar, st, mid - 1);
-            }
+            ans.add(start + "->" + nums[nums.length - 1]);
         }
+        return ans;
     }
 }
