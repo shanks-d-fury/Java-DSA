@@ -17,7 +17,15 @@ public class GreedyAlgorithm {
             Selections[i][1] = start[i];
             Selections[i][2] = end[i];
         }
+        System.out.println("Before");
+        for (int[] Selection : Selections) {
+            System.out.println(Selection[0] + " " + Selection[1] + " " + Selection[2]);
+        }
         Arrays.sort(Selections, Comparator.comparingDouble(o -> o[2]));
+        System.out.println("After");
+        for (int[] Selection : Selections) {
+            System.out.println(Selection[0] + " " + Selection[1] + " " + Selection[2]);
+        }
         maxAct = 1;
         ary.add(Selections[0][0]);
         int lastEnd = Selections[0][2];
