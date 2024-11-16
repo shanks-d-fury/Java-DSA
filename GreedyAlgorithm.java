@@ -1,21 +1,21 @@
+
 import java.util.Arrays;
-import java.util.Comparator;
 
 public class GreedyAlgorithm {
     public static void main(String args[]) {
-        int ans;
-        int chainPair[][] = { { 5, 24 }, { 39, 60 }, { 5, 28 }, { 27, 40 }, { 50, 90 } };
-
-        // start the count
-        Arrays.sort(chainPair, Comparator.comparingDouble(o -> o[1]));
-        ans = 1;
-        int endLength = chainPair[0][1];
-        for (int[] chainPair1 : chainPair) {
-            if (chainPair1[0] >= endLength) {
-                ans++;
-                endLength = chainPair1[1];
+        int notes[] = { 1, 2, 5, 10, 20, 50, 100, 200, 500, 2000 };
+        int value = 590;
+        Arrays.sort(notes);
+        int i = notes.length - 1;
+        int note = 0;
+        while (value > 0) {
+            if (notes[i] > value) {
+                i--;
+            } else {
+                note++;
+                value -= notes[i];
             }
         }
-        System.out.println("Max chain pair is : " + ans);
+        System.out.println("Max notes used : " + note);
     }
 }
