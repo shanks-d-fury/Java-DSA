@@ -1,25 +1,33 @@
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class GreedyAlgorithm {
     public static void main(String args[]) {
         int start[] = { 1, 3, 0, 5, 8, 5 };
-        int end[] = { 2, 4, 6, 7, 9, 9 };
+        int end[] = { 2, 8, 6, 9, 9, 7 };
 
         int maxAct;
         ArrayList<Integer> ary = new ArrayList<>();
-
+        int Selections[][] = new int[start.length][3];
         // start the selection
+        for (int i = 0; i < start.length; i++) {
+            Selections[i][0] = i;
+            Selections[i][1] = start[i];
+            Selections[i][2] = end[i];
+        }
+        Arrays.sort(Selections, Comparator.comparingDouble(o -> o[2]));
         maxAct = 1;
-        ary.add(0);
-        int lastEnd = end[0];
+        ary.add(Selections[0][0]);
+        int lastEnd = Selections[0][2];
 
         for (int i = 0; i < end.length; i++) {
-            if (start[i] >= lastEnd) {
+            if (Selections[i][1] >= lastEnd) {
                 // select activity
                 maxAct++;
-                ary.add(i);
-                lastEnd = end[i];
+                ary.add(Selections[i][0]);
+                lastEnd = Selections[i][2];
             }
         }
 
