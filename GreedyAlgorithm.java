@@ -1,47 +1,21 @@
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 
 public class GreedyAlgorithm {
     public static void main(String args[]) {
-        int start[] = { 1, 3, 0, 5, 8, 5 };
-        int end[] = { 2, 8, 6, 9, 9, 7 };
+        int ans;
+        int chainPair[][] = { { 5, 24 }, { 39, 60 }, { 5, 28 }, { 27, 40 }, { 50, 90 } };
 
-        int maxAct;
-        ArrayList<Integer> ary = new ArrayList<>();
-        int Selections[][] = new int[start.length][3];
-        // start the selection
-        for (int i = 0; i < start.length; i++) {
-            Selections[i][0] = i;
-            Selections[i][1] = start[i];
-            Selections[i][2] = end[i];
-        }
-        System.out.println("Before");
-        for (int[] Selection : Selections) {
-            System.out.println(Selection[0] + " " + Selection[1] + " " + Selection[2]);
-        }
-        Arrays.sort(Selections, Comparator.comparingDouble(o -> o[2]));
-        System.out.println("After");
-        for (int[] Selection : Selections) {
-            System.out.println(Selection[0] + " " + Selection[1] + " " + Selection[2]);
-        }
-        maxAct = 1;
-        ary.add(Selections[0][0]);
-        int lastEnd = Selections[0][2];
-
-        for (int i = 0; i < end.length; i++) {
-            if (Selections[i][1] >= lastEnd) {
-                // select activity
-                maxAct++;
-                ary.add(Selections[i][0]);
-                lastEnd = Selections[i][2];
+        // start the count
+        Arrays.sort(chainPair, Comparator.comparingDouble(o -> o[1]));
+        ans = 1;
+        int endLength = chainPair[0][1];
+        for (int[] chainPair1 : chainPair) {
+            if (chainPair1[0] >= endLength) {
+                ans++;
+                endLength = chainPair1[1];
             }
         }
-
-        System.out.println("max activity :" + maxAct);
-        for (Integer i : ary) {
-            System.out.print("A" + i + " ");
-        }
+        System.out.println("Max chain pair is : " + ans);
     }
 }
