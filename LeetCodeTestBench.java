@@ -1,54 +1,54 @@
-import java.util.ArrayList;
-import java.util.List;
 
 public class LeetCodeTestBench {
 
     public static void main(String[] args) {
-        int testArray[][] = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 } };
+        int testArray[][] = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
         //
         long startTime = System.currentTimeMillis();
         //
-        System.out.println(spiralOrder(testArray));
+        rotate(testArray);
         //
         long endTime = System.currentTimeMillis();
         long timeTaken = endTime - startTime;
         System.out.println("Time taken : " + timeTaken + " ms");
     }
 
-    public static List<Integer> spiralOrder(int[][] matrix) {
-        ArrayList<Integer> ary = new ArrayList<>();
-        int startRow = 0;
-        int endRow = matrix.length - 1;
-        int startCol = 0;
-        int endCol = matrix[0].length - 1;
-        while (startRow <= endRow && startCol <= endCol) {
-            // Top
-            for (int j = startCol; j <= endCol; j++) {
-                ary.add(matrix[startRow][j]);
+    public static void rotate(int[][] matrix) {
+        for (int[] mat : matrix) {
+            for (int num : mat) {
+                System.out.print(num + " ");
             }
-            // Right
-            for (int i = startRow + 1; i <= endRow; i++) {
-                ary.add(matrix[i][endCol]);
-            }
-            // Bottom
-            for (int j = endCol - 1; j >= startCol; j--) {
-                if (startRow == endRow) {
-                    break;
-                }
-                ary.add(matrix[endRow][j]);
-            }
-            // Left
-            for (int i = endRow - 1; i >= startRow + 1; i--) {
-                if (startCol == endCol) {
-                    break;
-                }
-                ary.add(matrix[i][startCol]);
-            }
-            startCol++;
-            startRow++;
-            endCol--;
-            endRow--;
+            System.out.println();
         }
-        return ary;
+        System.out.println();
+        int n = matrix.length - 1;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = i + 1; j < matrix.length; j++) {
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = temp;
+            }
+        }
+        for (int[] mat : matrix) {
+            for (int num : mat) {
+                System.out.print(num + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+        for (int i = 0; i < (matrix.length) / 2; i++) {
+            for (int[] matx : matrix) {
+                int temp = matx[i];
+                matx[i] = matx[n - i];
+                matx[n - i] = temp;
+            }
+        }
+        for (int[] mat : matrix) {
+            for (int num : mat) {
+                System.out.print(num + " ");
+            }
+            System.out.println();
+        }
+
     }
 }
