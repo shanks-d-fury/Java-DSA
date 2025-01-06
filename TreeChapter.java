@@ -1,3 +1,6 @@
+
+import java.util.*;
+
 public class TreeChapter {
     static class Node {
         int data;
@@ -56,14 +59,54 @@ public class TreeChapter {
         System.out.print(node.data + " ");
     }
 
+    public static void levelOrder(Node node) {
+        if (node == null) {
+            return;
+        }
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(node);
+        queue.add(null);
+
+        while (!queue.isEmpty()) {
+            Node crtNode = queue.remove();
+            if (crtNode == null) {
+                System.out.println();
+                if (queue.isEmpty()) {
+                    break;
+                } else {
+                    queue.add(null);
+                }
+            } else {
+                System.out.print(crtNode.data + " ");
+                if (crtNode.left != null) {
+                    queue.add(crtNode.left);
+                }
+                if (crtNode.right != null) {
+                    queue.add(crtNode.right);
+                }
+            }
+        }
+    }
+
+    public static int height(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        int lh = height(node.left);
+        int rh = height(node.right);
+        return Math.max(lh, rh) + 1;
+    }
+
     public static void main(String args[]) {
-        int[] nodes = { 1, 2, 3, -1, -1, -1, 4, 5, -1 };
+        int[] nodes = { 1, 2, 3, -1, -1, -1, 4, 5, 6 };
         Node root = BineryTree.buildTree(nodes);
-        preorder(root);
-        System.out.println();
-        inorder(root);
-        System.out.println();
-        postorder(root);
+        // preorder(root);
+        // System.out.println();
+        // inorder(root);
+        // System.out.println();
+        // postorder(root);
+        levelOrder(root);
+        System.out.println(height(root));
         // System.out.println(root.left.right.left.data);
     }
 }
