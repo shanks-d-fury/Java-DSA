@@ -97,8 +97,26 @@ public class TreeChapter {
         return Math.max(lh, rh) + 1;
     }
 
+    public static int count(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        int lh = count(node.left);
+        int rh = count(node.right);
+        return lh + rh + 1;
+    }
+
+    public static int sum(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        int lh = sum(node.left);
+        int rh = sum(node.right);
+        return lh + rh + node.data;
+    }
+
     public static void main(String args[]) {
-        int[] nodes = { 1, 2, 3, -1, -1, -1, 4, 5, 6 };
+        int[] nodes = { 1, 2, 3, -1, -1, -1, 4, 5 };
         Node root = BineryTree.buildTree(nodes);
         // preorder(root);
         // System.out.println();
@@ -107,6 +125,8 @@ public class TreeChapter {
         // postorder(root);
         levelOrder(root);
         System.out.println(height(root));
+        System.out.println(count(root));
+        System.out.println(sum(root));
         // System.out.println(root.left.right.left.data);
     }
 }
