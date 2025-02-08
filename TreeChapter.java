@@ -163,8 +163,62 @@ public class TreeChapter {
         return subtree(root.left, subroot) || subtree(root.right, subroot);
     }
 
+    public static class Infox {
+        Node node;
+        int ht;
+
+        public Infox(Node node, int ht) {
+            this.node = node;
+            this.ht = ht;
+        }
+    }
+
+    public static void topView(Node root) {
+        Queue<Infox> q = new LinkedList<>();
+        HashMap<Integer, Node> map = new HashMap<>();
+        int min = 0, max = 0;
+        q.add(new Infox(root, 0));
+        q.add(null);
+        while (!q.isEmpty()) {
+            Infox crnt = q.remove();
+            if (crnt == null) {
+                if (q.isEmpty()) {
+                    break;
+                } else {
+                    q.add(null);
+                }
+            } else {
+                if (!map.containsKey(crnt.ht)) {
+                    map.put(crnt.ht, crnt.node);
+                }
+                if (crnt.node.left != null) {
+                    q.add(new Infox(crnt.node.left, crnt.ht - 1));
+                    min = Math.min(min, crnt.ht - 1);
+                }
+                if (crnt.node.right != null) {
+                    q.add(new Infox(crnt.node.right, crnt.ht + 1));
+                    max = Math.max(min, crnt.ht + 1);
+                }
+            }
+        }
+
+        for (int i = min; i <= max; i++) {
+            System.out.print(map.get(i).data + " ");
+        }
+    }
+
     public static void main(String args[]) {
         int[] nodes = { 1, 2, 3, -1, -1, -1, 4, 5 };
+
+        /*
+         * Tree of the above number
+         * 1
+         * / \
+         * 2 4
+         * / /
+         * 3 5
+         */
+
         Node root = BineryTree.buildTree(nodes);
         // preorder(root);
         // System.out.println();
@@ -184,6 +238,9 @@ public class TreeChapter {
         subRoot.right = new Node(5);
 
         System.out.println(subtree(root, subRoot));
+
+        System.out.println();
+        topView(root);
         // System.out.println(root.left.right.left.data);
     }
 }
