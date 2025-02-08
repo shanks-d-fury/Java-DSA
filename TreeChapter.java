@@ -1,4 +1,3 @@
-
 import java.util.*;
 
 public class TreeChapter {
@@ -60,31 +59,22 @@ public class TreeChapter {
     }
 
     public static void levelOrder(Node node) {
-        if (node == null) {
+        if (node == null)
             return;
-        }
         Queue<Node> queue = new LinkedList<>();
         queue.add(node);
-        queue.add(null);
 
         while (!queue.isEmpty()) {
-            Node crtNode = queue.remove();
-            if (crtNode == null) {
-                System.out.println();
-                if (queue.isEmpty()) {
-                    break;
-                } else {
-                    queue.add(null);
-                }
-            } else {
-                System.out.print(crtNode.data + " ");
-                if (crtNode.left != null) {
-                    queue.add(crtNode.left);
-                }
-                if (crtNode.right != null) {
-                    queue.add(crtNode.right);
-                }
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                Node curr = queue.poll();
+                System.out.print(curr.data + " ");
+                if (curr.left != null)
+                    queue.add(curr.left);
+                if (curr.right != null)
+                    queue.add(curr.right);
             }
+            System.out.println();
         }
     }
 
@@ -115,6 +105,38 @@ public class TreeChapter {
         return lh + rh + node.data;
     }
 
+    public static int diameter(Node root) {
+        if (root == null) {
+            return 0;
+        }
+        int left = diameter(root.left);
+        int right = diameter(root.right);
+        int lh = height(root.left);
+        int rh = height(root.right);
+        return Math.max(lh + rh + 1, Math.max(left, right));
+    }
+
+    static class Info {
+        int dia;
+        int ht;
+
+        public Info(int dia, int ht) {
+            this.dia = dia;
+            this.ht = ht;
+        }
+    }
+
+    public static Info dia(Node root) {
+        if (root == null) {
+            return new Info(0, 0);
+        }
+        Info lInfo = dia(root.left);
+        Info rInfo = dia(root.right);
+        int diam = Math.max(Math.max(lInfo.dia, rInfo.dia), lInfo.ht + rInfo.ht + 1);
+        int ht = Math.max(lInfo.ht, rInfo.ht) + 1;
+        return new Info(diam, ht);
+    }
+
     public static void main(String args[]) {
         int[] nodes = { 1, 2, 3, -1, -1, -1, 4, 5 };
         Node root = BineryTree.buildTree(nodes);
@@ -127,6 +149,8 @@ public class TreeChapter {
         System.out.println(height(root));
         System.out.println(count(root));
         System.out.println(sum(root));
+        System.out.println(diameter(root));
+        System.out.println(dia(root).dia + " " + dia(root).ht);
         // System.out.println(root.left.right.left.data);
     }
 }
