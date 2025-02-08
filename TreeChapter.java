@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class TreeChapter {
-    static class Node {
+    public static class Node {
         int data;
         Node left;
         Node right;
@@ -13,7 +13,7 @@ public class TreeChapter {
         }
     }
 
-    public class BineryTree {
+    public static class BineryTree {
         static int idx = -1;
 
         public static Node buildTree(int nodes[]) {
@@ -116,7 +116,7 @@ public class TreeChapter {
         return Math.max(lh + rh + 1, Math.max(left, right));
     }
 
-    static class Info {
+    public static class Info {
         int dia;
         int ht;
 
@@ -137,6 +137,32 @@ public class TreeChapter {
         return new Info(diam, ht);
     }
 
+    public static boolean isIdentical(Node root, Node subroot) {
+        if (root == null && subroot == null) {
+            return true;
+        } else if (root == null || subroot == null || subroot.data != root.data) {
+            return false;
+        }
+        if (!isIdentical(root.left, subroot.left)) {
+            return false;
+        } else if (!isIdentical(root.right, subroot.right)) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean subtree(Node root, Node subroot) {
+        if (root == null) {
+            return false;
+        }
+        if (subroot.data == root.data) {
+            if (isIdentical(root, subroot)) {
+                return true;
+            }
+        }
+        return subtree(root.left, subroot) || subtree(root.right, subroot);
+    }
+
     public static void main(String args[]) {
         int[] nodes = { 1, 2, 3, -1, -1, -1, 4, 5 };
         Node root = BineryTree.buildTree(nodes);
@@ -151,6 +177,13 @@ public class TreeChapter {
         System.out.println(sum(root));
         System.out.println(diameter(root));
         System.out.println(dia(root).dia + " " + dia(root).ht);
+
+        // subtree problem
+        Node subRoot = new Node(2);
+        subRoot.left = new Node(3);
+        subRoot.right = new Node(5);
+
+        System.out.println(subtree(root, subRoot));
         // System.out.println(root.left.right.left.data);
     }
 }
