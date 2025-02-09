@@ -207,16 +207,30 @@ public class TreeChapter {
         }
     }
 
+    public static void kthLevel(Node root, int level, int k) {
+        if (root == null) {
+            return;
+        }
+        if (level == k) {
+            System.out.print(root.data + " ");
+            return;
+        }
+        kthLevel(root.left, level + 1, k);
+        kthLevel(root.right, level + 1, k);
+    }
+
     public static void main(String args[]) {
         int[] nodes = { 1, 2, 3, -1, -1, -1, 4, 5 };
 
         /*
          * Tree of the above number
+         * 
          * 1
          * / \
          * 2 4
          * / /
          * 3 5
+         * 
          */
 
         Node root = BineryTree.buildTree(nodes);
@@ -242,5 +256,9 @@ public class TreeChapter {
         System.out.println();
         topView(root);
         // System.out.println(root.left.right.left.data);
+
+        // kth level
+        System.out.println();
+        kthLevel(root, 1, 3);
     }
 }
