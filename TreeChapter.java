@@ -307,6 +307,19 @@ public class TreeChapter {
         return (Math.max(left, right) + 1);
     }
 
+    public static int sumTree(Node root) {
+        if (root == null) {
+            return 0;
+        }
+        int leftSum = sumTree(root.left);
+        int rightSum = sumTree(root.right);
+        int data = root.data;
+
+        root.data = (root.left == null ? 0 : root.left.data) + leftSum + (root.right == null ? 0 : root.right.data)
+                + rightSum;
+        return data;
+    }
+
     public static void main(String args[]) {
         int[] nodes = { 1, 2, 3, -1, -1, -1, 4, 5 };
 
@@ -359,5 +372,7 @@ public class TreeChapter {
         System.out.println("Min distance between : " + (searchNode(lca, 3) + searchNode(lca, 5)));
 
         kthAnsestor(root, 5, 1);
+        sumTree(root);
+        preorder(root);
     }
 }
