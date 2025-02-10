@@ -295,17 +295,16 @@ public class TreeChapter {
             return 0;
         }
 
-        int left = searchNode(root.left, n);
-        int right = searchNode(root.right, n);
+        int left = kthAnsestor(root.left, n, k);
+        int right = kthAnsestor(root.right, n, k);
 
         if (left == -1 && right == -1) {
             return -1;
         }
-
         if (Math.max(left, right) + 1 == k) {
-            return root.data;
+            System.out.println("kth Ansestor of a node : " + root.data);
         }
-        return -1;
+        return (Math.max(left, right) + 1);
     }
 
     public static void main(String args[]) {
@@ -359,6 +358,6 @@ public class TreeChapter {
         Node lca = lca(root, 3, 5);
         System.out.println("Min distance between : " + (searchNode(lca, 3) + searchNode(lca, 5)));
 
-        System.out.println("kth Ansestor of a node : " + kthAnsestor(root, 4, 1));
+        kthAnsestor(root, 5, 1);
     }
 }
