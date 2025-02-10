@@ -1,4 +1,7 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class TreeChapter {
     public static class Node {
@@ -219,6 +222,53 @@ public class TreeChapter {
         kthLevel(root.right, level + 1, k);
     }
 
+    public static boolean findPath(Node root, int n, ArrayList<Node> path) {
+        if (root == null) {
+            return false;
+        }
+        path.add(root);
+        if (root.data == n) {
+            return true;
+        }
+        boolean leftFound = findPath(root.left, n, path);
+        boolean rightFound = findPath(root.right, n, path);
+        if (leftFound || rightFound) {
+            return true;
+        }
+        path.remove(path.size() - 1);
+        return false;
+    }
+
+    public static Node lowestCommonAnsestor(Node root, int n1, int n2) {
+        ArrayList<Node> lpath = new ArrayList<>();
+        ArrayList<Node> rpath = new ArrayList<>();
+        findPath(root, n1, lpath);
+        findPath(root, n2, rpath);
+
+        int i = 0;
+        for (; i < lpath.size() && i < rpath.size(); i++) {
+            if (lpath.get(i) != rpath.get(i)) {
+                break;
+            }
+        }
+        return lpath.get(i - 1);
+    }
+
+    public static Node lca(Node root, int n1, int n2) {
+        if (root == null || root.data == n1 || root.data == n2) {
+            return root;
+        }
+        Node llca = lca(root.left, n1, n2);
+        Node rlca = lca(root.right, n1, n2);
+        if (llca == null) {
+            return rlca;
+        }
+        if (rlca == null) {
+            return llca;
+        }
+        return root;
+    }
+
     public static void main(String args[]) {
         int[] nodes = { 1, 2, 3, -1, -1, -1, 4, 5 };
 
@@ -260,5 +310,12 @@ public class TreeChapter {
         // kth level
         System.out.println();
         kthLevel(root, 1, 3);
+
+        // Common ansestor for two nodes
+        System.out.println();
+        System.out.println("Lowest common ansestor: " + lowestCommonAnsestor(root, 1, 1).data);
+
+        System.out.println();
+        System.out.println("Lowest common ansestor: " + lca(root, 2, 3).data);
     }
 }
