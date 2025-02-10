@@ -287,6 +287,27 @@ public class TreeChapter {
         return Math.max(left, right) + 1;
     }
 
+    public static int kthAnsestor(Node root, int n, int k) {
+        if (root == null) {
+            return -1;
+        }
+        if (root.data == n) {
+            return 0;
+        }
+
+        int left = searchNode(root.left, n);
+        int right = searchNode(root.right, n);
+
+        if (left == -1 && right == -1) {
+            return -1;
+        }
+
+        if (Math.max(left, right) + 1 == k) {
+            return root.data;
+        }
+        return -1;
+    }
+
     public static void main(String args[]) {
         int[] nodes = { 1, 2, 3, -1, -1, -1, 4, 5 };
 
@@ -337,5 +358,7 @@ public class TreeChapter {
         System.out.println("Lowest common ansestor: " + lca(root, 2, 3).data);
         Node lca = lca(root, 3, 5);
         System.out.println("Min distance between : " + (searchNode(lca, 3) + searchNode(lca, 5)));
+
+        System.out.println("kth Ansestor of a node : " + kthAnsestor(root, 4, 1));
     }
 }
