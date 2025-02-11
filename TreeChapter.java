@@ -320,8 +320,21 @@ public class TreeChapter {
         return data;
     }
 
+    public static void invertTree(Node root) {
+        // Mirror of a Tree:Mirror of a Binary Tree Tis another Binary Tree M(T) with
+        // left and right children of all non-leaf nodes interchanged
+        if (root == null) {
+            return;
+        }
+        Node replacenNode = root.left;
+        root.left = root.right;
+        root.right = replacenNode;
+        invertTree(root.left);
+        invertTree(root.right);
+    }
+
     public static void main(String args[]) {
-        int[] nodes = { 1, 2, 3, -1, -1, -1, 4, 5 };
+        int[] nodes = { 1, 2, 4, -1, -1, 5, -1, -1, 3, 6, -1, -1, 7 };
 
         /*
          * Tree of the above number
@@ -340,7 +353,9 @@ public class TreeChapter {
         // inorder(root);
         // System.out.println();
         // postorder(root);
+        // System.out.println();
         levelOrder(root);
+        System.out.println();
         System.out.println(height(root));
         System.out.println(count(root));
         System.out.println(sum(root));
@@ -371,8 +386,11 @@ public class TreeChapter {
         Node lca = lca(root, 3, 5);
         System.out.println("Min distance between : " + (searchNode(lca, 3) + searchNode(lca, 5)));
 
-        kthAnsestor(root, 5, 1);
-        sumTree(root);
-        preorder(root);
+        // kthAnsestor(root, 5, 1);
+        // sumTree(root);
+        // preorder(root);
+        invertTree(root);
+        levelOrder(root);
+
     }
 }
