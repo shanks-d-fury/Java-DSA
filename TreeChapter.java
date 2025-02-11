@@ -333,8 +333,30 @@ public class TreeChapter {
         invertTree(root.right);
     }
 
+    public static boolean removeDupLevNode(Node root, int target) {
+        // Delete leaf nodes with values as x
+        // We have a binary tree and a target integer x,delete all the leaf nodes having
+        // value as x
+        // Also,delete the newly formed leaves with the target value as x.
+
+        if (root == null) {
+            return false;
+        }
+        if (root.data == target && root.left == null && root.right == null) {
+            return true;
+        }
+        boolean left = removeDupLevNode(root.left, target);
+        boolean right = removeDupLevNode(root.right, target);
+        if (left) {
+            root.left = null;
+        } else if (right) {
+            root.right = null;
+        }
+        return false;
+    }
+
     public static void main(String args[]) {
-        int[] nodes = { 1, 2, 4, -1, -1, 5, -1, -1, 3, 6, -1, -1, 7 };
+        int[] nodes = { 1, 3, 3, -1, -1, 2, -1, -1, 3 };
 
         /*
          * Tree of the above number
@@ -389,7 +411,10 @@ public class TreeChapter {
         // kthAnsestor(root, 5, 1);
         // sumTree(root);
         // preorder(root);
-        invertTree(root);
+        // invertTree(root);
+        levelOrder(root);
+
+        removeDupLevNode(root, 3);
         levelOrder(root);
 
     }
