@@ -34,6 +34,20 @@ public class BinerySearchTree {
         inorder(root.right);
     }
 
+    public static void searchBST(Node root, int target) {
+        if (root == null) {
+            System.out.println("NOT Found");
+            return;
+        }
+        if (root.data == target) {
+            System.out.println("Found");
+        } else if (root.data < target) {
+            searchBST(root.right, target);
+        } else {
+            searchBST(root.left, target);
+        }
+    }
+
     public static void main(String[] args) {
         int nodes[] = { 5, 1, 3, 4, 2, 7 };
         Node root = null;
@@ -42,5 +56,7 @@ public class BinerySearchTree {
         }
 
         inorder(root);
+        System.out.println();
+        searchBST(root, 4);
     }
 }
