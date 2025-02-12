@@ -355,19 +355,57 @@ public class TreeChapter {
         return false;
     }
 
-    public static void main(String args[]) {
-        int[] nodes = { 1, 3, 3, -1, -1, 2, -1, -1, 3 };
+    public static void subTreeToList(Node root, ArrayList<Integer> list) {
+        if (root == null) {
+            list.add(-1);
+            return;
+        }
+        list.add(root.data);
+        subTreeToList(root.left, list);
+        subTreeToList(root.right, list);
+    }
 
-        /*
-         * Tree of the above number
-         * 
-         * 1
-         * / \
-         * 2 4
-         * / /
-         * 3 5
-         * 
-         */
+    public static void removeDupSubTree(Node root) {
+        if (root == null) {
+            return;
+        }
+        ArrayList<Integer> left = new ArrayList<>();
+        ArrayList<Integer> right = new ArrayList<>();
+
+        subTreeToList(root.left, left);
+        subTreeToList(root.right, right);
+
+        System.out.println(" " + left);
+        System.out.println(right + " ");
+
+        int size = Math.max(left.size(), right.size());
+        int j = 0, i = 0, x = 0;
+        boolean isTrue = true;
+        while (x < size) {
+            if (left.size() > right.size() && !left.get(i).equals(right.get(i))) {
+                i++;
+            } else if (left.size() > right.size() && !left.get(j).equals(right.get(j))) {
+                j++;
+            }
+        }
+        int k = i > j ? left.get(i) : right.get(j);
+        for (; i < size & j < size; i++, j++) {
+            if (!left.get(i).equals(right.get(j))) {
+                isTrue = false;
+                break;
+            }
+        }
+
+        if (isTrue) {
+            System.out.println(k);
+        }
+
+        removeDupSubTree(root.left);
+        removeDupSubTree(root.right);
+    }
+
+    public static void main(String args[]) {
+        int[] nodes = { 1, 4, 3, -1, -1, -1, 3, 4, 3, -1, -1, -1, 3 };
 
         Node root = BineryTree.buildTree(nodes);
         // preorder(root);
@@ -412,10 +450,13 @@ public class TreeChapter {
         // sumTree(root);
         // preorder(root);
         // invertTree(root);
+        System.out.println();
         levelOrder(root);
 
-        removeDupLevNode(root, 3);
-        levelOrder(root);
+        // removeDupLevNode(root, 3);
+        // levelOrder(root);
+        System.out.println("Remove duplicate sub tree");
+        removeDupSubTree(root);
 
     }
 }
