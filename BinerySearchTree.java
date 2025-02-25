@@ -28,6 +28,22 @@ public class BinerySearchTree {
         return root;
     }
 
+    static int idx = -1;
+
+    public static Node buildTree(int nodes[]) {
+        idx++;
+        if (idx >= nodes.length) {
+            return null;
+        }
+        if (nodes[idx] == -1) {
+            return null;
+        }
+        Node newNode = new Node(nodes[idx]);
+        newNode.left = buildTree(nodes);
+        newNode.right = buildTree(nodes);
+        return newNode;
+    }
+
     public static void inorder(Node root) {
         if (root == null) {
             return;
@@ -117,12 +133,26 @@ public class BinerySearchTree {
             printInRange(root.left, k1, k2);
     }
 
+    public static boolean isValidBST(Node root, Node min, Node max) {
+        if (root == null) {
+            return true;
+        }
+        if (min != null && root.data < min.data) {
+            return false;
+        } else if (max != null && root.data > max.data) {
+            return false;
+        }
+        return isValidBST(root.left, min, root) && isValidBST(root.right, root, max);
+    }
+
     public static void main(String[] args) {
-        int nodes[] = { 8, 5, 3, 1, 4, 6, 10, 11, 14 };
+        int nodes[] = { 3, 2, 1 };
         Node root = null;
         for (int i = 0; i < nodes.length; i++) {
             root = buildBST(root, nodes[i]);
         }
+
+        // Node root = buildTree(nodes);
 
         inorder(root);
         System.out.println();
@@ -136,6 +166,8 @@ public class BinerySearchTree {
         // levelOrder(root);
         // System.out.println("print in range");
 
-        printInRange(root, 1, 6);
+        // printInRange(root, 1, 6);
+        String ans = (isValidBST(root, null, null) ? "valid" : "invalid");
+        System.out.println(ans);
     }
 }
