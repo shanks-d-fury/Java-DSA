@@ -145,8 +145,19 @@ public class BinerySearchTree {
         return isValidBST(root.left, min, root) && isValidBST(root.right, root, max);
     }
 
+    public static Node BuildBalancedBST(int[] nodes, int s, int e) {
+        if (s > e) {
+            return null;
+        }
+        int mid = (s + e) / 2;
+        Node root = new Node(nodes[mid]);
+        root.left = BuildBalancedBST(nodes, s, mid - 1);
+        root.right = BuildBalancedBST(nodes, mid + 1, e);
+        return root;
+    }
+
     public static void main(String[] args) {
-        int nodes[] = { 3, 2, 1 };
+        int nodes[] = { 3, 5, 6, 8, 10, 11, 12 };
         Node root = null;
         for (int i = 0; i < nodes.length; i++) {
             root = buildBST(root, nodes[i]);
@@ -167,7 +178,10 @@ public class BinerySearchTree {
         // System.out.println("print in range");
 
         // printInRange(root, 1, 6);
-        String ans = (isValidBST(root, null, null) ? "valid" : "invalid");
-        System.out.println(ans);
+        // System.out.println((isValidBST(root, null, null) ? "valid" : "invalid"));
+
+        Node newRoot = BuildBalancedBST(nodes, 0, nodes.length - 1);
+        levelOrder(newRoot);
+
     }
 }
