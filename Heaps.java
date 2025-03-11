@@ -1,5 +1,7 @@
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.PriorityQueue;
 
 public class Heaps {
     static class Heap {
@@ -9,7 +11,7 @@ public class Heaps {
             heap.add(x);
             int childIdx = heap.size() - 1;
             int parentIdx = (childIdx - 1) / 2;
-            while (heap.get(childIdx) < heap.get(parentIdx)) {
+            while (heap.get(childIdx) < heap.get(parentIdx)) { // TODO :change "<" to ">" to convert to Max
                 int temp = heap.get(childIdx);
                 heap.set(childIdx, heap.get(parentIdx));
                 heap.set(parentIdx, temp);
@@ -44,10 +46,10 @@ public class Heaps {
             int rightChild = 2 * i + 2;
             int minIdx = i;
 
-            if (leftChild < heap.size() && heap.get(minIdx) > heap.get(leftChild)) {
+            if (leftChild < heap.size() && heap.get(minIdx) > heap.get(leftChild)) {// TODO
                 minIdx = leftChild;
             }
-            if (rightChild < heap.size() && heap.get(minIdx) > heap.get(rightChild)) {
+            if (rightChild < heap.size() && heap.get(minIdx) > heap.get(rightChild)) {// TODO
                 minIdx = rightChild;
             }
             if (minIdx != i) {
@@ -72,5 +74,23 @@ public class Heaps {
 
         heap.remove();
         heap.print();
+
+        System.out.println("Min rope length : ");
+        int input[] = Genarate_Random.generateRandomArray(5, 0, 10);
+        System.out.println(Arrays.toString(input));
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for (int i = 0; i < input.length; i++) {
+            pq.add(input[i]);
+        }
+        System.out.println(pq);
+        int cost = 0;
+        while (pq.size() > 1) {
+            int min1 = pq.remove();
+            int min2 = pq.remove();
+            cost += min1 + min2;
+            pq.add(min1 + min2);
+            System.out.println(pq);
+        }
+        System.out.println(cost);
     }
 }
