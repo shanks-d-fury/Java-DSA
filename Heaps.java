@@ -1,6 +1,5 @@
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class Heaps {
@@ -15,12 +14,13 @@ public class Heaps {
 
         @Override
         public int compareTo(Info s2) {
-            return this.data - s2.data;
+            // return this.data - s2.data;
+            return s2.data - this.data;
         }
     }
 
     public static void main(String[] args) {
-        PriorityQueue<Info> pq = new PriorityQueue<>(Comparator.reverseOrder());
+        PriorityQueue<Info> pq = new PriorityQueue<>();
         // int[] ary = Genarate_Random.generateRandomArray(7, -5, 5);
         int[] ary = { -5, -3, 0, -5, 5, -1, 5 };
         System.out.println(Arrays.toString(ary));
