@@ -1,34 +1,22 @@
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class HashMapChapter {
-    public static String findStart(HashMap<String, String> hm) {
-        HashMap<String, String> rhm = new HashMap<>();
-        for (String key : hm.keySet()) {
-            rhm.put(hm.get(key), key);
-        }
-        for (String key : hm.keySet()) {
-            if (!rhm.containsKey(key)) {
-                return key;
+    public static void main(String[] args) {
+        // Largest subarray length which has the sum zero
+        HashMap<Integer, Integer> hm = new HashMap<>();
+        int ary[] = Genarate_Random.generateRandomArray(4, -1, 5);
+        System.out.println(Arrays.toString(ary));
+        int sum = 0, len = 0;
+        for (int j = 0; j < ary.length; j++) {
+            sum += ary[j];
+            if (hm.containsKey(sum)) {
+                len = Math.max(j - hm.get(sum), len);
+            } else {
+                hm.put(sum, j);
             }
         }
-        return null;
-    }
-
-    public static void main(String[] args) {
-        // question statement is that find the ticket itenary which is the path from
-        // start to end
-        HashMap<String, String> hm = new HashMap<>();
-        hm.put("blg", "bwt");
-        hm.put("bwt", "klr");
-        hm.put("klr", "hkt");
-        hm.put("hkt", "wft");
-        hm.put("wft", "cmrit");
-
-        String Start = findStart(hm);
-        System.out.print(Start);
-        while (hm.containsKey(Start)) {
-            System.out.print("->" + hm.get(Start));
-            Start = hm.get(Start);
-        }
+        System.out.println(hm);
+        System.out.println("SubArray with sum 0 => " + len);
     }
 }
