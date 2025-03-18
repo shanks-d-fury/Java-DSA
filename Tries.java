@@ -93,6 +93,21 @@ public class Tries {
         System.out.println(ans);
     }
 
+    public static void prefixAP(Node root, String ans) {
+        if (root == null) {
+            return;
+        }
+        if (root.freq == 1) {
+            System.out.print(ans + " ");
+            return;
+        }
+        for (int idx = 0; idx < root.children.length; idx++) {
+            if (root.children != null) {
+                prefixAP(root.children[idx], ans + (char) (idx + 'a'));
+            }
+        }
+    }
+
     public static void main(String args[]) {
         String words[] = {
                 "zebra", "dog", "duck", "dove", "hadshi", "shanks"
@@ -100,7 +115,13 @@ public class Tries {
         for (String word : words)
             insert(word);
 
+        // Prefix of the words my way
         prefix(root, words);
+
+        root.freq = -1;
+        // prefix of the words in AP way
+        prefixAP(root, "");
+        System.out.println();
         System.out.println("\nTrie in form of level order ");
         printTrie(root);
 
