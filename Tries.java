@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -5,11 +6,13 @@ public class Tries {
     public static class Node {
         Node children[] = new Node[26];
         boolean eow = false;
+        int freq;
 
         Node() {
             for (int i = 0; i < children.length; i++) {
                 children[i] = null;
             }
+            freq = 1;
         }
     }
 
@@ -21,23 +24,28 @@ public class Tries {
             int idx = word.charAt(i) - 'a';
             if (crnt.children[idx] == null) {
                 crnt.children[idx] = new Node();
+            } else {
+                crnt.children[idx].freq++;
             }
             crnt = crnt.children[idx];
         }
         crnt.eow = true;
     }
 
-    public static boolean search(String key) {
-        System.out.print("Searching for the key : " + key + " => ");
+    public static String search(String key) {
         Node crnt = root;
+        String ans = "";
         for (int i = 0; i < key.length(); i++) {
             int idx = key.charAt(i) - 'a';
-            if (crnt.children[idx] == null) {
-                return false;
+            if (crnt.children[idx].freq == 1) {
+                ans += (char) (idx + 'a');
+                break;
+            } else if (crnt.children[idx] != null) {
+                ans += (char) (idx + 'a');
             }
             crnt = crnt.children[idx];
         }
-        return crnt.eow == true;
+        return ans;
     }
 
     public static class Info {
@@ -75,26 +83,24 @@ public class Tries {
                 }
             }
         }
+    }
 
+    public static void prefix(Node root, String words[]) {
+        ArrayList<String> ans = new ArrayList<>();
+        for (String word : words) {
+            ans.add(search(word));
+        }
+        System.out.println(ans);
     }
 
     public static void main(String args[]) {
         String words[] = {
-                "tree",
-                "trees",
-                "treat",
-                "treats",
-                "trial",
-                "triangle",
-                "trigger",
-                "truck",
-                "true",
-                "trust"
+                "zebra", "dog", "duck", "dove", "hadshi", "shanks"
         };
         for (String word : words)
             insert(word);
 
-        System.out.println(search("tree"));
+        prefix(root, words);
         System.out.println("\nTrie in form of level order ");
         printTrie(root);
 
