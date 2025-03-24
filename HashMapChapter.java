@@ -6,7 +6,7 @@ public class HashMapChapter {
         // Largest subarray length which has the sum equal to k
         int k = 0;
         HashMap<Integer, Integer> hm = new HashMap<>();
-        int ary[] = Genarate_Random.generateRandomArray(10, -10, 10);
+        int ary[] = Genarate_Random.generateRandomIntArray(10, -10, 10);
         System.out.println(Arrays.toString(ary));
         int sum = 0, count = 0;
         for (int j = 0; j < ary.length; j++) {
