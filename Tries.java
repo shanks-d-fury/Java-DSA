@@ -108,22 +108,56 @@ public class Tries {
         }
     }
 
+    public static boolean prefixKey(String key) {
+        Node crnt = root;
+        for (int i = 0; i < key.length(); i++) {
+            int idx = key.charAt(i) - 'a';
+            if (crnt.children[idx] == null) {
+                return false;
+            }
+            crnt = crnt.children[idx];
+        }
+        return true;
+    }
+
+    public static int countNode(Node root) {
+        if (root == null) {
+            return 0;
+        }
+        int count = 0;
+        for (Node children : root.children) {
+            if (children != null) {
+                count += countNode(children);
+            }
+        }
+        return count + 1;
+    }
+
     public static void main(String args[]) {
-        String words[] = {
-                "zebra", "dog", "duck", "dove", "hadshi", "shanks"
-        };
-        for (String word : words)
-            insert(word);
+        // String words[] = {
+        // "zebra", "dog", "duck", "dove", "hadshi", "shanks"
+        // };
+        // for (String word : words)
+        // insert(word);
 
-        // Prefix of the words my way
-        prefix(root, words);
+        // // Prefix of the words my way
+        // prefix(root, words);
 
-        root.freq = -1;
-        // prefix of the words in AP way
-        prefixAP(root, "");
-        System.out.println();
-        System.out.println("\nTrie in form of level order ");
+        // root.freq = -1;
+        // // prefix of the words in AP way
+        // prefixAP(root, "");
+        // System.out.println();
+        // String key = "ze";
+        // System.out.println("Prefix of word " + key + " present in the TRIES : " +
+        // prefixKey(key));
+        // System.out.println("\nTrie in form of level order ");
+        // printTrie(root);
+
+        String queString = "ababa";
+        for (int i = 0; i < queString.length(); i++) {
+            insert(queString.substring(i));
+        }
         printTrie(root);
-
+        System.out.println("The Number of unique prefixes are : " + countNode(root));
     }
 }
