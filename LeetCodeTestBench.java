@@ -3,7 +3,7 @@ import java.util.*;
 public class LeetCodeTestBench {
 
     public static void main(String[] args) {
-        int testArray[] = Genarate_Random.generateRandomArray(50, -500, 500);
+        int testArray[] = Genarate_Random.generateRandomArray(5, -500, 500);
         //
         long startTime = System.currentTimeMillis();
         //
@@ -19,7 +19,7 @@ public class LeetCodeTestBench {
     // in the array, and return false if every element is distinct.}
 
     public static boolean containsDuplicate(int[] nums) {
-        HashSet<Integer> hm = new HashSet<>();
+        LinkedHashSet<Integer> hm = new LinkedHashSet<>();
         for (int x : nums) {
             if (hm.contains(x)) {
                 return true;
@@ -27,6 +27,23 @@ public class LeetCodeTestBench {
                 hm.add(x);
             }
         }
+        // HashSet<Integer> set = new HashSet<>();
+        // Add elements to set
+        System.out.println("Using the stream and s foreach method : ");
+        hm.stream().forEach(System.out::println);
+        System.out.println("Using the iterator : ");
+        Iterator<Integer> iterator = hm.iterator();
+        while (iterator.hasNext()) {
+            Integer value = iterator.next();
+            System.out.println(value);
+            // You can also remove elements while iterating
+            // iterator.remove();
+        }
+        System.out.println("Using the forEach : ");
+        // Add elements to set
+        hm.forEach(value -> {
+            System.out.println(value);
+        });
         return false;
     }
 
