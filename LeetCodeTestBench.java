@@ -3,38 +3,31 @@ import java.util.*;
 public class LeetCodeTestBench {
 
     public static void main(String[] args) {
-        // int testArray[] = { 0, 0, 0 };
+        int testArray[] = Genarate_Random.generateRandomArray(50, -500, 500);
         //
         long startTime = System.currentTimeMillis();
         //
-        System.out.println(getStones("sha", "shnaks"));
+        System.out.println(Arrays.toString(testArray));
+        System.out.println(containsDuplicate(testArray));
         //
         long endTime = System.currentTimeMillis();
         long timeTaken = endTime - startTime;
         System.out.println("Time taken : " + timeTaken + " ms");
     }
 
-    // {You're given strings jewels representing the types of stones that are
-    // jewels, and stones representing the stones you have. Each character in stones
-    // is a type of stone you have. You want to know how many of the stones you have
-    // are also jewels.Letters are case sensitive, so "a" is considered a different
-    // type of stone from "A".}
+    // {Given an integer array nums, return true if any value appears at least twice
+    // in the array, and return false if every element is distinct.}
 
-    public static int getStones(String jewels, String stones) {
-        HashMap<Character, Integer> hm = new HashMap<>();
-        for (char x : jewels.toCharArray()) {
-            hm.put(x, 0);
-        }
-        for (char y : stones.toCharArray()) {
-            if (hm.get(y) != null) {
-                hm.put(y, hm.get(y) + 1);
+    public static boolean containsDuplicate(int[] nums) {
+        HashSet<Integer> hm = new HashSet<>();
+        for (int x : nums) {
+            if (hm.contains(x)) {
+                return true;
+            } else {
+                hm.add(x);
             }
         }
-        int count = 0;
-        for (Map.Entry<Character, Integer> map : hm.entrySet()) {
-            count += map.getValue();
-        }
-        return count;
+        return false;
     }
 
 }
