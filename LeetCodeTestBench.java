@@ -1,23 +1,30 @@
+import java.util.*;
 
 public class LeetCodeTestBench {
 
     public static void main(String[] args) {
-        // int testArray[] = Genarate_Random.generateRandomArray(5, -500, 500);
+        // int testArray[] = Genarate_Random.IntArray(5, -5, 5);
+        int testArray[] = { 2, -5, -5, 2, -4 };
         //
         long startTime = System.currentTimeMillis();
         //
-        // System.out.println(Arrays.toString(testArray));
-        int size = 10, min = -5, max = 5;
-        Genarate_Random.IntArray(size, min, max);
-        Genarate_Random.CharArray(size, 'a', 'z');
-        Genarate_Random.StringArray(size, 5, true, 2);
-        Genarate_Random.DoubleArray(size, min, max);
-        Genarate_Random.AlphaArray(size, false);
-        Genarate_Random.BooleanArray(size);
+        System.out.println(Arrays.toString(twoSum(testArray, -4)));
         //
         long endTime = System.currentTimeMillis();
         long timeTaken = endTime - startTime;
-        System.out.println("Time taken : " + timeTaken + " ms");
+        System.out.println("Time taken : " + timeTaken + " ms\n");
     }
 
+    public static int[] twoSum(int[] nums, int target) {
+        HashMap<Integer, List<Integer>> hm = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            int comp = target - nums[i];
+            if (hm.containsKey(comp)) {
+                return new int[] { hm.get(comp).get(0), i };
+            }
+            hm.putIfAbsent(nums[i], new ArrayList<>());
+            hm.get(nums[i]).add(i);
+        }
+        return new int[] { -1, -1 };
+    }
 }
