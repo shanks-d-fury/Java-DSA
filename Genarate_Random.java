@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class Genarate_Random {
     // Original method for int arrays
-    public static int[] generateRandomIntArray(int size, int min, int max) {
+    public static int[] IntArray(int size, int min, int max) {
         Random rand = new Random();
         int[] array = new int[size];
         for (int i = 0; i < size; i++) {
@@ -15,7 +15,7 @@ public class Genarate_Random {
     }
 
     // Method for double arrays
-    public static double[] generateRandomDoubleArray(int size, double min, double max) {
+    public static double[] DoubleArray(int size, double min, double max) {
         Random rand = new Random();
         double[] array = new double[size];
         for (int i = 0; i < size; i++) {
@@ -27,7 +27,7 @@ public class Genarate_Random {
     }
 
     // Method for char arrays (generates random lowercase letters by default)
-    public static char[] generateRandomCharArray(int size, char min, char max) {
+    public static char[] CharArray(int size, char min, char max) {
         Random rand = new Random();
         char[] array = new char[size];
         for (int i = 0; i < size; i++) {
@@ -39,14 +39,14 @@ public class Genarate_Random {
     }
 
     // Convenience method for alphabet characters
-    public static char[] generateRandomAlphaArray(int size, boolean lowercase) {
+    public static char[] AlphaArray(int size, boolean lowercase) {
         char min = lowercase ? 'a' : 'A';
         char max = lowercase ? 'z' : 'Z';
-        return generateRandomCharArray(size, min, max);
+        return CharArray(size, min, max);
     }
 
     // Method for boolean arrays
-    public static boolean[] generateRandomBooleanArray(int size) {
+    public static boolean[] BooleanArray(int size) {
         Random rand = new Random();
         boolean[] array = new boolean[size];
         for (int i = 0; i < size; i++) {
@@ -57,32 +57,64 @@ public class Genarate_Random {
         return array;
     }
 
-    // Generate an array of random strings
-    public static String[] generateRandomStringArray(int arraySize, int maxStringLength, boolean lowercase) {
+    // Generate an array of random strings with case control
+    public static String[] StringArray(int arraySize, int StringLength, boolean randomLength, int caseOption) {
         Random rand = new Random();
         String[] array = new String[arraySize];
 
-        // Define character range based on case preference
-        char minChar = lowercase ? 'a' : 'A';
-        char maxChar = lowercase ? 'z' : 'Z';
-        int charRange = maxChar - minChar + 1;
+        String caseType;
+        switch (caseOption) {
+            case 0 -> // lowercase
+                caseType = "lowercase";
+            case 1 -> // uppercase
+                caseType = "uppercase";
+            case 2 -> // mixed case
+                caseType = "mixed case";
+            default -> {
+                caseType = "lowercase";
+                caseOption = 0; // default to lowercase
+            }
+        }
 
         for (int i = 0; i < arraySize; i++) {
-            // Randomly determine string length (between 1 and maxStringLength)
-            int stringLength = rand.nextInt(maxStringLength) + 1;
+            // Determine string length based on randomLength parameter
+            int stringLength;
+            if (randomLength) {
+                // Random length between 1 and StringLength
+                stringLength = rand.nextInt(StringLength) + 1;
+            } else {
+                // Fixed length equal to StringLength
+                stringLength = StringLength;
+            }
 
             // Build a random string with the determined length
             StringBuilder sb = new StringBuilder(stringLength);
             for (int j = 0; j < stringLength; j++) {
-                char randomChar = (char) (minChar + rand.nextInt(charRange));
+                char randomChar;
+
+                switch (caseOption) {
+                    case 0 -> // Lowercase only (a-z)
+                        randomChar = (char) ('a' + rand.nextInt(26));
+                    case 1 -> // Uppercase only (A-Z)
+                        randomChar = (char) ('A' + rand.nextInt(26));
+                    default -> {
+                        // Mixed case - randomly choose between uppercase and lowercase
+                        if (rand.nextBoolean()) {
+                            randomChar = (char) ('A' + rand.nextInt(26));
+                        } else {
+                            randomChar = (char) ('a' + rand.nextInt(26));
+                        }
+                    }
+                }
+
                 sb.append(randomChar);
             }
 
             array[i] = sb.toString();
         }
 
-        System.out.println("Random Generated String Array (" +
-                (lowercase ? "lowercase" : "uppercase") + "): ");
+        System.out.println("Random Generated String Array (" + caseType + ", " +
+                (randomLength ? "random length" : "fixed length") + "): ");
         System.out.println(Arrays.toString(array) + "\n");
         return array;
     }
