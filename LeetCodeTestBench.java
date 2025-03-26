@@ -3,59 +3,39 @@ import java.util.*;
 public class LeetCodeTestBench {
 
     public static void main(String[] args) {
-        // int testArray[] = Genarate_Random.IntArray(5, -5, 5);
-        // int testArray[] = { 2, -5, -5, 2, -4 };
+        // String testArray[] = Genarate_Random.StringArray(5, 5, false, 0);
+        String testArray[] = { "sha", "ash", "sah", "aas", "asa", "shanks" };
         //
         long startTime = System.currentTimeMillis();
         //
-        // System.out.println(Arrays.toString(twoSum(testArray, -4)));
+        System.out.println(groupAnagrams(testArray));
         //
         long endTime = System.currentTimeMillis();
         long timeTaken = endTime - startTime;
         System.out.println("Time taken : " + timeTaken + " ms\n");
     }
 
-    public static boolean isValidSudoku(char[][] board) {
-        HashSet<Character> hs = new HashSet<>();
-        // check the row
-        for (int i = 0; i < board.length; i++) {
-            hs.clear();
-            for (int j = 0; j < board[0].length; j++) {
-                char x = board[i][j];
-                if (hs.contains(x))
-                    return false;
-                else if (x != '.')
-                    hs.add(x);
-            }
+    public static List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, List<String>> hm = new HashMap<>();
+        for (String str : strs) {
+            String sortString = sortString(str);
+            hm.putIfAbsent(sortString, new ArrayList<>());
+            hm.get(sortString).add(str);
         }
-        // check for columns
-        for (int i = 0; i < board.length; i++) {
-            hs.clear();
-            for (int j = 0; j < board[0].length; j++) {
-                char x = board[j][i];
-                if (hs.contains(x))
-                    return false;
-                else if (x != '.')
-                    hs.add(x);
-            }
+        List<List<String>> list = new ArrayList<>();
+        for (Map.Entry<String, List<String>> map : hm.entrySet()) {
+            list.add(map.getValue());
         }
+        Collections.sort(list, Comparator.comparingInt(List::size));
+        return list;
+    }
 
-        // checking for the 3*3 matrix
-        for (int i = 0; i < 3; i += 3) {
-            for (int j = 0; j < 9; j += 3) {
-                hs.clear();
-                for (int row = i; row < i + 3; row++) {
-                    for (int col = j; col < j + 3; col++) {
-                        char x = board[row][col];
-                        if (hs.contains(x))
-                            return false;
-                        else if (x != '.')
-                            hs.add(x);
-                    }
-                }
-            }
-        }
+    public static String sortString(String str) {
+        char[] charAry = str.toCharArray();
+        Arrays.sort(charAry);
+        return new String(charAry);
 
-        return true;
+        // this is the cg method
+        // return new String(str.chars().sorted().toArray(), 0, str.length());
     }
 }
