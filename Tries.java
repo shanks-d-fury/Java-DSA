@@ -133,6 +133,23 @@ public class Tries {
         return count + 1;
     }
 
+    static String ans = " ";
+
+    public static void longestWord(Node root, StringBuilder temp) {
+        if (root == null)
+            return;
+        for (int i = 0; i < 26; i++) { // this provide lexiographically smaller word , if we reverse then it return
+                                       // large word {for(int i=25 ; i>0 ; i--)}
+            if (root.children[i] != null && root.children[i].eow == true) {
+                temp.append((char) ('a' + i));
+                if (temp.length() > ans.length())
+                    ans = temp.toString();
+                longestWord(root.children[i], temp);
+                temp.deleteCharAt(temp.length() - 1);
+            }
+        }
+    }
+
     public static void main(String args[]) {
         // String words[] = {
         // "zebra", "dog", "duck", "dove", "hadshi", "shanks"
@@ -153,11 +170,19 @@ public class Tries {
         // System.out.println("\nTrie in form of level order ");
         // printTrie(root);
 
-        String queString = "ababa";
-        for (int i = 0; i < queString.length(); i++) {
-            insert(queString.substring(i));
-        }
+        // String queString = "ababa";
+        // for (int i = 0; i < queString.length(); i++) {
+        // insert(queString.substring(i));
+        // }
+        // printTrie(root);
+        // System.out.println("The Number of unique prefixes are : " + countNode(root));
+
+        String[] stringAry = { "a", "ap", "app", "appl", "apple", "apply" };
+        for (String s : stringAry)
+            insert(s);
+
         printTrie(root);
-        System.out.println("The Number of unique prefixes are : " + countNode(root));
+        longestWord(root, new StringBuilder());
+        System.out.println(ans);
     }
 }
