@@ -1,0 +1,25 @@
+Key Methods in the Comparator Interface
+The java.util.Comparator interface contains several methods, with many added in Java 8 and later. Here are the most important ones:
+
+Core Method (Abstract)
+compare(T o1, T o2): The primary method that must be implemented to define an ordering. Returns a negative integer, zero, or positive integer if the first argument is less than, equal to, or greater than the second.
+
+Static Factory Methods (Java 8+)
+naturalOrder(): Returns a comparator that uses the natural ordering of elements (Comparable).
+reverseOrder(): Returns a comparator that imposes the reverse of natural ordering.
+nullsFirst(Comparator<T>): Returns a comparator that considers null to be less than non-null elements.
+nullsLast(Comparator<T>): Returns a comparator that considers null to be greater than non-null elements.
+comparing(Function<T,U>): Returns a comparator that compares by extracting a key using the given function.
+comparingInt(ToIntFunction<T>): Returns a comparator that compares by extracting an int key.
+comparingLong(ToLongFunction<T>): Returns a comparator that compares by extracting a long key.
+comparingDouble(ToDoubleFunction<T>): Returns a comparator that compares by extracting a double key.
+
+Default Methods (Java 8+)
+reversed(): Returns a comparator that imposes the reverse ordering of this comparator.
+thenComparing(Comparator<T>): Returns a comparator that uses this comparator first, then the specified comparator for ties.
+thenComparing(Function<T,U>): Returns a comparator that uses this comparator first, then compares by extracting a key.
+thenComparingInt(ToIntFunction<T>): Returns a comparator that uses this comparator first, then compares by extracting an int key.
+thenComparingLong(ToLongFunction<T>): Returns a comparator that uses this comparator first, then compares by extracting a long key.
+thenComparingDouble(ToDoubleFunction<T>): Returns a comparator that uses this comparator first, then compares by extracting a double key.
+Example Usage:
+These methods provide a rich API for building complex comparison logic in a functional style.
