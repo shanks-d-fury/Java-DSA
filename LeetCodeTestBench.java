@@ -1,14 +1,25 @@
-import java.util.TreeSet;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class LeetCodeTestBench {
 
     public static void main(String[] args) {
-        int testArray[] = Genarate_Random.IntArray(5, 0, 10);
+        // int testArray[] = Genarate_Random.IntArray(5, 0, 10);
         // String testArray[] = { "sha", "ash", "sah", "aas", "asa", "shanks" };
+        int ary[] = Genarate_Random.IntArray(10, 0, 100);
         //
+
+        // This is first converted to list and then sorted using the collections.sorts
+        List<Integer> list = Arrays.stream(ary).boxed().collect(Collectors.toList());
+        Collections.sort(list, (a, b) -> a - b);
+        System.out.println(list);
+
+        // This is sorted by converting the element in the Interger and sorting
+        ary = Arrays.stream(ary).boxed().sorted(Collections.reverseOrder()).mapToInt(Integer::intValue).toArray();
+        System.out.println(Arrays.toString(ary));
         long startTime = System.currentTimeMillis();
         //
-        System.out.println(longestConsecutive(testArray));
+        // System.out.println(longestConsecutive(testArray));
         //
         long endTime = System.currentTimeMillis();
         long timeTaken = endTime - startTime;
