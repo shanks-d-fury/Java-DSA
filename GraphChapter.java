@@ -25,6 +25,19 @@ public class GraphChapter {
         }
     }
 
+    public static boolean hasPath(ArrayList<Edge>[] graph, int curt, int dest, boolean[] visited) {
+        if (curt == dest) {
+            return true;
+        }
+        visited[curt] = true;
+        for (Edge edge : graph[curt]) {
+            if (!visited[edge.dest] && hasPath(graph, edge.dest, dest, visited)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         @SuppressWarnings("unchecked")
         ArrayList<Edge>[] graph = new ArrayList[6];
@@ -73,5 +86,8 @@ public class GraphChapter {
 
         System.out.println("\nDFS traversal :");
         DFS(graph, 0);
+
+        System.out.println("\n\nHAS PATH from 0 to 5: " + hasPath(graph, 0, 5, new boolean[6]));
+
     }
 }
