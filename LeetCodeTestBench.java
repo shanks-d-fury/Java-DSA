@@ -8,18 +8,12 @@ public class LeetCodeTestBench {
         // String testArray[] = { "sha", "ash", "sah", "aas", "asa", "shanks" };
         int ary[] = Genarate_Random.IntArray(10, 0, 100);
         //
-
-        // This is first converted to list and then sorted using the collections.sorts
-        List<Integer> list = Arrays.stream(ary).boxed().collect(Collectors.toList());
-        Collections.sort(list, (a, b) -> a - b);
-        System.out.println(list);
-
-        // This is sorted by converting the element in the Interger and sorting
-        ary = Arrays.stream(ary).boxed().sorted(Collections.reverseOrder()).mapToInt(Integer::intValue).toArray();
-        System.out.println(Arrays.toString(ary));
         long startTime = System.currentTimeMillis();
         //
         // System.out.println(longestConsecutive(testArray));
+        List<Integer> list = Arrays.stream(ary).boxed().collect(Collectors.toList());
+        System.out.println(list.stream().max(Integer::compareTo).orElse(-1));
+        System.out.println(Arrays.stream(ary).boxed().max(Integer::compareTo).orElse(-1));
         //
         long endTime = System.currentTimeMillis();
         long timeTaken = endTime - startTime;
