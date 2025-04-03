@@ -43,24 +43,21 @@ public class ChapterComparator {
                 new Employee("Frank", "Engineering", 75000, 29));
 
         // Custom Comparator using compare()
-        Comparator<Employee> employeeComparator = new Comparator<Employee>() {
-            @Override
-            public int compare(Employee e1, Employee e2) {
-                // 1️⃣ Sort by Department (Alphabetically)
-                int departmentComparison = e1.department.compareTo(e2.department);
-                if (departmentComparison != 0) {
-                    return departmentComparison;
-                }
-
-                // 2️⃣ If same department, sort by Salary (Descending)
-                int salaryComparison = Double.compare(e2.salary, e1.salary); // Higher salary first
-                if (salaryComparison != 0) {
-                    return salaryComparison;
-                }
-
-                // 3️⃣ If same salary, sort by Age (Ascending)
-                return Integer.compare(e1.age, e2.age); // Younger first
+        Comparator<Employee> employeeComparator = (Employee e1, Employee e2) -> {
+            // 1️⃣ Sort by Department (Alphabetically)
+            int departmentComparison = e1.department.compareTo(e2.department);
+            if (departmentComparison != 0) {
+                return departmentComparison;
             }
+
+            // 2️⃣ If same department, sort by Salary (Descending)
+            int salaryComparison = Double.compare(e2.salary, e1.salary); // Higher salary first
+            if (salaryComparison != 0) {
+                return salaryComparison;
+            }
+
+            // 3️⃣ If same salary, sort by Age (Ascending)
+            return Integer.compare(e1.age, e2.age); // Younger first
         };
 
         // Sorting employees using custom comparator
