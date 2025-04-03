@@ -14,6 +14,38 @@ public class Genarate_Random {
         return array;
     }
 
+    public static int[][] Int2DArray_nxn(int size, int min, int max) {
+        Random rand = new Random();
+        int[][] array = new int[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                array[i][j] = rand.nextInt((max - min) + 1) + min;
+            }
+        }
+        System.out.println("Random Generated Int Array: ");
+        for (int[] row : array) {
+            System.out.println(Arrays.toString(row));
+        }
+        System.out.println();
+        return array;
+    }
+
+    public static int[][] Int2DArray_mxn(int m, int n, int min, int max) {
+        Random rand = new Random();
+        int[][] array = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                array[i][j] = rand.nextInt((max - min) + 1) + min;
+            }
+        }
+        System.out.println("Random Generated Int Array: ");
+        for (int[] row : array) {
+            System.out.println(Arrays.toString(row));
+        }
+        System.out.println();
+        return array;
+    }
+
     // Method for double arrays
     public static double[] DoubleArray(int size, double min, double max) {
         Random rand = new Random();
