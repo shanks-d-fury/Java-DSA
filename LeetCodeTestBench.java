@@ -1,6 +1,5 @@
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.stream.*;
 
 public class LeetCodeTestBench {
 
@@ -12,14 +11,16 @@ public class LeetCodeTestBench {
         long startTime = System.currentTimeMillis();
         //
         System.out.println("Enter a list of numbers : ");
-        List<Integer> list;
+        int[] list;
         try (Scanner scanner = new Scanner(System.in)) {
-            list = Arrays.stream(scanner.nextLine().split(" ")).map(Integer::parseInt)
-                    .collect(Collectors.toList());
+            list = Arrays.stream(scanner.nextLine().split(" ")).map(Integer::parseInt).mapToInt(Integer::intValue)
+                    .toArray();
         }
-        Stream<Integer> steam = list.stream();
-        steam.forEach(x -> System.out.print(x + " "));
-        System.out.println(list);
+        IntStream steam = Arrays.stream(list);
+        Stream<Integer> steam2 = Arrays.stream(list).boxed();
+        steam2.forEach(x -> System.out.print(x + " "));
+        System.out.println(steam.average().orElse(-1));
+        System.out.println(Arrays.toString(list));
         //
         long endTime = System.currentTimeMillis();
         long timeTaken = endTime - startTime;
