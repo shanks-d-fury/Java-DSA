@@ -1,19 +1,25 @@
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class LeetCodeTestBench {
 
     public static void main(String[] args) {
         // int testArray[] = Genarate_Random.IntArray(5, 0, 10);
         // String testArray[] = { "sha", "ash", "sah", "aas", "asa", "shanks" };
-        int ary[] = Genarate_Random.IntArray(10, 0, 100);
+        // int ary[] = Genarate_Random.IntArray(10, 0, 100);
         //
         long startTime = System.currentTimeMillis();
         //
-        // System.out.println(longestConsecutive(testArray));
-        List<Integer> list = Arrays.stream(ary).boxed().collect(Collectors.toList());
-        System.out.println(list.stream().max(Integer::compareTo).orElse(-1));
-        System.out.println(Arrays.stream(ary).boxed().max(Integer::compareTo).orElse(-1));
+        System.out.println("Enter a list of numbers : ");
+        List<Integer> list;
+        try (Scanner scanner = new Scanner(System.in)) {
+            list = Arrays.stream(scanner.nextLine().split(" ")).map(Integer::parseInt)
+                    .collect(Collectors.toList());
+        }
+        Stream<Integer> steam = list.stream();
+        steam.forEach(x -> System.out.print(x + " "));
+        System.out.println(list);
         //
         long endTime = System.currentTimeMillis();
         long timeTaken = endTime - startTime;
