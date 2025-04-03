@@ -150,4 +150,42 @@ public class Genarate_Random {
         System.out.println(Arrays.toString(array) + "\n");
         return array;
     }
+
+    /**
+     * Generates a 3x3 array filled with numbers 1-9 in random order
+     * 
+     * @return a 3x3 int array containing numbers 1-9 shuffled randomly
+     */
+    public static int[][] commonArray() {
+        // Create a 1D array with numbers 1-9
+        int[] numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+        // // Shuffle the array
+        // Random rand = new Random();
+        // for (int i = numbers.length - 1; i > 0; i--) {
+        // int j = rand.nextInt(i + 1);
+        // // Swap numbers[i] and numbers[j]
+        // int temp = numbers[i];
+        // numbers[i] = numbers[j];
+        // numbers[j] = temp;
+        // }
+
+        // Convert to 3x3 2D array
+        int[][] array = new int[3][3];
+        int index = 0;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                array[i][j] = numbers[index++];
+            }
+        }
+
+        // Print the generated array
+        System.out.println("Random Generated 3x3 Sudoku Array (1-9): ");
+        for (int[] row : array) {
+            System.out.println(Arrays.toString(row));
+        }
+        System.out.println();
+
+        return array;
+    }
 }
