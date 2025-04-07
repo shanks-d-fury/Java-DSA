@@ -1,26 +1,25 @@
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
+import java.util.stream.Stream;
 
 public class LeetCodeTestBench {
 
     public static void main(String[] args) {
         //
-        //
         long startTime = System.currentTimeMillis();
-        List<Integer> list1 = Arrays.asList(5, 1, 5, 6, 3, 2);
-        List<Integer> list2 = Arrays.asList(1, 2, 3);
-        List<Integer> list3 = Arrays.asList();
-        List<List<Integer>> outerList = new ArrayList<>(Arrays.asList(list1, list2, list3));
-        // Collections.sort(outerList, Comparator.comparing(List::size));
-        // outerList = outerList.stream().sorted().collect(Collectors.toList());
-        System.out.println(outerList);
-        outerList = outerList.stream()
-                .map(list -> new ArrayList<>(Collections.singletonList(
-                        list.stream().reduce(0, Integer::sum))))
-                .sorted(Comparator.comparing(list -> list.isEmpty() ? null : list.get(0))).collect(Collectors.toList());
-        list1 = list1.stream().distinct().sorted().collect(Collectors.toList());
-        System.out.println(list1);
-        System.out.println(outerList);
+        //
+
+        System.out.println("Enter a list of numbers : ");
+        double[] list;
+        try (Scanner scanner = new Scanner(System.in)) {
+            list = Arrays.stream(scanner.nextLine().split(" ")).map(Double::parseDouble)
+                    .mapToDouble(Double::doubleValue).toArray();
+        }
+        DoubleStream steam = Arrays.stream(list);
+        Stream<Integer> steam2 = Arrays.stream(list).boxed().mapToInt(Double::intValue).boxed();
+        steam2.forEach(x -> System.out.print(x + " "));
+        System.out.println(steam.average().orElse(-1));
+        System.out.println(Arrays.toString(list));
 
         //
         long endTime = System.currentTimeMillis();
