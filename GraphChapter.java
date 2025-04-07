@@ -1,5 +1,6 @@
 import java.util.ArrayList;
-import java.util.Stack;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class GraphChapter {
     public static class Edge {
@@ -20,30 +21,32 @@ public class GraphChapter {
         }
     }
 
-    public static void topSort(ArrayList<Edge>[] graph) {
-        boolean visited[] = new boolean[graph.length];
-        // boolean stack[] = new boolean[graph.length];
-        Stack<Integer> stack = new Stack<>();
-
-        for (int i = graph.length - 1; i > 0; i--) {
-            if (!visited[i]) {
-                topSortUtil(graph, i, visited, stack);
+    public static void findInDegree(int[] indeg, ArrayList<Edge>[] graph) {
+        for (ArrayList<Edge> graphx : graph) {
+            for (Edge edge : graphx) {
+                indeg[edge.dest]++;
             }
-        }
-
-        while (!stack.isEmpty()) {
-            System.out.print(stack.pop() + " ");
         }
     }
 
-    public static void topSortUtil(ArrayList<Edge>[] graph, int cur, boolean[] visited, Stack<Integer> stack) {
-        visited[cur] = true;
-        for (Edge edge : graph[cur]) {
-            if (!visited[edge.dest]) {
-                topSortUtil(graph, edge.dest, visited, stack);
+    public static void topSort(ArrayList<Edge>[] graph) {
+        int[] indeg = new int[graph.length];
+        findInDegree(indeg, graph);
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < indeg.length; i++) {
+            if (indeg[i] == 0)
+                q.add(i);
+        }
+        while (!q.isEmpty()) {
+            int curnt = q.remove();
+            System.out.print(curnt + " ");
+            for (Edge edge : graph[curnt]) {
+                indeg[edge.dest]--;
+                if (indeg[edge.dest] == 0) {
+                    q.add(edge.dest);
+                }
             }
         }
-        stack.push(cur);
     }
 
     public static void main(String[] args) {
