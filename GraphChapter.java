@@ -53,6 +53,20 @@ public class GraphChapter {
         }
     }
 
+    public static void findPath(ArrayList<Edge>[] graph, int src, int dest, String path) {
+        if (src == dest) {
+            path = path + dest;
+            for (char c : path.toCharArray()) {
+                System.out.print(c + " ");
+            }
+            System.out.println();
+            return;
+        }
+        for (Edge edge : graph[src]) {
+            findPath(graph, edge.dest, dest, path + src);
+        }
+    }
+
     public static void main(String[] args) {
         @SuppressWarnings("unchecked")
         ArrayList<Edge>[] graph = new ArrayList[6];
@@ -85,13 +99,19 @@ public class GraphChapter {
         // Directed Graphs
         graph[5].add(new Edge(5, 0));
         graph[5].add(new Edge(5, 2));
-        graph[4].add(new Edge(4, 0));
+        // graph[4].add(new Edge(4, 0));
         graph[4].add(new Edge(4, 1));
         graph[2].add(new Edge(2, 3));
         graph[3].add(new Edge(3, 1));
+        graph[0].add(new Edge(0, 3));
+        graph[0].add(new Edge(0, 4));
 
         // Biparte graph -> acyclic and cyclic with even number of nodes
         // Non - Biparte graph -> cyclic with odd number of nodes
-        topSort(graph);
+        // topSort(graph);
+
+        // The time complexity for the findpath is O(v^v) which is a exponential
+        // for the worst case there will be v vertesis from the curnt vertex
+        findPath(graph, 5, 1, "");
     }
 }
