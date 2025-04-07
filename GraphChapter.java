@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -32,11 +33,13 @@ public class GraphChapter {
     public static void topSort(ArrayList<Edge>[] graph) {
         int[] indeg = new int[graph.length];
         findInDegree(indeg, graph);
+        System.out.println(Arrays.toString(indeg));
         Queue<Integer> q = new LinkedList<>();
         for (int i = 0; i < indeg.length; i++) {
             if (indeg[i] == 0)
                 q.add(i);
         }
+        System.out.println(q);
         while (!q.isEmpty()) {
             int curnt = q.remove();
             System.out.print(curnt + " ");
@@ -46,6 +49,7 @@ public class GraphChapter {
                     q.add(edge.dest);
                 }
             }
+            System.out.println(q);
         }
     }
 
