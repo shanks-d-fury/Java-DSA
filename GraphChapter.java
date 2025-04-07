@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class GraphChapter {
     public static class Edge {
@@ -19,37 +20,35 @@ public class GraphChapter {
         }
     }
 
-    public static boolean directedIsCycle(ArrayList<Edge>[] graph) {
+    public static void topSort(ArrayList<Edge>[] graph) {
         boolean visited[] = new boolean[graph.length];
-        boolean stack[] = new boolean[graph.length];
+        // boolean stack[] = new boolean[graph.length];
+        Stack<Integer> stack = new Stack<>();
 
-        for (int i = 0; i < graph.length; i++) {
-            if (isCycleUtil(graph, i, visited, stack)) {
-                return true;
+        for (int i = graph.length - 1; i > 0; i--) {
+            if (!visited[i]) {
+                topSortUtil(graph, i, visited, stack);
             }
         }
 
-        return false;
+        while (!stack.isEmpty()) {
+            System.out.print(stack.pop() + " ");
+        }
     }
 
-    public static boolean isCycleUtil(ArrayList<Edge>[] graph, int cur, boolean[] visited, boolean[] stack) {
+    public static void topSortUtil(ArrayList<Edge>[] graph, int cur, boolean[] visited, Stack<Integer> stack) {
         visited[cur] = true;
-        stack[cur] = true;
         for (Edge edge : graph[cur]) {
-            if (stack[edge.dest]) {
-                return true;
-            }
-            if (!visited[edge.dest] && isCycleUtil(graph, edge.dest, visited, stack)) {
-                return true;
+            if (!visited[edge.dest]) {
+                topSortUtil(graph, edge.dest, visited, stack);
             }
         }
-        stack[cur] = false;
-        return false;
+        stack.push(cur);
     }
 
     public static void main(String[] args) {
         @SuppressWarnings("unchecked")
-        ArrayList<Edge>[] graph = new ArrayList[5];
+        ArrayList<Edge>[] graph = new ArrayList[6];
         for (int i = 0; i < graph.length; i++) {
             graph[i] = new ArrayList<>();
         }
@@ -77,15 +76,15 @@ public class GraphChapter {
         // graph[5].add(new Edge(5, 4, 3));
 
         // Directed Graphs
-        graph[0].add(new Edge(0, 1));
-        graph[1].add(new Edge(1, 2));
+        graph[5].add(new Edge(5, 0));
+        graph[5].add(new Edge(5, 2));
+        graph[4].add(new Edge(4, 0));
+        graph[4].add(new Edge(4, 1));
         graph[2].add(new Edge(2, 3));
-        graph[3].add(new Edge(3, 4));
-        graph[4].add(new Edge(4, 2));
+        graph[3].add(new Edge(3, 1));
 
         // Biparte graph -> acyclic and cyclic with even number of nodes
         // Non - Biparte graph -> cyclic with odd number of nodes
-        System.out.println("\nHas cycle for the current Directed graph : " + directedIsCycle(graph));
-
+        topSort(graph);
     }
 }
