@@ -109,22 +109,21 @@ public class GraphChapter {
         }
     }
 
-    public static void BellmanFordAlgo(ArrayList<Edge>[] graph, int src) {
-        int[] dist = new int[graph.length];
+    public static void BellmanFordAlgo(ArrayList<Edge> edgeGraph, int src, int V) {
+        int[] dist = new int[V];
         for (int i = 0; i < dist.length; i++) {
             if (src != i) {
                 dist[i] = Integer.MAX_VALUE;
             }
         }
-        for (int i = 0; i < graph.length - 1; i++) {
-            for (ArrayList<Edge> list : graph) {
-                for (Edge edge : list) {
-                    if (dist[edge.source] != Integer.MAX_VALUE && dist[edge.source] + edge.weight < dist[edge.dest]) {
-                        dist[edge.dest] = dist[edge.source] + edge.weight;
-                    }
+        System.out.println(Arrays.toString(dist));
+        for (int i = 0; i < V - 1; i++) {
+            for (Edge edge : edgeGraph) {
+                if (dist[edge.source] != Integer.MAX_VALUE && dist[edge.source] + edge.weight < dist[edge.dest]) {
+                    dist[edge.dest] = dist[edge.source] + edge.weight;
                 }
-                System.out.println(Arrays.toString(dist));
             }
+            System.out.println(Arrays.toString(dist));
         }
         System.out.println();
         int i = 0;
@@ -167,7 +166,7 @@ public class GraphChapter {
         graph[0].add(new Edge(0, 1, 2));
         graph[0].add(new Edge(0, 2, 4));
         graph[1].add(new Edge(1, 2, -4));
-        graph[3].add(new Edge(3, 2, 2));
+        graph[2].add(new Edge(2, 3, 2));
         graph[3].add(new Edge(3, 4, 4));
         graph[4].add(new Edge(4, 1, -1));
 
@@ -183,7 +182,12 @@ public class GraphChapter {
         // DijkstraAlgo(graph, i);
         // System.out.println();
         // }
-
-        BellmanFordAlgo(graph, 4);
+        ArrayList<Edge> edgeGraph = new ArrayList<>();
+        for (ArrayList<Edge> list : graph) {
+            for (Edge edge : list) {
+                edgeGraph.add(edge);
+            }
+        }
+        BellmanFordAlgo(edgeGraph, 0, graph.length);
     }
 }
