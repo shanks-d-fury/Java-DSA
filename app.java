@@ -1,24 +1,22 @@
 
-import java.util.Scanner;
+import java.util.*;
 
 public class app {
-    public static void main(String args[]) {
-        System.out.println("hello shanks");
-        try (Scanner sc = new Scanner(System.in)) {
-            System.out.print("Enter n: ");
-            int n = sc.nextInt();
-            int v = n, c = n - 2;
-            System.out.println(1);
-            for (int i = 1; i < n; i++) {
-                System.out.print(v + " ");
-                int x = 0;
-                for (int j = n - 1; j > n - i - 1; j--) {
-                    x += j;
-                    System.out.print(v - x + " ");
-                }
-                v = v + c--;
-                System.out.println();
-            }
+    public static int[] findIndexes(int input[], int x, int index, ArrayList<Integer> ary) {
+        if (index == input.length) {
+            return ary.stream().mapToInt(Integer::intValue).toArray();
         }
+        if (x == input[index]) {
+            ary.add(index);
+        }
+        return findIndexes(input, x, index + 1, ary);
+    }
+
+    public static void main(String[] args) {
+        int[] input = Genarate_Random.IntArray(1, 0, 1);
+        int[] ans = findIndexes(input, 1, 0, new ArrayList<>());
+        System.out.println(Arrays.toString(ans));
+        System.out.println(Arrays.stream(ans).max().orElse(-1));
+
     }
 }
