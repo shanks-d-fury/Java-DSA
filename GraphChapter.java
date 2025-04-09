@@ -32,6 +32,35 @@ public class GraphChapter {
             this.node = node;
             this.path = path;
         }
+
+        @Override
+        public String toString() {
+            return "(" + this.path + ")->" + this.node;
+        }
+    }
+
+    public static void primsAlgo(ArrayList<Edge>[] graph, int srcNode) {
+        boolean[] visited = new boolean[graph.length];
+        PriorityQueue<Pair> pq = new PriorityQueue<>(Comparator.comparingInt(pair -> pair.path));
+        pq.add(new Pair(srcNode, 0));
+        int minCost = 0;
+        ArrayList<Pair> ans = new ArrayList<>();
+        while (!pq.isEmpty()) {
+            Pair cur = pq.remove();
+            if (!visited[cur.node]) {
+                visited[cur.node] = true;
+                minCost += cur.path;
+                ans.add(cur);
+                for (Edge edge : graph[cur.node]) {
+                    pq.add(new Pair(edge.dest, edge.weight));
+                }
+            }
+        }
+        ans.remove(0);
+        for (Pair pair : ans) {
+            System.out.println(srcNode + "-" + pair);
+        }
+        System.out.println("Min cost of the Minimun spanning tree is : " + minCost);
     }
 
     public static void findInDegree(int[] indeg, ArrayList<Edge>[] graph) {
@@ -135,7 +164,7 @@ public class GraphChapter {
 
     public static void main(String[] args) {
         @SuppressWarnings("unchecked")
-        ArrayList<Edge>[] graph = new ArrayList[5];
+        ArrayList<Edge>[] graph = new ArrayList[4];
         for (int i = 0; i < graph.length; i++) {
             graph[i] = new ArrayList<>();
         }
@@ -163,12 +192,17 @@ public class GraphChapter {
         // graph[5].add(new Edge(5, 4, 3));
 
         // Directed Graphs
-        graph[0].add(new Edge(0, 1, 2));
-        graph[0].add(new Edge(0, 2, 4));
-        graph[1].add(new Edge(1, 2, -4));
-        graph[2].add(new Edge(2, 3, 2));
-        graph[3].add(new Edge(3, 4, 4));
-        graph[4].add(new Edge(4, 1, -1));
+        graph[0].add(new Edge(0, 1, 10));
+        graph[0].add(new Edge(0, 2, 15));
+        graph[0].add(new Edge(0, 3, 30));
+        graph[1].add(new Edge(1, 0, 10));
+        graph[1].add(new Edge(1, 3, 40));
+        graph[2].add(new Edge(2, 0, 15));
+        graph[2].add(new Edge(2, 3, 50));
+        graph[3].add(new Edge(3, 0, 30));
+        graph[3].add(new Edge(3, 1, 40));
+        graph[3].add(new Edge(3, 2, 50));
+        // graph[4].add(new Edge(4, 1, -1));
 
         // Biparte graph -> acyclic and cyclic with even number of nodes
         // Non - Biparte graph -> cyclic with odd number of nodes
@@ -182,12 +216,13 @@ public class GraphChapter {
         // DijkstraAlgo(graph, i);
         // System.out.println();
         // }
-        ArrayList<Edge> edgeGraph = new ArrayList<>();
-        for (ArrayList<Edge> list : graph) {
-            for (Edge edge : list) {
-                edgeGraph.add(edge);
-            }
-        }
-        BellmanFordAlgo(edgeGraph, 0, graph.length);
+        // ArrayList<Edge> edgeGraph = new ArrayList<>();
+        // for (ArrayList<Edge> list : graph) {
+        // for (Edge edge : list) {
+        // edgeGraph.add(edge);
+        // }
+        // }
+        // BellmanFordAlgo(edgeGraph, 0, graph.length);
+        primsAlgo(graph, 0);
     }
 }
