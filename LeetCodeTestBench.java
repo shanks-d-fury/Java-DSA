@@ -1,6 +1,4 @@
 import java.util.*;
-import java.util.stream.DoubleStream;
-import java.util.stream.Stream;
 
 public class LeetCodeTestBench {
 
@@ -9,18 +7,11 @@ public class LeetCodeTestBench {
         long startTime = System.currentTimeMillis();
         //
 
-        System.out.println("Enter a list of numbers : ");
-        double[] list;
-        try (Scanner scanner = new Scanner(System.in)) {
-            list = Arrays.stream(scanner.nextLine().split(" ")).map(Double::parseDouble)
-                    .mapToDouble(Double::doubleValue).toArray();
-        }
-        DoubleStream steam = Arrays.stream(list);
-        Stream<Integer> steam2 = Arrays.stream(list).boxed().mapToInt(Double::intValue).boxed();
-        steam2.forEach(x -> System.out.print(x + " "));
-        System.out.println(steam.average().orElse(-1));
-        System.out.println(Arrays.toString(list));
-
+        // int nums[] = Genarate_Random.IntArray(5, 0, 5);
+        // System.out.println(findKthLargest(nums, 2));
+        System.out.println((int) ('n' - 'a'));
+        System.out.println();
+        backonarray(new int[5], 0);
         //
         long endTime = System.currentTimeMillis();
         long timeTaken = endTime - startTime;
@@ -52,5 +43,34 @@ public class LeetCodeTestBench {
         }
 
         return max;
+    }
+
+    public static int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Comparator.reverseOrder());
+        for (int num : nums) {
+            pq.add(num);
+        }
+        System.out.println(pq);
+        int count = 1;
+        while (count < k) {
+
+            pq.remove();
+            System.out.println(pq + " " + count);
+            count++;
+        }
+        return pq.peek();
+    }
+
+    public static void backonarray(int[] ary, int i) {
+        if (i == ary.length) {
+            System.out.println(Arrays.toString(ary));
+            return;
+        }
+        ary[i] = i + 1;
+        backonarray(ary, i + 1);
+        ary[i] = ary[i] - 2;
+        if (i == 0) {
+            System.out.println(Arrays.toString(ary));
+        }
     }
 }
