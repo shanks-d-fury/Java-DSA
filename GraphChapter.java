@@ -216,13 +216,13 @@ public class GraphChapter {
         // DijkstraAlgo(graph, i);
         // System.out.println();
         // }
-        // ArrayList<Edge> edgeGraph = new ArrayList<>();
-        // for (ArrayList<Edge> list : graph) {
-        // for (Edge edge : list) {
-        // edgeGraph.add(edge);
-        // }
-        // }
-        // BellmanFordAlgo(edgeGraph, 0, graph.length);
+        ArrayList<Edge> edgeGraph = new ArrayList<>();
+        for (ArrayList<Edge> list : graph) {
+            for (Edge edge : list) {
+                edgeGraph.add(edge);
+            }
+        }
+        BellmanFordAlgo(edgeGraph, 0, graph.length);
         primsAlgo(graph, 0);
     }
 }
