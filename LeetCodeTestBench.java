@@ -9,9 +9,11 @@ public class LeetCodeTestBench {
 
         // int nums[] = Genarate_Random.IntArray(5, 0, 5);
         // System.out.println(findKthLargest(nums, 2));
-        System.out.println((int) ('n' - 'a'));
-        System.out.println();
-        backonarray(new int[5], 0);
+        // System.out.println((int) ('n' - 'a'));
+        // System.out.println();
+        // backonarray(new int[5], 0);
+        permutation("abcdefgh", "");
+        System.out.println("end of the answer");
         //
         long endTime = System.currentTimeMillis();
         long timeTaken = endTime - startTime;
@@ -71,6 +73,26 @@ public class LeetCodeTestBench {
         ary[i] = ary[i] - 2;
         if (i == 0) {
             System.out.println(Arrays.toString(ary));
+        }
+    }
+
+    public static void findSubset(String s, String x, int i) {
+        if (i == s.length()) {
+            System.out.println(x);
+            return;
+        }
+        findSubset(s, x + s.charAt(i), i + 1);
+        findSubset(s, x, i + 1);
+    }
+
+    public static void permutation(String str, String ans) {
+        if (str.length() == 0) {
+            System.out.println(ans);
+            return;
+        }
+        for (int i = 0; i < str.length(); i++) {
+            String newStr = str.substring(0, i) + str.substring(i + 1, str.length());
+            permutation(newStr, ans + str.charAt(i));
         }
     }
 }
