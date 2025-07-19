@@ -12,7 +12,7 @@ public class LeetCodeTestBench {
         // System.out.println((int) ('n' - 'a'));
         // System.out.println();
         // backonarray(new int[5], 0);
-        permutation("abcdefgh", "");
+        // permutation("abcdefgh", "");
         System.out.println("end of the answer");
         //
         long endTime = System.currentTimeMillis();
