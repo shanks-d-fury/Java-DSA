@@ -1,98 +1,172 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class LeetCodeTestBench {
 
+    static class Node {
+        int data;
+        Node left, right;
+
+        Node(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
+    }
+
+    static int idx = -1;
+
+    public static Node buildtree(int[] nodes) {
+        idx++;
+        if (idx > nodes.length) {
+            return null;
+        }
+        if (nodes[idx] == -1) {
+            return null;
+        }
+        Node curNode = new Node(nodes[idx]);
+        curNode.left = buildtree(nodes);
+        curNode.right = buildtree(nodes);
+        return null;
+    }
+
+    @SuppressWarnings("ConvertToTryWithResources")
     public static void main(String[] args) {
         //
         long startTime = System.currentTimeMillis();
         //
+        ArrayList<Integer> al = new ArrayList<>(
+                Arrays.stream(Genarate_Random.IntArray(5, 1, 5)).boxed().collect(Collectors.toList()));
 
-        // int nums[] = Genarate_Random.IntArray(5, 0, 5);
-        // System.out.println(findKthLargest(nums, 2));
-        // System.out.println((int) ('n' - 'a'));
-        // System.out.println();
-        // backonarray(new int[5], 0);
-        // permutation("abcdefgh", "");
-        System.out.println("end of the answer");
+        // TAKING INPUT
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the elements: ");
+        int[] ary = Arrays.stream(sc.nextLine().split(" ")).map(ele -> ele.equals("null") ? "-1" : ele)
+                .mapToInt(Integer::parseInt).toArray();
+        System.out.println(Arrays.toString(ary));
+
+        sc.close();
+
+        // // THE BELOW TAKES INPUT BY USING HASNEXT AND CONVERTS THE LIST TO ARRAY
+        // List<Integer> list = new ArrayList<>();
+        // while (sc.hasNextInt()) {
+        // list.add(sc.nextInt());
+        // }
+        // System.out.println(list);
+        // int[] ar = list.stream().mapToInt(Integer::intValue).toArray();
         //
         long endTime = System.currentTimeMillis();
         long timeTaken = endTime - startTime;
         System.out.println("Time taken : " + timeTaken + " ms\n");
     }
 
-    public static int longestConsecutive(int[] nums) {
-        if (nums.length == 0)
-            return 0;
-
-        TreeSet<Integer> ts = new TreeSet<>();
-        for (int num : nums) {
-            ts.add(num);
+    public static void compress(char[] chars) {
+        if (chars.length == 0) {
+            // return 0;
         }
-
-        int curnt = 1, max = 1;
-        Integer prev = null;
-
-        for (int value : ts) {
-            if (prev != null) {
-                if (value == prev + 1) {
-                    curnt++;
-                    max = Math.max(max, curnt);
-                } else {
-                    curnt = 1;
+        LinkedHashMap<Character, Integer> hm = new LinkedHashMap<>();
+        for (char c : chars) {
+            hm.put(c, hm.getOrDefault(c, 0) + 1);
+        }
+        System.out.println(hm);
+        ArrayList<Character> aryl = new ArrayList<>();
+        for (Map.Entry<Character, Integer> map : hm.entrySet()) {
+            aryl.add(map.getKey());
+            if (map.getValue() == 1) {
+                // nothing to add
+            } else if (Integer.toString(map.getValue()).length() <= 1) {
+                aryl.add((char) (map.getValue() + '0'));
+            } else if (Integer.toString(map.getValue()).length() > 1) {
+                for (char x : Integer.toString(map.getValue()).toCharArray()) {
+                    System.out.println(x);
+                    aryl.add(x);
                 }
             }
-            prev = value;
         }
-
-        return max;
+        chars = new char[aryl.size()];
+        for (int i = 0; i < aryl.size(); i++) {
+            chars[i] = aryl.get(i);
+        }
+        System.out.println(Arrays.toString(chars));
+        // return chars.length;
     }
 
-    public static int findKthLargest(int[] nums, int k) {
-        PriorityQueue<Integer> pq = new PriorityQueue<>(Comparator.reverseOrder());
-        for (int num : nums) {
-            pq.add(num);
+    public static String reverseWords(String s) {
+        s = s.trim();
+        String[] ary = s.split("\\s+");
+        System.out.println(s.matches(".*world.*"));
+        System.out.println("b".matches("[abc]"));
+        System.out.println("\"shis\"");
+        int n = ary.length;
+        for (int i = 0; i < n / 2; i++) {
+            String temp = ary[i];
+            ary[i] = ary[n - i - 1];
+            ary[n - 1 - i] = temp;
         }
-        System.out.println(pq);
-        int count = 1;
-        while (count < k) {
-
-            pq.remove();
-            System.out.println(pq + " " + count);
-            count++;
+        String ans = "";
+        System.out.println(Arrays.toString(ary));
+        for (String x : ary) {
+            if (x.equals(" ")) {
+                continue;
+            }
+            ans += x;
+            ans += " ";
         }
-        return pq.peek();
+        ans = ans.trim();
+        return ans;
     }
 
-    public static void backonarray(int[] ary, int i) {
-        if (i == ary.length) {
-            System.out.println(Arrays.toString(ary));
-            return;
+    public static String removeOccurrences(String s, String part) {
+        s = s.trim();
+        while (s.contains(part)) {
+            int x = s.indexOf(part);
+            int n = part.length();
+            s = s.substring(0, x) + s.substring(x + n, s.length());
         }
-        ary[i] = i + 1;
-        backonarray(ary, i + 1);
-        ary[i] = ary[i] - 2;
-        if (i == 0) {
-            System.out.println(Arrays.toString(ary));
-        }
+        ArrayList<String> ary = new ArrayList<>();
+        return s;
     }
 
-    public static void findSubset(String s, String x, int i) {
-        if (i == s.length()) {
-            System.out.println(x);
-            return;
+    public boolean checkInclusion(String s1, String s2) {
+        if (s1.length() > s2.length())
+            return false;
+        HashMap<Character, Integer> s1map = new HashMap<>();
+
+        for (int i = 0; i < s1.length(); i++)
+            s1map.put(s1.charAt(i), s1map.getOrDefault(s1.charAt(i), 0) + 1);
+
+        for (int i = 0; i <= s2.length() - s1.length(); i++) {
+            HashMap<Character, Integer> s2map = new HashMap<>();
+            for (int j = 0; j < s1.length(); j++) {
+                s2map.put(s2.charAt(i + j), s2map.getOrDefault(s2.charAt(i + j), 0) + 1);
+            }
+            if (matches(s1map, s2map))
+                return true;
         }
-        findSubset(s, x + s.charAt(i), i + 1);
-        findSubset(s, x, i + 1);
+        return false;
     }
 
-    public static void permutation(String str, String ans) {
-        if (str.length() == 0) {
-            System.out.println(ans);
-            return;
+    public boolean matches(HashMap<Character, Integer> s1map, HashMap<Character, Integer> s2map) {
+        for (char key : s1map.keySet()) {
+            if (s1map.get(key) - s2map.getOrDefault(key, -1) != 0)
+                return false;
         }
-        for (int i = 0; i < str.length(); i++) {
-            String newStr = str.substring(0, i) + str.substring(i + 1, str.length());
-            permutation(newStr, ans + str.charAt(i));
+        String[] strs = new String[2];
+        HashMap<String, List<String>> hm = new HashMap<>();
+        for (String str : strs) {
+            String sortStr = sort(str);
+            List<String> list = hm.getOrDefault(sortStr, new ArrayList<String>());
+            list.add(str);
+            hm.put(sortStr, list);
         }
+        return true;
+
     }
+
+    public static String sort(String str) {
+        char[] charary = str.toCharArray();
+        Arrays.sort(charary);
+        return new String(charary);
+    }
+
 }
