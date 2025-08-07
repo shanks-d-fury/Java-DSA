@@ -1,9 +1,9 @@
 import java.util.*;
-import java.util.stream.Collectors;
+// import java.util.stream.Collectors;
 
 public class LeetCodeTestBench {
 
-    static class Node {
+    public static class Node {
         int data;
         Node left, right;
 
@@ -14,11 +14,122 @@ public class LeetCodeTestBench {
         }
     }
 
+    public static void main(String[] args) {
+        //
+        long startTime = System.currentTimeMillis();
+        //
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the elements: ");
+        int[] ary = Arrays.stream(sc.nextLine().split(" ")).map(ele -> ele.equals("null") ? "-1" : ele)
+                .mapToInt(Integer::parseInt).toArray();
+        // System.out.println(Arrays.toString(ary));
+        Node root = buildtree(ary);
+        // postOrder(root);
+        // System.out.println();
+        levelOrder(root);
+        System.out.println(sum(root));
+        System.out.println(diaAndHeight(root).h + " " + diaAndHeight(root).d);
+        //
+        sc.close();
+        long endTime = System.currentTimeMillis();
+        long timeTaken = endTime - startTime;
+        System.out.println("Time taken : " + timeTaken + " ms\n");
+    }
+
+    public static int height(Node root) {
+        if (root == null) {
+            return 0;
+        }
+        int lh = height(root.left);
+        int rh = height(root.right);
+        return Math.max(lh, rh) + 1;
+    }
+
+    public static int sum(Node root) {
+        if (root == null) {
+            return 0;
+        }
+        int ls = sum(root.left);
+        int rs = sum(root.right);
+        return ls + rs + root.data;
+    }
+
+    public static int diameter(Node root) {
+        if (root == null) {
+            return 0;
+        }
+        int ld = diameter(root.left);
+        int rd = diameter(root.right);
+        int lh = height(root.left);
+        int rh = height(root.right);
+        return Math.max(Math.max(ld, rd), lh + rh + 1);
+    }
+
+    public static class Info {
+        int h;
+        int d;
+
+        Info(int h, int d) {
+            this.h = h;
+            this.d = d;
+        }
+    }
+
+    public static Info diaAndHeight(Node root) {
+        if (root == null) {
+            return new Info(0, 0);
+        }
+        Info lInfo = diaAndHeight(root.left);
+        Info rInfo = diaAndHeight(root.right);
+        int dia = Math.max(Math.max(lInfo.d, rInfo.d), lInfo.h + rInfo.h + 1);
+        int hei = Math.max(lInfo.h, rInfo.h) + 1;
+        return new Info(hei, dia);
+    }
+
+    public static void postOrder(Node root) {
+        if (root == null) {
+            return;
+        }
+        postOrder(root.left);
+        postOrder(root.right);
+        System.out.print(root.data + " ");
+    }
+
+    public static void levelOrder(Node root) {
+        if (root == null) {
+            return;
+        }
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+        q.add(null);
+        while (!q.isEmpty()) {
+            Node rem = q.remove();
+            if (rem == null) {
+                System.out.println();
+                if (q.isEmpty()) {
+                    break;
+                } else {
+                    q.add(null);
+                }
+            } else {
+                System.out.print(rem.data + " ");
+                if (rem.left != null) {
+                    q.add(rem.left);
+                }
+                if (rem.right != null) {
+                    q.add(rem.right);
+                }
+            }
+
+        }
+    }
+
     static int idx = -1;
 
     public static Node buildtree(int[] nodes) {
         idx++;
-        if (idx > nodes.length) {
+        if (idx >= nodes.length) {
             return null;
         }
         if (nodes[idx] == -1) {
@@ -27,37 +138,7 @@ public class LeetCodeTestBench {
         Node curNode = new Node(nodes[idx]);
         curNode.left = buildtree(nodes);
         curNode.right = buildtree(nodes);
-        return null;
-    }
-
-    @SuppressWarnings("ConvertToTryWithResources")
-    public static void main(String[] args) {
-        //
-        long startTime = System.currentTimeMillis();
-        //
-        ArrayList<Integer> al = new ArrayList<>(
-                Arrays.stream(Genarate_Random.IntArray(5, 1, 5)).boxed().collect(Collectors.toList()));
-
-        // TAKING INPUT
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the elements: ");
-        int[] ary = Arrays.stream(sc.nextLine().split(" ")).map(ele -> ele.equals("null") ? "-1" : ele)
-                .mapToInt(Integer::parseInt).toArray();
-        System.out.println(Arrays.toString(ary));
-
-        sc.close();
-
-        // // THE BELOW TAKES INPUT BY USING HASNEXT AND CONVERTS THE LIST TO ARRAY
-        // List<Integer> list = new ArrayList<>();
-        // while (sc.hasNextInt()) {
-        // list.add(sc.nextInt());
-        // }
-        // System.out.println(list);
-        // int[] ar = list.stream().mapToInt(Integer::intValue).toArray();
-        //
-        long endTime = System.currentTimeMillis();
-        long timeTaken = endTime - startTime;
-        System.out.println("Time taken : " + timeTaken + " ms\n");
+        return curNode;
     }
 
     public static void compress(char[] chars) {

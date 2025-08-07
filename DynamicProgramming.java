@@ -1,75 +1,30 @@
-import java.util.Arrays;
 
 public class DynamicProgramming {
     public static void main(String args[]) {
         long startTime = System.currentTimeMillis();
         //
-        int n = 3;
-        System.out.println(climbingStaris(n));
-        // int[] ways = new int[n + 1];
-        // Arrays.fill(ways, -1);
-        // System.out.println(climbingStarisDP(n, ways));
-        // System.out.println(climbingStarisDPtab(n));
+        // int[] val = { 15, 14, 10, 45, 30 };
+        // int[] wt = { 2, 5, 1, 3, 4 };
+        int[] val = Genarate_Random.IntArray(5, 10, 20);
+        int[] wt = Genarate_Random.IntArray(5, 1, 5);
+        int W = 7;
+        System.out.println(kanpsack0_1(val, wt, W, val.length - 1));
         //
         long endTime = System.currentTimeMillis();
         System.out.println("Time taken : " + (endTime - startTime) + " ms\n");
     }
 
-    public static int fabnormal(int n) {
-        if (n == 0 || n == 1) {
-            return n;
-        }
-        return fabnormal(n - 1) + fabnormal(n - 2);
-    }
-
-    public static int fabdp(int n, int[] f) {
-        if (n == 0 || n == 1) {
-            return n;
-        }
-        if (f[n] != 0) {
-            return f[n];
-        }
-        f[n] = fabdp(n - 1, f) + fabdp(n - 2, f);
-        return f[n];
-    }
-
-    // recursion for a special case where the person can climb one/two/three strais
-    // at a time
-    public static int climbingStaris(int n) {
-        if (n == 0) {
-            return 1;
-        }
-        if (n < 0) {
+    public static int kanpsack0_1(int[] val, int[] wt, int W, int i) {
+        if (i == 0 || W == 0) {
             return 0;
         }
-        return climbingStaris(n - 1) + climbingStaris(n - 2) + climbingStaris(n - 3);
+        if (wt[i] <= W) {
+            int ans1 = val[i] + kanpsack0_1(val, wt, W - wt[i], i - 1);
+            int ans2 = kanpsack0_1(val, wt, W, i - 1);
+            return Math.max(ans1, ans2);
+        } else {
+            return kanpsack0_1(val, wt, W, i - 1);
+        }
     }
 
-    // DP
-    public static int climbingStarisDP(int n, int ways[]) {
-        if (n == 0) {
-            return 1;
-        }
-        if (n < 0) {
-            return 0;
-        }
-        if (ways[n] != -1) {
-            return ways[n];
-        }
-        ways[n] = climbingStarisDP(n - 1, ways) + climbingStarisDP(n - 2, ways);
-        return ways[n];
-    }
-
-    public static int climbingStarisDPtab(int n) {
-        int ways[] = new int[n + 1];
-        ways[0] = 1;
-        ways[1] = 1;
-        ways[2] = 2;
-        for (int i = 3; i <= n; i++) {
-            ways[i] = ways[i - 1] + ways[i - 2];
-        }
-        System.out.println(Arrays.toString(ways));
-        ;
-        return ways[n];
-    }
 }
