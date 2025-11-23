@@ -1,5 +1,7 @@
 import java.util.*;
+import java.util.stream.Collector;
 // import java.util.stream.Collectors;
+import java.util.stream.Collectors;
 
 public class LeetCodeTestBench {
 
@@ -20,16 +22,37 @@ public class LeetCodeTestBench {
         //
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the elements: ");
-        int[] ary = Arrays.stream(sc.nextLine().split(" ")).map(ele -> ele.equals("null") ? "-1" : ele)
-                .mapToInt(Integer::parseInt).toArray();
+        // System.out.println("Enter the elements: ");
+        // int[] ary = Arrays.stream(sc.nextLine().split(" ")).map(ele ->
+        // ele.equals("null") ? "-1" : ele)
+        // .mapToInt(Integer::parseInt).toArray();
         // System.out.println(Arrays.toString(ary));
-        Node root = buildtree(ary);
-        // postOrder(root);
-        // System.out.println();
-        levelOrder(root);
-        System.out.println(sum(root));
-        System.out.println(diaAndHeight(root).h + " " + diaAndHeight(root).d);
+        // Node root = buildtree(ary);
+        // // postOrder(root);
+        // // System.out.println();
+        // levelOrder(root);
+        // System.out.println(sum(root));
+        // System.out.println(diaAndHeight(root).h + " " + diaAndHeight(root).d);
+        int[] ary = Genarate_Random.IntArray(5, 1, 100);
+        int[] arx = Genarate_Random.IntArray(5, 1, 10);
+        int k = 0;
+        // TreeSet<Integer> hs = new TreeSet<>();
+        TreeMap<Integer, Integer> tm = new TreeMap<>();
+        int i = 0;
+        for (int x = 0; x < ary.length; x++) {
+            tm.put(ary[x], arx[x]);
+        }
+
+        System.out.println(tm);
+        for (Map.Entry<Integer, Integer> map : tm.entrySet()) {
+            ary[i] = map.getKey();
+            arx[i] = map.getValue();
+            i++;
+        }
+        System.out.println(Arrays.toString(ary));
+        System.out.println(Arrays.toString(arx));
+        // System.out.println(ary[k++] + " " + k);
+        // System.out.println(sc.nextLine().split(" ").length);
         //
         sc.close();
         long endTime = System.currentTimeMillis();
