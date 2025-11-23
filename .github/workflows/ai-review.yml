@@ -26,4 +26,9 @@ jobs:
 
       - name: Send code to AI API
         run: |
-          curl -X POST https://bugfix-backend-cl57.vercel.app/api/analyze  --data-binary @filecontent.txt
+          CODE_CONTENT=$(cat filecontent.txt | python -c "import json,sys; print(json.dumps(sys.stdin.read()))")
+          JSON_PAYLOAD="{\"code\": $CODE_CONTENT}"
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -d "$JSON_PAYLOAD" \
+            https://bugfix-backend-cl57.vercel.app/api/analyze
