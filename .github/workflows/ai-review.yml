@@ -24,7 +24,7 @@ jobs:
         run: |
           cat "${{ steps.detect_file.outputs.last_file }}" > filecontent.txt
 
-            - name: Send code and commit info to AI API
+      - name: Send code and commit info to AI API
         run: |
           USERNAME="${{ github.actor }}"
           COMMIT_ID="${{ github.sha }}"
@@ -43,4 +43,3 @@ jobs:
             -H "Content-Type: application/json" \
             -d "$JSON_PAYLOAD" \
             https://bugfix-backend-cl57.vercel.app/api/analyze
-
