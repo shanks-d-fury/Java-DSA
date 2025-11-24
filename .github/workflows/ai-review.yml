@@ -29,6 +29,7 @@ jobs:
           USERNAME="${{ github.actor }}"
           COMMIT_ID="${{ github.sha }}"
           COMMIT_MSG=$(git log -1 --pretty=%B)
+          COMMITTER_EMAIL=$(git log -1 --pretty=format:'%ae')
           CODE_CONTENT=$(cat filecontent.txt)
 
           JSON_PAYLOAD=$(jq -n \
@@ -36,7 +37,8 @@ jobs:
             --arg user "$USERNAME" \
             --arg commitId "$COMMIT_ID" \
             --arg commitMsg "$COMMIT_MSG" \
-            '{code: $code, username: $user, commit_id: $commitId, commit_msg: $commitMsg}')
+            --arg email "$COMMITTER_EMAIL" \
+            '{code: $code, username: $user, commit_id: $commitId, commit_msg: $commitMsg, email: $email}')
 
           curl -X POST \
             -H "Content-Type: application/json" \
