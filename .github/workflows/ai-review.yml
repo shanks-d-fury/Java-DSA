@@ -37,7 +37,7 @@ jobs:
             --arg user "$USERNAME" \
             --arg commitId "$COMMIT_ID" \
             --arg commitMsg "$COMMIT_MSG_ESCAPED" \
-            '{code: $code, username: $user, commit_id: $commit_id, commit_msg: $commitMsg}')
+            '{code: $code, username: $user, commit_id: $commitId, commit_msg: $commitMsg}')
 
           curl -X POST \
             -H "Content-Type: application/json" \
