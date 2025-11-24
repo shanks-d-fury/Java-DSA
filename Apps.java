@@ -17,7 +17,7 @@ public class Apps {
         int[] ans = findIndexes(input, 1, 0, new ArrayList<>());
         System.out.println(Arrays.toString(ans));
         System.out.println(Arrays.stream(ans).max().orElse(-1));
-        this line is a error which should be picked from the ai changed again for check number 10
+        this line is a error which should be picked from the ai changed again for check number 11
 
     }
 }
