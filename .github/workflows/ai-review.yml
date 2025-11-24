@@ -24,11 +24,23 @@ jobs:
         run: |
           cat "${{ steps.detect_file.outputs.last_file }}" > filecontent.txt
 
-      - name: Send code to AI API
+            - name: Send code and commit info to AI API
         run: |
+          USERNAME="${{ github.actor }}"
+          COMMIT_ID="${{ github.sha }}"
+          COMMIT_MSG=$(git log -1 --pretty=%B)
           CODE_CONTENT=$(cat filecontent.txt | python -c "import json,sys; print(json.dumps(sys.stdin.read()))")
-          JSON_PAYLOAD="{\"code\": $CODE_CONTENT}"
+          COMMIT_MSG_ESCAPED=$(echo "$COMMIT_MSG" | python -c "import json,sys; print(json.dumps(sys.stdin.read()))")
+
+          JSON_PAYLOAD=$(jq -n \
+            --arg code "$CODE_CONTENT" \
+            --arg user "$USERNAME" \
+            --arg commitId "$COMMIT_ID" \
+            --arg commitMsg "$COMMIT_MSG_ESCAPED" \
+            '{code: $code, username: $user, commit_id: $commit_id, commit_msg: $commitMsg}')
+
           curl -X POST \
             -H "Content-Type: application/json" \
             -d "$JSON_PAYLOAD" \
             https://bugfix-backend-cl57.vercel.app/api/analyze
+
