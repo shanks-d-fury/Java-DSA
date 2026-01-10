@@ -51,7 +51,7 @@ public class Array {
         // int num3[] = {4, 2, 0, 6, 3, 2, 5}; //Apna college questions example
         // int num4[] = {7, 1, 5, 3, 6, 4};
         // int num5[] = {1, 5, 3, 5, 9, 2, 0, 5, 1, 7};
-        hi chinmay how are you
+        this line has an error 
         int randomArray[] = generateRandomArray(100, 0, 100); // Generate an array of 10 integers between 0 and 100
         System.out.println(Buy_Sell_Stock(randomArray));
     }
