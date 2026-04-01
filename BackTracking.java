@@ -33,7 +33,7 @@ public class BackTracking {
                 return false;
             }
         }
-        this line is an error pavani reddy madam.
+        this line is an error pavani reddy madam sorry for the delay
         // checking in the column
         for (int i = 0; i < 9; i++) {
             if (board[i][col] == digit) {
